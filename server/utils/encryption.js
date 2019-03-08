@@ -1,10 +1,10 @@
 import Bcrypt from 'bcrypt';
 
-const encrypt = async function (password) {
-    let salt = await Bcrypt.genSaltAsync(10);
-    return await Bcrypt.hashAsync(password, salt);
+export const encrypt = async function (password) {
+    let salt = await Bcrypt.genSaltSync(10);
+    return Bcrypt.hashSync(password, salt);
 };
 
-const validate = async function (password, hash) {
-    return await Bcrypt.compareAsync(password, hash);
+export const validate = async function (password, hash) {
+    return Bcrypt.compareSync(password, hash);
 };

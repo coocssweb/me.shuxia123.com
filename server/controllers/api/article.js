@@ -20,7 +20,6 @@ const fetchOne = async (ctx, next) => {
 
 const create = async (ctx, next) => {
     const requestData = ctx.request.body;
-    console.log(ctx.request.body);
     const article = new ArticleModel(requestData);
 
     await new Promise((resolve, reject) => {
@@ -37,7 +36,6 @@ const create = async (ctx, next) => {
 const edit = async (ctx, next) => {
     const requestData = ctx.request.body;
     const { id } = ctx.params;
-    console.log(requestData, id);
     await ArticleModel.updateInclude({ id: parseInt(id) }, requestData).then((response) => {
         ctx.body = BodyFormatter(undefined);
     }, (error) => {

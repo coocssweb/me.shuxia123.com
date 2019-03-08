@@ -4,7 +4,7 @@ import {validate, encrypt} from '../../utils/encryption';
 
 // 定义模式
 let AdministratorSchema = new Mongoose.Schema({
-    administrator: {
+    name: {
         type: String,
         unique: true,
         require: true,
@@ -30,16 +30,18 @@ let AdministratorSchema = new Mongoose.Schema({
 // 新增之前的中间件
 AdministratorSchema.pre('save', async function(next) {
     if (this.isModified('password') || this.isNew) {
-        this.password = await encrypt(this.password);
+        await encrypt(this.password).then(response => {
+            this.password = response;
+            if (this.isNew) {
+                this.meta.createAt = this.meta.updateAt = Date.now();
+            } else {
+                this.meta.updateAt = Date.now();
+            }
+            next();
+        }).catch(e => {
+            console.log(e);
+        });
     }
-
-    if (this.isNew) {
-        this.meta.createAt = this.meta.updateAt = Date.now();
-    } else {
-        this.meta.updateAt = Date.now();
-    }
-
-    next();
 });
 
 // 方法
@@ -55,7 +57,7 @@ AdministratorSchema.statics = {
         return this.find(
             {
                 ...query,
-                administrator: { $ne: name }
+                name: { $ne: name }
             },
             {
                 password: 0
@@ -69,7 +71,9 @@ AdministratorSchema.statics = {
         if (!checkPassword) {
             options.password = 0;
         }
-        return await this.findOne({ administrator: name }, options);
+        return await this.findOne({ name }, options).catch(e => {
+            console.log()
+        });
     },
     findById: function (id) {
         return this.findOne(
