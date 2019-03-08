@@ -15,11 +15,11 @@ let ArticleSchema = new Mongoose.Schema({
     status: Number,
     meta: {
         createAt: {
-            type: Date,
+            type: Number,
             default: Date.now()
         },
         updateAt: {
-            type: Date,
+            type: Number,
             default: Date.now()
         }
     }
@@ -41,32 +41,23 @@ ArticleSchema.pre('save', async function(next) {
 
 // 静态查询方法
 ArticleSchema.statics = {
-    fetch: function (query, name, skip, limit) {
+    fetch: function (query, page = 1, size = 10) {
+        const skip = (page - 1) * size;
+        const limit = size;
         return this.find(
             {
-                ...query,
-                administrator: { $ne: name }
-            },
-            {
-                password: 0
+                ...query
             }).skip(skip).limit(parseInt(limit)).sort('meta.updateAt');
     },
     findById: function (id) {
-        return this.findOne(
-            {
-                id
-            },
-            {
-                password: 0,
-                meta: 0
-            });
+        return this.findOne({ id });
     },
     removeById: async function(id) {
         return this.remove({ id });
     },
-    updateInclude: async function ({ condition, data }) {
+    updateInclude: async function (condition, data) {
         return this.update(condition, { $set: data});
     }
 };
 
-export default AdministratorSchema;
+export default ArticleSchema;

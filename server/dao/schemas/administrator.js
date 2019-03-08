@@ -15,11 +15,11 @@ let AdministratorSchema = new Mongoose.Schema({
     status: Number,
     meta: {
         createAt: {
-            type: Date,
+            type: Number,
             default: Date.now()
         },
         updateAt: {
-            type: Date,
+            type: Number,
             default: Date.now()
         }
     }

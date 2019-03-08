@@ -2,6 +2,10 @@
  * 错误信息码
  * Created by 王佳欣 on 2018/4/28.
  */
+const SUCCESS_CODE = {
+    code: 0,
+    msg: ''
+};
 
 const DATA_NOT_FOUND = {
     code: 6005,
@@ -49,6 +53,7 @@ const NAME_ERROR = {
 };
 
 export default {
+    SUCCESS_CODE,
     CREATE_ERROR,
     EDIT_ERROR,
     REMOVE_ERROR,

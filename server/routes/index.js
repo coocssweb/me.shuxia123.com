@@ -1,8 +1,6 @@
 import Router from 'koa-router';
-import demo from './demo';
-import demoApi from './api/demo';
+import articleApi from './api/article';
 
 let router = Router();
-router.use(demo.routes(), demo.allowedMethods());
-router.use(demoApi.routes(), demoApi.allowedMethods());
+router.use(articleApi.routes(), articleApi.allowedMethods());
 export default router;

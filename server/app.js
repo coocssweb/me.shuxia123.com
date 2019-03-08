@@ -5,8 +5,9 @@ import BodyParser from 'koa-bodyparser';
 import serve from 'koa-static';
 import Convert from 'koa-convert';
 import routes from './routes';
+import './config/mongo_database.js';
+// import './config/redis_database.js';
 import Config from './config';
-import templating from './templating';
 import timeLogger from './middlewares/timeLogger';
 import catchError from './middlewares/catchError';
 
@@ -17,13 +18,14 @@ app.use(Convert(Cors()));
 app.use(BodyParser());
 app.use(catchError());
 app.use(timeLogger());
-app.use(serve(`${path.join(__dirname, '..', 'dist/js')}`));
-console.log(`${path.join(__dirname, '..', 'dist/js')}`);
+// 静态文件目录，设置后不用设置路由，也可以直接访问
+// app.use(serve(`${path.join(__dirname, '..', 'dist/js')}`));
+
 // 模板目录
-app.use(templating('dist/', {
-    noCache: Config.noCache,
-    watch: Config.watch
-}));
+// app.use(templating('dist/', {
+//     noCache: Config.noCache,
+//     watch: Config.watch
+// }));
 app.use(routes.routes(), routes.allowedMethods());
 
 app.listen(4322);

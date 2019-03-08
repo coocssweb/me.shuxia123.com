@@ -1,49 +1,57 @@
-import * as errorCode from '../../const/errorCode';
+import errorCode from '../../const/errorCode';
 import ArticleModel from '../../dao/models/article';
+import BodyFormatter from '../../utils/bodyFormatter';
 
 const fetch = async (ctx, next) => {
-    const { id } = ctx.params;
+    const { page = 1, size = 10 } = ctx.request.query;
     const result = await ArticleModel.fetch();
-    ctx.body = JSON.stringify(result);
+    ctx.body = BodyFormatter(undefined, result);
 };
 
 const fetchOne = async (ctx, next) => {
     const { id } = ctx.params;
     const result = await ArticleModel.findById(id);
-    if (!result) {
-        ctx.body = JSON.stringify(errorCode.DATA_NOT_FOUND);
+    if (result) {
+        ctx.body = BodyFormatter(undefined, result);
     } else {
-        ctx.body = JSON.stringify(result);
+        ctx.body = BodyFormatter(errorCode.DATA_NOT_FOUND);
     }
 };
 
 const create = async (ctx, next) => {
-    const requestData = ctx.body;
+    const requestData = ctx.request.body;
+    console.log(ctx.request.body);
     const article = new ArticleModel(requestData);
 
-    let result = await new Promise((resolve, reject) => {
+    await new Promise((resolve, reject) => {
         article.save(error => {
             error ? reject(error) : resolve(article)
         });
-    }).catch(error => {
-        ctx.body = JSON.stringify({ ...errorCode.CREATE_ERROR });
+    }).then((response) => {
+        ctx.body = BodyFormatter(undefined, response);
+    }, (error) => {
+        ctx.body = BodyFormatter({ ...errorCode.CREATE_ERROR, desc: JSON.string(error) });
     });
-
-    ctx.body = JSON.stringify(result);
 };
 
 const edit = async (ctx, next) => {
-    const requestData = ctx.body;
+    const requestData = ctx.request.body;
     const { id } = ctx.params;
-
-    let result = await ArticleModel.updateInclude({ id }, requestData);
-    ctx.body = JSON.stringify(result);
+    console.log(requestData, id);
+    await ArticleModel.updateInclude({ id: parseInt(id) }, requestData).then((response) => {
+        ctx.body = BodyFormatter(undefined);
+    }, (error) => {
+        ctx.body = BodyFormatter({ ...errorCode.EDIT_ERROR, desc: JSON.stringify(error) });
+    });
 };
 
 const remove = async (ctx, next) => {
     let { id } = ctx.params;
-    let result = await articleApi.remove(id);
-    ctx.body = JSON.stringify(result);
+    await ArticleModel.removeById(id).then((response) => {
+        ctx.body = BodyFormatter(undefined);
+    }, (error) => {
+        ctx.body = BodyFormatter({ ...errorCode.REMOVE_ERROR, desc: JSON.string(error) });
+    });
 };
 
 export default {

@@ -8,7 +8,7 @@ let router = new Router({
 router.get('/articles/:id', apiControl.fetchOne);
 router.get('/articles', apiControl.fetch);
 router.post('/articles', apiControl.create);
-router.put('/articles', apiControl.edit);
-router.delete('/articles', apiControl.remove);
+router.put('/articles/:id', apiControl.edit);
+router.delete('/articles/:id', apiControl.remove);
 
 export default router;
