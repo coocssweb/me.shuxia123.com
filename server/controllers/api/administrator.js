@@ -1,6 +1,5 @@
 import errorCode from '../../const/errorCode';
 import AdministratorModel from '../../dao/models/administrator';
-import BodyFormatter from '../../utils/bodyFormatter';
 import JWT from  'jsonwebtoken';
 import { ADMINISTRATOR_TOKEN_SECRET_KEY } from '../../const';
 import * as TokenManager from '../../utils/tokenManager';
@@ -9,9 +8,9 @@ const fetchOne = async (ctx, next) => {
     const { id } = ctx.params;
     const result = await AdministratorModel.findById(id);
     if (result) {
-        ctx.body = BodyFormatter(undefined, result);
+        ctx.body = ctx.bodyFormatter(undefined, result);
     } else {
-        ctx.body = BodyFormatter(errorCode.DATA_NOT_FOUND);
+        ctx.body = ctx.bodyFormatter(errorCode.DATA_NOT_FOUND);
     }
 };
 
@@ -23,9 +22,9 @@ const create = async (ctx, next) => {
             error ? reject(error) : resolve(administrator)
         });
     }).then((response) => {
-        ctx.body = BodyFormatter(undefined, response);
+        ctx.body = ctx.bodyFormatter(undefined, response);
     }, (error) => {
-        ctx.body = BodyFormatter({ ...errorCode.CREATE_ERROR, desc: JSON.stringify(error) });
+        ctx.body = ctx.bodyFormatter({ ...errorCode.CREATE_ERROR, desc: JSON.stringify(error) });
     }).catch((error) => {
         console.log(error);
     });
@@ -35,9 +34,9 @@ const edit = async (ctx, next) => {
     const requestData = ctx.request.body;
     const { id } = ctx.params;
     await AdministratorModel.updateInclude({ id: parseInt(id) }, requestData).then((response) => {
-        ctx.body = BodyFormatter(undefined);
+        ctx.body = ctx.bodyFormatter(undefined);
     }, (error) => {
-        ctx.body = BodyFormatter({ ...errorCode.EDIT_ERROR, desc: JSON.stringify(error) });
+        ctx.body = ctx.bodyFormatter({ ...errorCode.EDIT_ERROR, desc: JSON.stringify(error) });
     });
 };
 
@@ -52,18 +51,18 @@ const login = async (ctx, next) => {
                 , ADMINISTRATOR_TOKEN_SECRET_KEY
                 , { expiresIn: 60 * 60 }
             );
-            ctx.body = BodyFormatter(undefined, { access_token });
+            ctx.body = ctx.bodyFormatter(undefined, { access_token });
         } else {
-            ctx.body = BodyFormatter(errorCode.PASSWORD_ERROR);
+            ctx.body = ctx.bodyFormatter(errorCode.PASSWORD_ERROR);
         }
     } else {
-        ctx.body = BodyFormatter(errorCode.NAME_ERROR);
+        ctx.body = ctx.bodyFormatter(errorCode.NAME_ERROR);
     }
 };
 
 const logout = async (ctx, next) => {
     TokenManager.expireToken(ctx);
-    ctx.body = BodyFormatter();
+    ctx.body = ctx.bodyFormatter();
 };
 
 export default {

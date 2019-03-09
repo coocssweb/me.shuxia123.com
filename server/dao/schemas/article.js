@@ -13,15 +13,13 @@ let ArticleSchema = new Mongoose.Schema({
     content: String,
     poster: String,
     status: Number,
-    meta: {
-        createAt: {
-            type: Number,
-            default: Date.now()
-        },
-        updateAt: {
-            type: Number,
-            default: Date.now()
-        }
+    createAt: {
+        type: Number,
+        default: Date.now()
+    },
+    updateAt: {
+        type: Number,
+        default: Date.now()
     }
 }, {
     versionKey: false
@@ -30,10 +28,10 @@ let ArticleSchema = new Mongoose.Schema({
 // 新增之前的中间件
 ArticleSchema.pre('save', async function(next) {
     if (this.isNew) {
-        this.meta.createAt = this.meta.updateAt = Date.now();
+        this.createAt = this.updateAt = Date.now();
         this.id = await autoIncrementId('article');
     } else {
-        this.meta.updateAt = Date.now();
+        this.updateAt = Date.now();
     }
 
     next();

@@ -10,8 +10,11 @@ import './config/mongo_database.js';
 import Config from './config';
 import timeLogger from './middlewares/timeLogger';
 import catchError from './middlewares/catchError';
+import bodyFormatter from './utils/bodyFormatter';
 
 const app = new Koa();
+// 注入bodyFormatter方法到context
+app.context.bodyFormatter = bodyFormatter;
 
 // 中间件处理
 app.use(Convert(Cors()));

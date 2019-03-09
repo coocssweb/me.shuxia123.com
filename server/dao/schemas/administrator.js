@@ -13,15 +13,13 @@ let AdministratorSchema = new Mongoose.Schema({
     nickname: String,
     avatar: String,
     status: Number,
-    meta: {
-        createAt: {
-            type: Number,
-            default: Date.now()
-        },
-        updateAt: {
-            type: Number,
-            default: Date.now()
-        }
+    createAt: {
+        type: Number,
+        default: Date.now()
+    },
+    updateAt: {
+        type: Number,
+        default: Date.now()
     }
 }, {
     versionKey: false
@@ -33,9 +31,9 @@ AdministratorSchema.pre('save', async function(next) {
         await encrypt(this.password).then(response => {
             this.password = response;
             if (this.isNew) {
-                this.meta.createAt = this.meta.updateAt = Date.now();
+                this.createAt = this.updateAt = Date.now();
             } else {
-                this.meta.updateAt = Date.now();
+                this.updateAt = Date.now();
             }
             next();
         }).catch(e => {
