@@ -18,6 +18,6 @@ router.post('/upload',
         }
     }), 
     toolControl.upload);
-router.get('/time', toolControl.getTimeCurrent);
+router.get('/timestamp', toolControl.getTimeCurrent);
 
 export default router;
