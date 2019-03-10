@@ -52,6 +52,11 @@ const NAME_ERROR = {
     msg: 'Incorrect name'
 };
 
+const UPLOAD_ERROR = {
+    code: 8001,
+    msg: 'Incorrect upload'
+}
+
 export default {
     SUCCESS_CODE,
     CREATE_ERROR,
@@ -63,4 +68,5 @@ export default {
     PASSWORD_ERROR,
     NAME_ERROR,
     PARAMETER_ERROR,
+    UPLOAD_ERROR
 };
