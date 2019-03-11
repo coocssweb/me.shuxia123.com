@@ -81,7 +81,6 @@ const removeChildren = async (ctx, next) => {
     const { articleId } = ctx.params;
     const { id } = ctx.query;
     const article = await ArticleModel.findById(articleId);
-    console.log('asdfasdfasdfe');
     await article.removeChildren(id).then((response) => {
         ctx.body = ctx.bodyFormatter(undefined, response);
     }, (error) => {

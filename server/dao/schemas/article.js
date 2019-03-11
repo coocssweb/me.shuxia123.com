@@ -7,25 +7,24 @@ let ArticleSchema = new Mongoose.Schema({
         type: Number,
         unique: true
     },
-    tags: [{ 
-        type: Number, 
-        ref: 'Tag' 
-    }],
+    tagId: Number,
     title: String,
     keyword: String,
     description: String,
-    poster: String,
+    posters: [String],
     status: Number,
+    likeCount: Number,
     children: [
         {
             id: {
                 type: Number,
                 unique: true
             },
-            poster: String,
+            posters: [String],
             title: String,
             description: String,
             content: String,
+            likeCount: Number,
             createAt: {
                 type: Number,
                 default: Date.now()
@@ -52,6 +51,7 @@ let ArticleSchema = new Mongoose.Schema({
 ArticleSchema.pre('save', async function(next) {
     if (this.isNew) {
         this.createAt = this.updateAt = Date.now();
+        this.likeCount = 0;
         this.children = [];
         this.id = await autoIncrementId('article');
     } else {
@@ -63,8 +63,10 @@ ArticleSchema.pre('save', async function(next) {
 
 // 方法
 ArticleSchema.methods = {
+    // 插入子文章
     pushChildren: async function (childData) {
         childData.createAt = childData.updateAt = Date.now();
+        childData.likeCount = 0;
         childData.id = await autoIncrementId('articleChildren');
         let result = {};
         await this.update({ $push: { children: childData } }).then((response) => {
@@ -72,6 +74,7 @@ ArticleSchema.methods = {
         }); 
         return result;
     },
+    // 修改子文章
     editChildren: async function (id, updateData) {
         let result = {};
         for (let index = 0; index < this.children.length; index++) {
@@ -84,6 +87,7 @@ ArticleSchema.methods = {
         await this.save();
         return result;
     },
+    // 删除子文章
     removeChildren: async function (childId) {
         return await this.update({ $pull: { children: { id: childId } } });
     }
