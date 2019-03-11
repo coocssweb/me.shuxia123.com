@@ -28,7 +28,7 @@ const create = async (ctx, next) => {
     }).then((response) => {
         ctx.body = ctx.bodyFormatter(undefined, response);
     }, (error) => {
-        ctx.body = ctx.bodyFormatter({ ...errorCode.CREATE_ERROR, desc: JSON.string(error) });
+        ctx.body = ctx.bodyFormatter({ ...errorCode.CREATE_ERROR, desc: JSON.stringify(error) });
     });
 };
 
@@ -47,7 +47,46 @@ const remove = async (ctx, next) => {
     await ArticleModel.removeById(id).then((response) => {
         ctx.body = ctx.bodyFormatter(undefined);
     }, (error) => {
-        ctx.body = ctx.bodyFormatter({ ...errorCode.REMOVE_ERROR, desc: JSON.string(error) });
+        ctx.body = ctx.bodyFormatter({ ...errorCode.REMOVE_ERROR, desc: JSON.stringify(error) });
+    });
+};
+
+const createChildren = async (ctx, next) => {
+    const { articleId } = ctx.params;
+    const requestData  = ctx.request.body;
+    const article = await ArticleModel.findById(articleId);
+
+    await article.pushChildren(requestData).then((response) => {
+        ctx.body = ctx.bodyFormatter(undefined, response);
+    }, (error) => {
+        console.log(error);
+        ctx.body = ctx.bodyFormatter({ ...errorCode.CREATE_ERROR, desc: JSON.stringify(error) });
+    });
+};
+
+const editChildren = async (ctx, next) => {
+    const { articleId } = ctx.params;
+    const { id } = ctx.query;
+    const requestData  = ctx.request.body;
+    const article = await ArticleModel.findById(articleId);
+    await article.editChildren(id, requestData).then((response) => {
+        ctx.body = ctx.bodyFormatter(undefined, response);
+    }, (error) => {
+        console.log(error);
+        ctx.body = ctx.bodyFormatter({ ...errorCode.EDIT_ERROR, desc: JSON.stringify(error) });
+    });
+};
+
+const removeChildren = async (ctx, next) => {
+    const { articleId } = ctx.params;
+    const { id } = ctx.query;
+    const article = await ArticleModel.findById(articleId);
+    console.log('asdfasdfasdfe');
+    await article.removeChildren(id).then((response) => {
+        ctx.body = ctx.bodyFormatter(undefined, response);
+    }, (error) => {
+        console.log(error);
+        ctx.body = ctx.bodyFormatter({ ...errorCode.REMOVE_ERROR, desc: JSON.stringify(error) });
     });
 };
 
@@ -56,5 +95,8 @@ export default {
     fetchOne,
     create,
     edit,
-    remove
+    remove,
+    createChildren,
+    editChildren,
+    removeChildren
 };

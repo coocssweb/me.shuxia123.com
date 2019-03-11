@@ -29,4 +29,22 @@ router.delete(
     apiControl.remove
     );
 
+router.post(
+    '/article_detail/:articleId',
+    passport.authenticate('administrator', { session: false }), 
+    apiControl.createChildren
+    );
+
+router.put(
+    '/article_detail/:articleId',
+    passport.authenticate('administrator', { session: false }), 
+    apiControl.editChildren
+    );
+
+router.delete(
+    '/article_detail/:articleId',
+    passport.authenticate('administrator', { session: false }), 
+    apiControl.removeChildren
+    );
+
 export default router;
