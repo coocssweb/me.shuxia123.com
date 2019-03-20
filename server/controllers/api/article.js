@@ -20,7 +20,7 @@ const fetchOne = async (ctx, next) => {
 const create = async (ctx, next) => {
     const requestData = ctx.request.body;
     const article = new ArticleModel(requestData);
-
+    console.log(article);
     await new Promise((resolve, reject) => {
         article.save(error => {
             error ? reject(error) : resolve(article)
@@ -64,30 +64,30 @@ const createChildren = async (ctx, next) => {
     });
 };
 
-const editChildren = async (ctx, next) => {
-    const { articleId } = ctx.params;
-    const { id } = ctx.query;
-    const requestData  = ctx.request.body;
-    const article = await ArticleModel.findById(articleId);
-    await article.editChildren(id, requestData).then((response) => {
-        ctx.body = ctx.bodyFormatter(undefined, response);
-    }, (error) => {
-        console.log(error);
-        ctx.body = ctx.bodyFormatter({ ...errorCode.EDIT_ERROR, desc: JSON.stringify(error) });
-    });
-};
+// const editChildren = async (ctx, next) => {
+//     const { articleId } = ctx.params;
+//     const { id } = ctx.query;
+//     const requestData  = ctx.request.body;
+//     const article = await ArticleModel.findById(articleId);
+//     await article.editChildren(id, requestData).then((response) => {
+//         ctx.body = ctx.bodyFormatter(undefined, response);
+//     }, (error) => {
+//         console.log(error);
+//         ctx.body = ctx.bodyFormatter({ ...errorCode.EDIT_ERROR, desc: JSON.stringify(error) });
+//     });
+// };
 
-const removeChildren = async (ctx, next) => {
-    const { articleId } = ctx.params;
-    const { id } = ctx.query;
-    const article = await ArticleModel.findById(articleId);
-    await article.removeChildren(id).then((response) => {
-        ctx.body = ctx.bodyFormatter(undefined, response);
-    }, (error) => {
-        console.log(error);
-        ctx.body = ctx.bodyFormatter({ ...errorCode.REMOVE_ERROR, desc: JSON.stringify(error) });
-    });
-};
+// const removeChildren = async (ctx, next) => {
+//     const { articleId } = ctx.params;
+//     const { id } = ctx.query;
+//     const article = await ArticleModel.findById(articleId);
+//     await article.removeChildren(id).then((response) => {
+//         ctx.body = ctx.bodyFormatter(undefined, response);
+//     }, (error) => {
+//         console.log(error);
+//         ctx.body = ctx.bodyFormatter({ ...errorCode.REMOVE_ERROR, desc: JSON.stringify(error) });
+//     });
+// };
 
 export default {
     fetch,
@@ -95,7 +95,7 @@ export default {
     create,
     edit,
     remove,
-    createChildren,
-    editChildren,
-    removeChildren
+    // createChildren,
+    // editChildren,
+    // removeChildren
 };

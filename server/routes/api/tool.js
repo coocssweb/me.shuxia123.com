@@ -6,7 +6,7 @@ import toolControl from '../../controllers/api/tool';
 import '../../utils/passport';
 
 let router = new Router({
-    prefix: '/api'
+    prefix: '/api/tool'
 });
 
 router.post('/upload', 

@@ -22,7 +22,7 @@ const create = async function (ctx, next) {
     await new Promise((resolve, reject) => {
         tag.save(error => {
             error ? reject(error) : resolve(tag)
-        });
+        }, {_id: 0, __v: 0, by: 0});
     }).then((response) => {
         ctx.body = ctx.bodyFormatter(undefined, response);
     }, (error) => {

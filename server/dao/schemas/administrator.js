@@ -69,9 +69,7 @@ AdministratorSchema.statics = {
         if (!checkPassword) {
             options.password = 0;
         }
-        return await this.findOne({ name }, options).catch(e => {
-            console.log()
-        });
+        return await this.findOne({ name }, options);
     },
     findById: function (id) {
         return this.findOne(

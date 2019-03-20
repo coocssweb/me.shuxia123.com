@@ -13,7 +13,7 @@ export default {
     },
     // 开发环境
     development: {
-        host: 'dev.shuxia123.com',
+        host: 'http://localhost:4322',
         watch: true,
         noCache: true
     }

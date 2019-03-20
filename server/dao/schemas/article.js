@@ -11,38 +11,39 @@ let ArticleSchema = new Mongoose.Schema({
     title: String,
     keyword: String,
     description: String,
-    posters: [String],
+    content: String,
+    posters: Array,
     status: Number,
     likeCount: Number,
-    children: [
-        {
-            id: {
-                type: Number,
-                unique: true
-            },
-            posters: [String],
-            title: String,
-            description: String,
-            content: String,
-            likeCount: Number,
-            createAt: {
-                type: Number,
-                default: Date.now()
-            },
-            updateAt: {
-                type: Number,
-                default: Date.now()
-            }
-        }
-    ],
-    createAt: {
-        type: Number,
-        default: Date.now()
-    },
-    updateAt: {
-        type: Number,
-        default: Date.now()
-    }
+    // children: [
+    //     {
+    //         id: {   
+    //             type: Number,
+    //             unique: true
+    //         },
+    //         posters: [String],
+    //         title: String,
+    //         description: String,
+    //         content: String,
+    //         likeCount: Number,
+    //         createAt: {
+    //             type: Number,
+    //             default: Date.now()
+    //         },
+    //         updateAt: {
+    //             type: Number,
+    //             default: Date.now()
+    //         }
+    //     }
+    // ],
+    // createAt: {
+    //     type: Number,
+    //     default: Date.now()
+    // },
+    // updateAt: {
+    //     type: Number,
+    //     default: Date.now()
+    // }
 }, {
     versionKey: false
 });
@@ -52,8 +53,8 @@ ArticleSchema.pre('save', async function(next) {
     if (this.isNew) {
         this.createAt = this.updateAt = Date.now();
         this.likeCount = 0;
-        this.children = [];
-        this.id = await autoIncrementId('article');
+        this.id = await autoIncrementId('articles');
+        console.log(this);
     } else {
         this.updateAt = Date.now();
     }
@@ -61,7 +62,7 @@ ArticleSchema.pre('save', async function(next) {
     next();
 });
 
-// 方法
+/* 主子表结构，先简化
 ArticleSchema.methods = {
     // 插入子文章
     pushChildren: async function (childData) {
@@ -92,6 +93,7 @@ ArticleSchema.methods = {
         return await this.update({ $pull: { children: { id: childId } } });
     }
 };
+*/
 
 // 静态查询方法
 ArticleSchema.statics = {
@@ -101,7 +103,7 @@ ArticleSchema.statics = {
         return this.find(
             {
                 ...query
-            }).skip(skip).limit(parseInt(limit)).sort('meta.updateAt');
+            }, {_id: 0, by: 0}).skip(skip).limit(parseInt(limit)).sort({id: -1});
     },
     findById: function (id) {
         return this.findOne({ id });

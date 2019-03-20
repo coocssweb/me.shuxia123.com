@@ -9,6 +9,8 @@ let TagSchema = new Mongoose.Schema({
     name: String,
     path: String,
     poster: String,
+    description: String,
+    type: String,
     createAt: {
         type: Number,
         default: Date.now()
@@ -17,6 +19,8 @@ let TagSchema = new Mongoose.Schema({
         type: Number,
         default: Date.now()
     }  
+}, {
+    versionKey: false
 });
 
 TagSchema.pre('save', async function (next) {
@@ -32,7 +36,7 @@ TagSchema.pre('save', async function (next) {
 
 TagSchema.statics = {
     fetch: function () {
-        return this.find();
+        return this.find({}, {_id: 0, by: 0}).sort({id: -1});
     },
     findById: function (id) {
         return this.findOne({ id });

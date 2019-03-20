@@ -1,17 +1,25 @@
 import errorCode from '../../const/errorCode';
 import AdministratorModel from '../../dao/models/administrator';
 import JWT from  'jsonwebtoken';
+import { getToken } from '../../utils/tokenManager';
 import { ADMINISTRATOR_TOKEN_SECRET_KEY } from '../../const';
 import * as TokenManager from '../../utils/tokenManager';
 
 const fetchOne = async (ctx, next) => {
-    const { id } = ctx.params;
-    const result = await AdministratorModel.findById(id);
-    if (result) {
-        ctx.body = ctx.bodyFormatter(undefined, result);
-    } else {
-        ctx.body = ctx.bodyFormatter(errorCode.DATA_NOT_FOUND);
-    }
+    let token = getToken(ctx.request.headers);
+    await JWT.verify(token, ADMINISTRATOR_TOKEN_SECRET_KEY, (error, decoded) => {
+        if (error) {
+            return ctx.body = ctx.bodyFormatter({...errorCode.TOKEN_ERROR});
+        }
+        return AdministratorModel.findByName(decoded.name).then((result) => {
+            if (!result) {
+                return ctx.body = ctx.bodyFormatter({...errorCode.TOKEN_ERROR});
+            }
+            ctx.body = ctx.bodyFormatter(undefined, result);
+        }).catch((error) => {
+            ctx.body = ctx.bodyFormatter({...errorCode.TOKEN_ERROR});
+        });
+    });
 };
 
 const create = async (ctx, next) => {

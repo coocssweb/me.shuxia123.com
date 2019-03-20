@@ -6,12 +6,14 @@ import '../../utils/passport';
 let router = new Router({
     prefix: '/api'
 });
-router.get('/administrators/:id', apiControl.fetchOne);
+router.get('/auth/info', 
+    passport.authenticate('administrator', { session: false }), 
+    apiControl.fetchOne);
 
-router.post( '/init', apiControl.create );
+// router.post( '/init', apiControl.create );
 
 router.put(
-    '/administrators', 
+    '/auth', 
     passport.authenticate('administrator', { session: false }), 
     apiControl.edit
     );
