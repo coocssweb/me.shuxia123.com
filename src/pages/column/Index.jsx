@@ -1,15 +1,13 @@
-import React, {Component} from 'react';
-import propTypes from 'prop-types';
+import React, { Component } from 'react';
 import className from 'classnames';
-import { NavLink } from 'react-router-dom';
 
 class Index extends Component {
-    constructor(props) {
+    constructor (props) {
         super(props);
         this.state = {};
     }
 
-    render() {
+    render () {
         return (
             <div className={className('column')}>
                 <section className={className('columnBanner')}>
@@ -19,7 +17,6 @@ class Index extends Component {
                     <span>动作</span>
                 </section>
                 <section className={className('columnContent')}>
-                    
                 </section>
             </div>
         );

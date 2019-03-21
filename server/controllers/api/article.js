@@ -2,8 +2,8 @@ import errorCode from '../../const/errorCode';
 import ArticleModel from '../../dao/models/article';
 
 const fetch = async (ctx, next) => {
-    const { page = 1, size = 10 } = ctx.request.query;
-    const result = await ArticleModel.fetch();
+    const { page = 1, size = 10, classify } = ctx.request.query;
+    const result = await ArticleModel.fetch({ classify }, page, size);
     ctx.body = ctx.bodyFormatter(undefined, result);
 };
 

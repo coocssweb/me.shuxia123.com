@@ -7,7 +7,7 @@ let ArticleSchema = new Mongoose.Schema({
         type: Number,
         unique: true
     },
-    tagId: Number,
+    classify: String,
     title: String,
     keyword: String,
     description: String,
@@ -15,6 +15,7 @@ let ArticleSchema = new Mongoose.Schema({
     posters: Array,
     status: Number,
     likeCount: Number,
+    published: Number,
     // children: [
     //     {
     //         id: {   
@@ -103,16 +104,16 @@ ArticleSchema.statics = {
         return this.find(
             {
                 ...query
-            }, {_id: 0, by: 0}).skip(skip).limit(parseInt(limit)).sort({id: -1});
+            }, { _id: 0, by: 0 }).skip(skip).limit(parseInt(limit)).sort({ id: -1 });
     },
     findById: function (id) {
         return this.findOne({ id });
     },
-    removeById: async function(id) {
+    removeById: async function (id) {
         return this.remove({ id });
     },
     updateInclude: async function (condition, data) {
-        return this.update(condition, { $set: data});
+        return this.update(condition, { $set: data });
     }
 };
 

@@ -9,15 +9,17 @@ let router = new Router({
     prefix: '/api/tool'
 });
 
-router.post('/upload', 
+router.post(
+    '/upload',
     passport.authenticate('administrator', { session: false }),
     KoaBody({
         multipart: true,
         formidable: {
-            maxFileSize: 200*1024*1024
+            maxFileSize: 200 * 1024 * 1024
         }
-    }), 
+    }),
     toolControl.upload);
 router.get('/timestamp', toolControl.getTimeCurrent);
+// router.get('/rename', toolControl.rename);
 
 export default router;

@@ -57,7 +57,7 @@ const login = async (ctx, next) => {
             let access_token = JWT.sign(
                 { name: administrator.name }
                 , ADMINISTRATOR_TOKEN_SECRET_KEY
-                , { expiresIn: 60 * 60 }
+                , { expiresIn: 60 * 60 * 24 }
             );
             ctx.body = ctx.bodyFormatter(undefined, { access_token });
         } else {

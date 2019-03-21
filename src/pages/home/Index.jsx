@@ -1,11 +1,10 @@
-import React, {Component} from 'react';
-import propTypes from 'prop-types';
+import React, { Component } from 'react';
 import className from 'classnames';
 import { NavLink } from 'react-router-dom';
 import { Movie } from '../../components';
 
 class Index extends Component {
-    constructor(props) {
+    constructor (props) {
         super(props);
         this.state = {
             banner: props.banner,
@@ -17,7 +16,7 @@ class Index extends Component {
         return {
             banner: nextProps.banner,
             movies: nextProps.movies
-        }
+        };
     }
 
     componentDidMount () {
@@ -26,7 +25,7 @@ class Index extends Component {
         }
     }
 
-    render() {
+    render () {
         const { state } = this;
         let banner = state.banner;
         let movies = state.movies;
