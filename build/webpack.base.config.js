@@ -3,7 +3,7 @@ const cleanWebpackPlugin = require('clean-webpack-plugin');
 const miniCssExtractPlugin = require('mini-css-extract-plugin');
 const htmlWebpackPlugin = require('html-webpack-plugin');
 
-const {resolve} = require('./utils');
+const { resolve } = require('./utils');
 const _config = require('./config');
 
 module.exports = function (mode) {
@@ -20,7 +20,7 @@ module.exports = function (mode) {
             path: resolve('dist'),
             publicPath: configMode.publicPath,
             filename: configMode.noHash ? '[name].js' : '[name].[chunkhash].js',
-            chunkFilename: configMode.noHash ?  '[name].js' : '[name].[chunkhash].js'
+            chunkFilename: configMode.noHash ? '[name].js' : '[name].[chunkhash].js'
         },
         module: {
             rules: [
@@ -100,7 +100,6 @@ module.exports = function (mode) {
         // 第三方依赖，可以写在这里，不打包
         externals: {}
     };
-
 
     if (IS_DEVELOPMENT) {
         // 开发环境

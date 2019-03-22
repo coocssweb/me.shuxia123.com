@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "webpack-dev-server --config build/webpack.dev.config.js --open --hot --https --watch-poll",
+    "start": "webpack-dev-server --config build/webpack.dev.config.js --open --hot",
     "server:dev": "export NODE_ENV=development && nodemon ./server/index.js",
     "server-debug": "nodemon --inspect index.js",
     "server": "export NODE_ENV=production && nohup node ./server/index.js > nohup.log 2>&1 &",

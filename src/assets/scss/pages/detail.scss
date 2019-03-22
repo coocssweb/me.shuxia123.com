@@ -1,69 +1,74 @@
+$marginSize: 25px;
 .detail{
-    background-color: #ffffff;
-    padding: 20px;
-    &-title{
-        font-size: 24px;
-        line-height: 24px;
-        word-break: break-all;
-    }
-    &-info{
-        margin-top: 20px;
-    }
-    &-left{
-        margin-right: 120px;
-        line-height: 1.5;
-    }
-    &-rating{
-        color: $colorGray;
-    }
-    &-meta{
-        margin-top: 10px;
-    }
-    &-right{
-        float: right;
+    width: $globalMobileWidth;
+    margin: 0px auto;
+    background-color: $colorWhite;
+    margin-top: $marginSize;
+    &-photolist{
+
     }
     &-photo{
         display: block;
-        width: 100px;
-    }
-    &-btns{
-        margin-top: 30px;
-        display: flex;
-        justify-content: center;
-    }
-    &-btn{
-        display: block;
-        height: 30px;
-        line-height: 30px;
-        border: 1px solid $colorOrange;
-        border-radius: 3px;
-        color: $colorOrange;
-        font-size: 15px;
-        text-align: center;
-        background-color: transparent;
-        flex: 1;
-        outline: none;
-        &:first-child{
-            margin-right: 20px;
+        max-width: 100%;
+        margin-bottom: 10px;
+        &:last-child{
+            margin-bottom: 0px;
         }
     }
-    &-desc{
+    &-info{
+        border-bottom: 1px solid $globalBorderColor;
+        padding: $marginSize 0px $marginSize 60px;
+        color: $colorGrayLite;
+        line-height: 1.5;
+        position: relative;
+        display: table;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    &-user{
+        display: table-cell;
+        vertical-align: middle;
+        height: 50px;
+    }
+    &-avatar{
+        position: absolute;
+        top: $marginSize;
+        left: 0px;
+        width: 50px;
+        height: 50px;
+    }
+    &-title{
+        font-size: 24px;
+        font-weight: 600;
+        color: #000;
         margin-top: 30px;
+    }
+    &-content{
+        margin-top: 30px;
+        font-size: 16px;
         line-height: 1.5;
         color: $colorGray;
+        font-weight: 300;
+        p{
+            margin-bottom: $marginSize;
+        }
     }
-    &-back{
-        display: block;
-        height: 40px;
-        line-height: 40px;
-        width: 100%;
-        border-radius: 3px;
-        color: $colorWhite;
-        background-color: $colorGreen;
-        font-size: 15px;
+    &-toolbar{
         text-align: center;
-        outline: none;
-        border:none;
-        margin-top: 40px;
+        margin-top: 50px;
+    }
+    &-likecount{
+        color: $colorGray;
+        margin-bottom: 20px;
+        mark{
+            background-color: $colorOrange;
+        }
+    }
+    &-like{
+        box-shadow: rgba(0, 0, 0, 0.12) 0px 3px 10px;
+        &:hover{
+            transform: translate3d(0px, -1px, 0px);
+            box-shadow: rgba(0, 0, 0, 0.3) 0px 3px 10px;
+        }
     }
 }

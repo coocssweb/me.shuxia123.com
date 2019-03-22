@@ -36,10 +36,10 @@ module.exports = {
     // 开发环境
     development: {
         env: 'development',                     // 环境
-        api: 'https://www.shuxia123.com/',          // api 接口地址
-        publicPath: '/dev/',                         // 静态资源地址
+        api: 'https://www.shuxia123.com/',      // api 接口地址
+        publicPath: '',                         // 静态资源地址
         imagePath: '',                          // 图片资源地址
-        port: '8088',                           // 开发端口
+        port: '8089',                           // 开发端口
         devtool: 'source-map',                  // devtool
         noHash: true,
     }

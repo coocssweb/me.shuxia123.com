@@ -1,0 +1,43 @@
+.btn{
+    display: inline-block;
+    padding: 0px 35px;
+    height: 48px;
+    line-height: 48px;
+    background-image: none;
+    border: none;
+    border-radius: 3px;
+    outline: none;
+    font-size: 15px;
+    border-width: 1px;
+    border-style: solid;
+    transition: all .2s ease;
+    cursor: pointer;
+    user-select: none;
+    &--small{
+        padding: 0px 20px;
+        height: 38px;
+        line-height: 38px;
+        font-size: 14px;
+    }
+    &-fill{
+        background-color: $colorPrimary;
+        color: $colorWhite;
+        border-color: $colorPrimary;
+        &:active{
+            border-color: $colorPrimaryDark;
+            background-color: $colorPrimaryDark;
+        }
+    }
+    &-transparent{
+        background-color: transparent;
+        border-color: $colorPrimary;
+        color: $colorPrimary;
+        &:hover{
+            background-color: $colorPrimaryHover;
+        }
+        &:active{
+            background-color: $colorPrimaryActive;
+        }
+    }
+}
+
