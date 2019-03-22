@@ -2,28 +2,42 @@
     &Slogan{
         text-align: center;
         padding: 200px 0px;
-        background-color: #f2f2f2;
+        background-image: linear-gradient(80deg, #00857a, #006a75) !important;
+        color: $colorWhite;
+        font-family: coofont;
         &-title{
-            font-size: 30px;
+            font-size: 35px;
             font-weight: 300;
-            font-family: coofont;
         }
         &-subtitle{
-            font-size: 20px;
+            font-size: 25px;
             font-weight: 300;
             margin-top: 30px;
-            color: $colorGray;
             mark{
-                background-color: rgba(249,217,66,.4);
+                background-color: rgba(250, 221, 77, 0.664);
+                color: $colorWhite;
+                display: inline;
+                padding: 0px 5px;
             }
         }
     }
     &Recommend{
         padding: 50px 0px;
-        // background-color: #f29aaa;
         &-content{
             width: $globalPcWidth;
             margin: 0px auto;
+        }
+        &-title{
+            font-size: 30px;
+        }
+        &-list{
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+        &-more{
+            text-align: center;
+            margin-top: 50px;
         }
     }
 }

@@ -1,0 +1,44 @@
+.articleItem{
+    width: 30%;
+    text-decoration: none;
+    &:hover{
+        .articleItem{
+            &-photo{
+                filter: none;
+                transform: scale(1.03);
+            }
+            &-title{
+                color: $colorBlack;
+            }
+        }
+    }
+    &-photo{
+        display: block;
+        width: 340px;
+        filter: grayscale(100%);
+        filter: gray;
+        transition: .3s ease;
+    }
+    &-photowrapper{
+        overflow: hidden;
+        border-radius: 4px;
+    }
+    &-title{
+        margin-top: 10px;
+        color: $colorGray;
+        transition: .3s ease;
+    }
+    &-description{
+        margin-top: 10px;
+        color: $colorGrayLite;
+    }
+    &-more{
+        text-decoration: none;
+        margin-top: 10px;
+        display: inline-block;
+        color: $colorPrimary;
+        &:hover{
+            text-decoration: underline;
+        }
+    }
+}

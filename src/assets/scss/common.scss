@@ -20,39 +20,41 @@ h1, h2, h3, h4, h5, div, p{
     max-width: $globalPcWidth;
     margin: 0px auto;
 }
-$logoColor: #434343;
+$logoColor: #fff;
 .global{
     &Header{
+        position: absolute;
+        width: 100%;
+        left: 0px;
+        top: 0px;
         height: 80px;
-        border-bottom: 1px solid $globalBorderColor;
-        position: relative;
+        z-index: 3;
         // font-family: coofont;
         &-nav{
-            text-align: center;
-            height: 80px;
-            display: flex;
-            justify-content: center;
+            text-align: right;
+            padding-top: 20px;
+            margin-right: 150px;
         }
         &-menu{
-            display: block;
-            height: 80px;
-            line-height: 80px;
+            display: inline-block;
             text-decoration: none;
-            color: $colorBlack;
+            color: $colorWhite;
             font-size: 18px;
             margin-right: 30px;
             padding: 0px 10px;
             position: relative;
             user-select: none;
+            height: 44px;
+            line-height: 44px;
             &:hover{
                 &:after{
                     content: '';
                     display: block;
                     position: absolute;
-                    bottom: -1px;
+                    bottom: 0px;
                     left: 0px;
                     width: 100%;
-                    border: 1px solid $colorBlack;
+                    border-bottom: 1px solid $colorWhite;
                 }
             }
             &:last-child{
@@ -71,7 +73,7 @@ $logoColor: #434343;
                 width: 21px;;
                 background-color: $logoColor;
                 position: absolute;
-                color: #000;
+                color: $logoColor;
                 line-height: 21px;
                 text-align: center;
                 box-sizing: border-box;
@@ -135,3 +137,4 @@ $logoColor: #434343;
 
 @import "pages/home";
 @import "pages/detail";
+@import "components/articleItem";

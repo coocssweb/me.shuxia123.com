@@ -22,20 +22,15 @@ class Index extends Component {
                     </a>
                     <nav className="globalHeader-nav">
                         <a className={className('globalHeader-menu')} href="javascript:;">想法</a>
-                        <a className={className('globalHeader-menu')} href="javascript:;">照片</a>
+                        <a className={className('globalHeader-menu')} href="javascript:;">摄影</a>
                         <a className={className('globalHeader-menu')} href="javascript:;">音乐</a>
                     </nav>
-                    <button className={className('btn btn-transparent btn--small globalHeader-1984')}>新世界</button>
+                    <button className={className('btn btn-transparent btn--small btn--white globalHeader-1984')}>1984</button>
                 </div>
                 <Switch>
                     <Route path="/" component={Home} exact />
                     <Route path="/detail" component={Detail} />
                 </Switch>
-                <div className={className('globalFooter')}>
-                    <span className={className('globalFooter-logo')}></span>
-                    <p><a href="javascript:;">Say Hello To He</a></p>
-                    <p><span className={className('globalFooter-copy')}>©</span> 2019 Shuxia123.com</p>
-                </div>
             </React.Fragment>
         );
     }

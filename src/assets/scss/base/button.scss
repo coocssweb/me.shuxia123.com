@@ -5,12 +5,13 @@
     line-height: 48px;
     background-image: none;
     border: none;
-    border-radius: 3px;
+    border-radius: 4px;
     outline: none;
     font-size: 15px;
     border-width: 1px;
     border-style: solid;
     transition: all .2s ease;
+    text-decoration: none;
     cursor: pointer;
     user-select: none;
     &--small{
@@ -38,6 +39,30 @@
         &:active{
             background-color: $colorPrimaryActive;
         }
+        &.btn--white{
+            border-color: $colorWhite;
+            color: $colorWhite;
+            &:hover{
+                background-color: $colorWhiteHover;
+            }
+            &:active{
+                background-color: $colorWhiteActive;
+            }
+        }
+        &.btn--black{
+            border-color: $colorBlack;
+            color: $colorBlack;
+            &:hover{
+                background-color: $colorBlackHover;
+            }
+            &:active{
+                background-color: $colorBlackActive;
+            }
+        }
+    }
+
+    &--blod{
+        border-width: 2px;
     }
 }
 
