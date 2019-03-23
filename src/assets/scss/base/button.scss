@@ -29,6 +29,11 @@
             background-color: $colorPrimaryDark;
         }
     }
+    &--small{
+        height: 33px;
+        line-height: 33px;
+        font-size: 13px;
+    }
     &-transparent{
         background-color: transparent;
         border-color: $colorPrimary;

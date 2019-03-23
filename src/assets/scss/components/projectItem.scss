@@ -1,0 +1,25 @@
+.projectItem{
+    width: 48.5%;
+    float: left;
+    padding: 30px;
+    border: 1px solid #e6e6e6;
+    box-sizing: border-box;
+    &-title{
+        font-size: 24px;
+        color: $colorPrimary;
+    }
+    &-description{
+        margin-top: 15px;
+        line-height: 1.8;
+        color: #596064;
+        font-size: 13px;
+    }
+    &-more{
+        display: inline-block;
+        margin-top: 15px;
+        color: $colorPrimary;
+        &:hover{
+            text-decoration: underline;
+        }
+    }
+}

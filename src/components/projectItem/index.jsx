@@ -2,10 +2,12 @@ import React from 'react';
 import className from 'classnames';
 export default (props) => {
     return (
-        <a href="javascript:;" className={className('projectItem')}>
-            <img className={className('projectItem-photo')} src="https://z1.muscache.cn/pictures/62a108b0-8ce8-44e2-902b-61c2cf165e06.jpg" />
-            <h2 className={className('projectItem-title')}>React组件库</h2>
-            <p className={className('projectItem-description')}>爱彼迎没有最低或强制出租天数限制，因此您可以屏蔽不可订的日期。</p>
-        </a>
+        <div className={className('projectItem')}>
+            <div className={className('projectItem-content')}>
+                <h2 className={className('projectItem-title')}>REACT组件库</h2>
+                <p className={className('projectItem-description')}>您可以要求任何一位房客在预订您的房源前将身份证件提交到爱彼迎。您还有机会提前审查预订或是添加额外条件来控制可进行预订的人。</p>
+                <a href="javascript:;" className={className('projectItem-more')}>了解更多</a>
+            </div>
+        </div>
     );
 };

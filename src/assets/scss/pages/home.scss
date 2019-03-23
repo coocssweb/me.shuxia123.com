@@ -23,21 +23,39 @@
     }
     &Recommend{
         padding: 50px 0px;
+        &-project{
+            // background-color: #fcfcfc;
+            border-bottom: 1px solid #f0f0f0;
+            border-top: 1px solid #f0f0f0;
+        }
         &-content{
             width: $globalPcWidth;
             margin: 0px auto;
         }
         &-title{
             font-size: 30px;
+            text-align: center;
+        }
+        &-subtitle{
+            text-align: center;
+            color: $colorGray;
+            font-size: 14px;
+            margin-bottom: 50px;
+            margin-top: 10px;
         }
         &-list{
             display: flex;
             justify-content: space-between;
-            margin-top: 30px;
         }
         &-more{
             text-align: center;
             margin-top: 50px;
+        }
+        &-line{
+            margin-bottom: 50px;
+            &:last-child{
+                margin-bottom: 0px;
+            }
         }
     }
 }
