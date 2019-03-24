@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import className from 'classnames';
 import ArticleItem from '@components/articleItem';
 import ProjectItem from '@components/projectItem';
+import { Link } from 'react-router-dom';
+import withPage from '../../hoc/withPage';
 
 class Index extends Component {
     constructor (props) {
@@ -21,7 +23,7 @@ class Index extends Component {
         // 去「勇敢的」承担
         // We can do
         return (
-            <div className={className('home')}>
+            <div className={className('home page')}>
                 <div className={className('homeSlogan')}>
                     <p className={className('homeSlogan-title')}>写「漂亮的」代码</p>
                     <p className={className('homeSlogan-subtitle')}>It is a <mark>beautiful</mark> day, <mark>Don't</mark> let it get away.</p>
@@ -36,7 +38,7 @@ class Index extends Component {
                             <ArticleItem />
                         </div>
                         <div className={className('homeRecommend-more')}>
-                            <a href="javascript:;" className={className('btn btn-transparent btn--black btn--small')}>更多想法</a>
+                            <Link to="/ideas" className={className('btn btn-transparent btn--black btn--small')}>更多想法</Link>
                         </div>
                     </div>
                 </div>
@@ -60,7 +62,8 @@ class Index extends Component {
                         <h3 className={className('homeRecommend-subtitle')}>去探索，即使从零开始，开始了就成功了90%</h3>
                         <div className={className('homeRecommend-items')}>
                             <a href="javascript:;" className={className('homeRecommend-item')}>绚丽的按钮</a>
-                            <a href="javascript:;" className={className('homeRecommend-item')}>绚丽的按钮</a>
+                            <a href="javascript:;" className={className('homeRecommend-item')}>有趣的Loading</a>
+                            <a href="javascript:;" className={className('homeRecommend-item')}>场景切换</a>
                         </div>
                     </div>
                 </div>
@@ -69,4 +72,4 @@ class Index extends Component {
     }
 }
 
-export default Index;
+export default withPage(Index);

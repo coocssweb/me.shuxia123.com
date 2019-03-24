@@ -1,5 +1,6 @@
 @import "base/variables";
 @import "base/button";
+@import "base/animation";
 @font-face {
     font-family: 'coofont';
     src:  url('http://ssupload.qingmang.mobi/qingmang-website/static/fonts/FZNBSJW.c1b6c5e.woff2');
@@ -135,7 +136,10 @@ $logoColor: #fff;
     }
 }
 
+
 @import "pages/home";
+@import "pages/ideas";
 @import "pages/detail";
 @import "components/articleItem";
 @import "components/projectItem";
+@import "components/coolpanel";

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import className from 'classnames';
+import withPage from '../../hoc/withPage';
 
 class Index extends Component {
     constructor (props) {
@@ -26,7 +27,7 @@ class Index extends Component {
     render () {
         let state = this.state;
         return (
-            <div className={className('detail')}>
+            <div className={className('detail page')}>
                 <div className={className('detail-bg')}></div>
                 <div className={className('detail-mask')}></div>
                 <div className={className('detail-container')}>
@@ -68,4 +69,4 @@ class Index extends Component {
     }
 }
 
-export default Index;
+export default withPage(Index);

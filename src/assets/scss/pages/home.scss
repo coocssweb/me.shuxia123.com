@@ -57,5 +57,22 @@
                 margin-bottom: 0px;
             }
         }
+        &-item{
+            display: inline-block;
+            padding: 0px 30px;
+            margin-right: 30px;
+            font-size: 16px;
+            line-height: 32px;
+            height: 32px;
+            border: 2px solid $colorBlack;
+            color: $colorBlack;
+            transition: all .2s ease;
+            &:hover{
+                background-color: $colorBlackHover;
+            }
+            &:active{
+                background-color: $colorBlackActive;
+            }
+        }
     }
 }

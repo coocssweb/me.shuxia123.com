@@ -1,0 +1,10 @@
+@keyframes slideInLeft {
+    0%{
+        opacity: 1;
+        transform: translate3d(50px, 0px, 0px);
+    }
+    100%{
+        opacity: 1;
+        transform: translate3d(0px, 0px, 0px);
+    }
+}
