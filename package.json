@@ -10,7 +10,8 @@
     "server": "export NODE_ENV=production && nohup node ./server/index.js > nohup.log 2>&1 &",
     "build:local": "webpack --mode production --config build/webpack.local.config.js --progress --hide-modules",
     "build:test": "webpack --mode production --config build/webpack.test.config.js --progress --hide-modules",
-    "build": "webpack --mode production --config build/webpack.production.config.js --progress --hide-modules"
+    "build": "webpack --mode production --config build/webpack.production.config.js --progress --hide-modules",
+    "dev": "npm run build:local && npm run server:dev"
   },
   "author": "",
   "license": "ISC",
@@ -58,8 +59,10 @@
     "koa-passport": "^4.1.1",
     "koa-router": "^7.4.0",
     "koa-static": "^5.0.0",
+    "koa-webpack": "^5.2.2",
     "log4js": "^3.0.5",
     "mini-css-extract-plugin": "^0.5.0",
+    "module-alias": "^2.2.0",
     "mongodb": "^3.0.7",
     "mongoose": "^5.0.7",
     "node-sass": "^4.11.0",
@@ -99,5 +102,11 @@
     "redux-logger": "^3.0.6",
     "redux-router": "^2.1.2",
     "whatwg-fetch": "^2.0.4"
+  },
+  "_moduleAliases": {
+    "@scss": "src/assets/scss",
+    "@api": "src/api",
+    "@containers": "src/containers",
+    "@components": "src/components"
   }
 }

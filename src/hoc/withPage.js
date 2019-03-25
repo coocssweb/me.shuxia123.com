@@ -5,8 +5,8 @@ export default (WrappedComponent) => {
             window.scrollTo(0, 0);
         }
         render () {
-            return <WrappedComponent {...this.props} />
+            return (<WrappedComponent {...this.props} />);
         }
     }
     return Index;
-}
+};

@@ -66,18 +66,19 @@ $logoColor: #fff;
             position: absolute;
             top: 18px;
             left: 18px;
-            height: 44px;
-            width: 44px;;
+            height: 34px;
+            width: 34px;;
             span{
                 display: block;
-                height: 21px;
-                width: 21px;;
+                height: 16px;
+                width: 16px;;
                 background-color: $logoColor;
                 position: absolute;
                 color: $logoColor;
-                line-height: 21px;
+                line-height: 16px;
                 text-align: center;
                 box-sizing: border-box;
+                font-size: 12px;
             }
             &--l{
                 left: 0px;

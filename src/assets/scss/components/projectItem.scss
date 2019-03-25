@@ -6,18 +6,19 @@
     box-sizing: border-box;
     &-title{
         font-size: 24px;
-        color: $colorPrimary;
+        font-weight: 300;
+        color: $colorGreen;
     }
     &-description{
         margin-top: 15px;
         line-height: 1.8;
-        color: #596064;
+        color: $colorGray;
         font-size: 13px;
     }
     &-more{
         display: inline-block;
         margin-top: 15px;
-        color: $colorPrimary;
+        color: $colorGray;
         &:hover{
             text-decoration: underline;
         }

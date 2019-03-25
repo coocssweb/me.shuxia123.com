@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import createStore from './redux/store/createStore';
 import Root from './root/route';
 import './common';
-const store = createStore({});
+const store = createStore(window['defaultRenderData']);
 
 ReactDOM.hydrate(
     <Provider store={ store } >

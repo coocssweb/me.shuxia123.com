@@ -1,19 +1,17 @@
-import * as detailActionTypes from '../constants/detail';
-// import Immutable from 'immutable';
+import * as actionTypes from '../constants';
 
 const initialState = {
-    loading: false,
-    movie: {}
+    server: false
 };
 
 export default (state = initialState, action) => {
     switch (action.type) {
-        case detailActionTypes.DETAIL_FETCH_REQUEST:
-            return Object.assign({}, state, { loading: true });
-        case detailActionTypes.DETAIL_FETCH_SUCCESS:
-            return Object.assign({}, state, { loading: false }, { movie: action.result.movie });
-        case detailActionTypes.DETAIL_FETCH_ERROR:
-            return Object.assign({}, state, { loading: false });
+        case actionTypes.DETAIL_FETCH_REQUEST:
+            return Object.assign({}, state);
+        case actionTypes.DETAIL_FETCH_SUCCESS:
+            return Object.assign({}, state);
+        case actionTypes.IDEAS_FETCH_ERROR:
+            return Object.assign({}, state);
         default:
             return state;
     }

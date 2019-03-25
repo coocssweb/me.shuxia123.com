@@ -14,31 +14,49 @@
     }
     &-photo{
         display: block;
-        width: 340px;
         filter: grayscale(100%);
         filter: gray;
         transition: .5s ease;
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        width: 100%;;
     }
     &-photowrapper{
         overflow: hidden;
         border-radius: 4px;
+        padding-bottom: 60%;
+        position: relative
     }
     &-title{
         margin-top: 10px;
         color: $colorGray;
         transition: .5s ease;
+        font-size: 24px;
     }
     &-description{
         margin-top: 10px;
         color: $colorGrayLite;
     }
-    &-more{
-        text-decoration: none;
-        margin-top: 10px;
-        display: inline-block;
-        color: $colorPrimary;
-        &:hover{
-            text-decoration: underline;
+
+    &Skeleton{
+        width: 30%;
+        &-photowrapper{
+            border-radius: 4px;
+            padding-bottom: 60%;
+            background-color: $colorSkeleton;
+        }
+        &-title{
+            margin-top: 10px;
+            width: 50%;
+            height: 24px;
+            background-color: $colorSkeleton;
+        }
+        &-description{
+            margin-top: 10px;
+            width: 80%;
+            height: 16px;
+            background-color: $colorSkeleton;
         }
     }
 }

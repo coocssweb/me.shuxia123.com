@@ -15,6 +15,11 @@
     <meta name="description" content="{{ description }}">
 </head>
 <body>
-    <div id="app"></div>
+<div id="app">
+{{ layout | safe }}
+</div>
+<script type="text/javascript">
+    window['defaultRenderData'] = {{ data | dump | safe }};
+</script>
 </body>
 </html>

@@ -15,6 +15,7 @@ let ArticleSchema = new Mongoose.Schema({
     posters: Array,
     status: Number,
     likeCount: Number,
+    readCount: Number,
     published: Number,
     // children: [
     //     {
@@ -54,6 +55,7 @@ ArticleSchema.pre('save', async function(next) {
     if (this.isNew) {
         this.createAt = this.updateAt = Date.now();
         this.likeCount = 0;
+        this.readCount = 0;
         this.id = await autoIncrementId('articles');
         console.log(this);
     } else {
@@ -104,7 +106,7 @@ ArticleSchema.statics = {
         return this.find(
             {
                 ...query
-            }, { _id: 0, by: 0 }).skip(skip).limit(parseInt(limit)).sort({ id: -1 });
+            }, { _id: 0, content: 0, by: 0 }).skip(skip).limit(parseInt(limit)).sort({ id: -1 });
     },
     findById: function (id) {
         return this.findOne({ id });

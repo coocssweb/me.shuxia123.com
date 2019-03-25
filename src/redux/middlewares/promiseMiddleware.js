@@ -1,6 +1,6 @@
 export default ({ dispatch, getState }) => {
     return (next) => (action) => {
-        const { promise, types, ...rest } = action;
+        const { promise, types, callback, ...rest } = action;
 
         if (!promise) {
             return next(action);
@@ -12,10 +12,10 @@ export default ({ dispatch, getState }) => {
 
         return promise().then(
             (result) => {
-                next({ ...rest, result, type: SUCCESS });
+                next({ ...rest, callback, result, type: SUCCESS });
             },
             (error) => {
-                next({ ...rest, error, type: FAILURE });
+                next({ ...rest, callback, error, type: FAILURE });
             }
         );
     };

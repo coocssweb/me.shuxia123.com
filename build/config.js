@@ -27,8 +27,8 @@ module.exports = {
     // 开发环境构建，用于做ssr
     local: {
         env: 'local',                           // 环境
-        api: 'https://www.shuxia123.com/',          // api 接口地址
-        publicPath: '/dev/',   // 静态资源地址
+        api: 'http://localhost:4322/',          // api 接口地址
+        publicPath: 'http://localhost:8089/',   // 静态资源地址
         imagePath: '',                          // 图片资源地址
         devtool: 'false',                       // devtool,
         noHash: true,
@@ -36,7 +36,7 @@ module.exports = {
     // 开发环境
     development: {
         env: 'development',                     // 环境
-        api: 'https://www.shuxia123.com/',      // api 接口地址
+        api: 'http://localhost:4322/',      // api 接口地址
         publicPath: '',                         // 静态资源地址
         imagePath: '',                          // 图片资源地址
         port: '8089',                           // 开发端口

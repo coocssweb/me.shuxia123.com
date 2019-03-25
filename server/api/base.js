@@ -11,14 +11,14 @@ const loggerData = log4js.getLogger('dateFile');
 const loggerMail = log4js.getLogger('mail');
 
 export default class Base {
-    async request({
-                      host = Config.api,
-                      path,
-                      data = {},
-                      method = 'get',
-                      responseType = 'json',
-                      contentType = 'application/x-www-form-urlencoded',
-                      accessToken
+    async request ({
+        host = Config.api,
+        path,
+        data = {},
+        method = 'get',
+        responseType = 'json',
+        contentType = 'application/x-www-form-urlencoded',
+        accessToken
     }) {
         let requestData;
         let params;

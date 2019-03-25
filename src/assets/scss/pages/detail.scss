@@ -4,7 +4,6 @@ $marginSize: 50px;
         position: fixed;
         height: 100%;
         width: 100%;
-        background-image: url(https://z1.muscache.cn/4ea/air/c:w9-h16-go,r:w1080-h1920-sfit,e:fjpg-c75/pictures/309559e3-d8f6-487a-b658-c1c21f3bc86c.jpg);
         background-size: cover;
         background-position: center;
     }
@@ -103,6 +102,86 @@ $marginSize: 50px;
         &:hover{
             transform: translate3d(0px, -1px, 0px);
             box-shadow: rgba(0, 0, 0, 0.3) 0px 3px 10px;
+        }
+    }
+}
+
+.detailSkeleton{
+    padding-top: 200px;
+    padding-bottom: 50px;
+    width: $globalMobileWidth;
+    margin: 0px auto;
+    position: relative;
+    &-wrapper{
+        background-color: $colorWhite;
+        position: relative;
+        z-index: 2;
+    }
+    &-title{
+        position: relative;
+        padding-bottom: $marginSize;
+        p{
+            width: 400px;
+            height: 40px;
+            background-color: $colorSkeleton;
+            margin: 0px auto;
+            margin-top: 16px;
+        }
+        &:after{
+            content: '';
+            display: block;
+            border: 1px solid $colorSkeleton;
+            position: absolute;
+            bottom: 0px;
+            left: 50%;
+            width: 100px;
+            margin-left: -50px;
+        }
+    }
+
+    &-info{
+        padding: 50px 0px 50px 60px;
+        position: relative;
+    }
+    &-avatar{
+        position: absolute;
+        top: $marginSize;
+        left: 0px;
+        width: $marginSize;
+        height: $marginSize;
+        background-color: $colorSkeleton;
+    }
+    &-user{
+        display: table-cell;
+        vertical-align: middle;
+        height: $marginSize;
+    }
+    &-author{
+        height: 16px;
+        width: 50px;
+        background-color: $colorSkeleton;
+    }
+    &-date{
+        height: 16px;
+        width: 100px;
+        background-color: $colorSkeleton;
+        margin-top: 5px;
+    }
+    &-photolist{
+        background-color: $colorSkeleton;
+        height: 500px;
+    }
+    &-content{
+        padding: 50px;
+        p{
+            margin-top: 12px;
+            background-color: $colorSkeleton;
+            width: 100%;
+            height: 16px;
+            margin-top: 10px;
+            &:last-child{
+                width: 50%;
+            }
         }
     }
 }

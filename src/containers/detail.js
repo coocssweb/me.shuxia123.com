@@ -1,17 +1,18 @@
 import { connect } from 'react-redux';
 import Detail from '../pages/detail';
-import * as detailActions from '../redux/actions/detail';
+import * as actions from '../redux/actions';
 
 function mapStateToProps (state) {
     let data = state['detail'];
     return {
-        ...data
+        ...data,
+        serverRender: state['serverRender']
     };
 }
 
 function mapDispatchToProps (dispatch) {
     return {
-        fetchOne: (id) => dispatch(detailActions.fetchOne(id)),
+        fetchDetail: (id) => dispatch(actions.fetchDetail(id)),
     };
 }
 
