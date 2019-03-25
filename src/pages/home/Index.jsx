@@ -10,18 +10,24 @@ class Index extends Component {
     constructor (props) {
         super(props);
         this.state = {
-            loading: !props.server,
+            loaded: props.server || props.recommends.length > 0,
             recommends: props.server ? props.recommends : Array(3).fill('')
+        };
+    }
+
+    static getDerivedStateFromProps (props, state) {
+        return {
+            recommends: props.recommends.length ? props.recommends : Array(3).fill('')
         };
     }
 
     componentDidMount () {
         const props = this.props;
-        // 正在加载中
-        if (!props.server) {
+        // 非服务端
+        if (!this.state.loaded) {
             props.fetchHome((result) => {
                 this.setState({
-                    loading: false
+                    loaded: true
                 });
             });
         }
@@ -44,10 +50,10 @@ class Index extends Component {
                         <h3 className={className('homeRecommend-subtitle')}>记录某些时刻的想法，更多有趣有价值的分享</h3>
                         <div className={className('homeRecommend-list')}>
                             {
-                                state.loading ? (
-                                    state.recommends.map((item, index) => <ArticleItemSkeleton key={index} />)
-                                ) : (
+                                state.loaded ? (
                                     state.recommends.map(item => <ArticleItem article={item} key={item.id} />)
+                                ) : (
+                                    state.recommends.map((item, index) => <ArticleItemSkeleton key={index} />)
                                 )
                             }
                             

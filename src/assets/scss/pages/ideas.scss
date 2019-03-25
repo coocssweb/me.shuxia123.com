@@ -32,25 +32,14 @@
         padding-bottom: 20px;
     }
     &Item{
-        background-color: #fafafa;
+        background-color: #ffffff;
         padding: 20px 30px;
         border: 1px solid #eee;
         border-radius: 4px;
         margin-bottom: 20px;
-        // opacity: 0;
-        // transform: translate3d(50px, 0px, 0px);
-        // animation-name: slideInUp;
-        // animation-fill-mode: forwards;
-        // animation-duration: .5s;
-        // animation-timing-function: ease-out;
         &:last-child{
             margin-bottom: 0px;
         }
-        // @for $i from 1 to 10 {
-        //     &:nth-child(#{$i}) {
-        //         animation-delay: (-2 + $i) * 200ms;
-        //     }
-        // }
         &-title{
             font-size: 20px;
             &:hover{

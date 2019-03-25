@@ -43,16 +43,17 @@ class Index extends Component {
         return (
             <React.Fragment>
                 <div className={className('globalHeader')}>
-                    <Link to="/" href="javascript:;" className={className('globalHeader-logo')}>
-                        <span className={className('globalHeader-logo--l')}>佳</span>
-                        <span className={className('globalHeader-logo--r')}></span>
-                        <span className={className('globalHeader-logo--b')}></span>
-                        <span className={className('globalHeader-logo--n')}>欣</span>
-                    </Link>
-                    <nav className="globalHeader-nav">
-                        <Link to="/ideas" className={className('globalHeader-menu')} href="javascript:;">想法</Link>
-                    </nav>
-
+                    <div className={className('globalHeader-content')}>
+                        <Link to="/" href="javascript:;" className={className('globalHeader-logo')}>
+                            <span className={className('globalHeader-logo--l')}></span>
+                            <span className={className('globalHeader-logo--r')}></span>
+                            <span className={className('globalHeader-logo--b')}></span>
+                            <span className={className('globalHeader-logo--n')}></span>
+                        </Link>
+                        <nav className="globalHeader-nav">
+                            <Link to="/ideas" className={className('globalHeader-menu')} href="javascript:;">我的想法</Link>
+                        </nav>
+                    </div>
                 </div>
                 <Switch>
                     <Route path="/" component={Home} exact />

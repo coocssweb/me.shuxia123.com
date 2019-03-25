@@ -1,17 +1,14 @@
-/**
- * Created by coocss on 2019/2/26.
- */
 import Base from './base';
 
 class Index extends Base {
     fetchHome () {
-        return this.request({ path: 'api/home' });
+        return this.request({ path: 'recommends', needDelay: true});
     }
     fetchIdeas (page) {
-        return this.request({ path: `api/ideas`, data: { page } });
+        return this.request({ path: `ideas`, data: { page }, needDelay: true });
     }
     fetchDetail (id) {
-        return this.request({ path: `api/detail`, data: { id } });
+        return this.request({ path: `detail/${id}`, needDelay: true });
     }
 }
 

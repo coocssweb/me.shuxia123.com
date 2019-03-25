@@ -7,16 +7,26 @@ class Index extends Component {
     constructor (props) {
         super(props);
         this.state = {
-            loading: !props.server,
+            loaded: props.server || props.list.length > 0,
             ideas: props.server ? props.list : Array(10).fill('')
         };
+    }
+
+    static getDerivedStateFromProps (props, state) {
+        return {
+            ideas: props.list.length ? props.list : Array(3).fill('')
+        }
     }
 
     componentDidMount () {
         const props = this.props;
         // 正在加载中
-        if (!props.server) {
-            props.fetchIdeas(1);
+        if (!this.state.loaded) {
+            props.fetchIdeas(1, (result) => {
+                this.setState({
+                    loaded: true
+                });
+            });
         }
     }
 
@@ -34,10 +44,10 @@ class Index extends Component {
 
                 <ul className={className('ideaList')}>
                     {
-                        state.loading ? (
-                            state.ideas.map((item, index) => <Skeleton key={index} />)
-                        ) : (
+                        state.loaded ? (
                             state.ideas.map(item => <Idea idea={item} key = {item.id} />)
+                        ) : (
+                            state.ideas.map((item, index) => <Skeleton key={index} />)
                         )
                     }
                 </ul>

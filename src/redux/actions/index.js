@@ -11,20 +11,22 @@ export const fetchHome = (callback) => {
     };
 };
 
-export const fetchIdeas = (page) => {
+export const fetchIdeas = (page, callback) => {
     return {
         types: [actionTypes.IDEAS_FETCH_REQUEST, actionTypes.IDEAS_FETCH_SUCCESS, actionTypes.IDEAS_FETCH_ERROR],
         promise: () => {
             return api.fetchIdeas(page);
-        }
+        },
+        callback
     };
 };
 
-export const fetchDetail = (id) => {
+export const fetchDetail = (id, callback) => {
     return {
         types: [actionTypes.DETAIL_FETCH_REQUEST, actionTypes.DETAIL_FETCH_SUCCESS, actionTypes.DETAIL_FETCH_ERROR],
         promise: () => {
-            return api.fetchIdeas(id);
-        }
+            return api.fetchDetail(id);
+        },
+        callback
     };
 };

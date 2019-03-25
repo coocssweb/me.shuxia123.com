@@ -54,7 +54,7 @@ let detail = async function (ctx, next) {
         },
         data: {
             detail: {
-                data: result,
+                article: result,
                 server: true
             }
         }

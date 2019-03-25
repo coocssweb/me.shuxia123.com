@@ -12,7 +12,7 @@ $marginSize: 50px;
         height: 100%;
         width: 100%;
         background-color: rgb(12, 12, 14);
-        opacity: 0.7;
+        opacity: .45;
     }
     &-container{
         width: $globalMobileWidth;
@@ -111,11 +111,14 @@ $marginSize: 50px;
     padding-bottom: 50px;
     width: $globalMobileWidth;
     margin: 0px auto;
-    position: relative;
     &-wrapper{
         background-color: $colorWhite;
-        position: relative;
-        z-index: 2;
+        position: fixed;
+        top: 0px;
+        bottom: 0px;
+        left: 0px;
+        right: 0px;
+        z-index: 3;
     }
     &-title{
         position: relative;
@@ -123,14 +126,14 @@ $marginSize: 50px;
         p{
             width: 400px;
             height: 40px;
-            background-color: $colorSkeleton;
+            background-color: $colorSkeletonDark;
             margin: 0px auto;
-            margin-top: 16px;
+            margin-top: 11px;
         }
         &:after{
             content: '';
             display: block;
-            border: 1px solid $colorSkeleton;
+            border: 1px solid $colorSkeletonDark;
             position: absolute;
             bottom: 0px;
             left: 50%;
@@ -149,7 +152,7 @@ $marginSize: 50px;
         left: 0px;
         width: $marginSize;
         height: $marginSize;
-        background-color: $colorSkeleton;
+        background-color: $colorSkeletonDark;
     }
     &-user{
         display: table-cell;
@@ -159,23 +162,23 @@ $marginSize: 50px;
     &-author{
         height: 16px;
         width: 50px;
-        background-color: $colorSkeleton;
+        background-color: $colorSkeletonDark;
     }
     &-date{
         height: 16px;
         width: 100px;
-        background-color: $colorSkeleton;
+        background-color: $colorSkeletonDark;
         margin-top: 5px;
     }
     &-photolist{
-        background-color: $colorSkeleton;
+        background-color: $colorSkeletonDark;
         height: 500px;
     }
     &-content{
         padding: 50px;
         p{
             margin-top: 12px;
-            background-color: $colorSkeleton;
+            background-color: $colorSkeletonDark;
             width: 100%;
             height: 16px;
             margin-top: 10px;

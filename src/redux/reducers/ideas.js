@@ -11,8 +11,8 @@ export default (state = initialState, action) => {
         case actionTypes.IDEAS_FETCH_REQUEST:
             return Object.assign({}, state);
         case actionTypes.IDEAS_FETCH_SUCCESS:
-            const { list } = action.result;
-            return Object.assign({}, state, { list });
+            const { response } = action.result;
+            return Object.assign({}, state, { list: response });
         case actionTypes.IDEAS_FETCH_ERROR:
             return Object.assign({}, state);
         default:

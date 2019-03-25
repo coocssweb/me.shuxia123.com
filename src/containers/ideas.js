@@ -11,7 +11,7 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
     return {
-        fetchIdeas: (page) => dispatch(actions.fetchIdeas(page))
+        fetchIdeas: (page, callback) => dispatch(actions.fetchIdeas(page, callback))
     };
 }
 

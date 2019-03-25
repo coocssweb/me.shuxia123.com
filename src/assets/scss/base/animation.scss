@@ -8,3 +8,13 @@
         transform: translate3d(0px, 0px, 0px);
     }
 }
+
+.fadeOut{
+    &-exit{
+        opacity: 1;
+        &-active{
+            opacity: 0;
+            transition: opacity .5s ease-out;
+        }
+    }
+}

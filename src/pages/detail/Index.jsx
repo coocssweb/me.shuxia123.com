@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import className from 'classnames';
+import { CSSTransition } from 'react-transition-group';
 import withPage from '../../hoc/withPage';
 import Skeletion from './skeleton';
 import {formatDate} from '../../utils'
@@ -7,36 +8,52 @@ import {formatDate} from '../../utils'
 class Index extends Component {
     constructor (props) {
         super(props);
+        this.handleSkeletonExited = this.handleSkeletonExited.bind(this);
         this.state = {
-            loading: !props.server,
-            data: props.data
+            loaded: props.server,
+            loadOver: props.server,
+            article: props.article
         };
     }
 
-    componentDidMount () {
+    static getDerivedStateFromProps (props, state) {
+        return {
+            article: props.article
+        }
+    }
 
+    componentDidMount () {
+        const { id } = this.props.match.params;
+        this.props.fetchDetail(id, () => {
+            this.setState({
+                loaded: true
+            });
+        });
+    }
+
+    handleSkeletonExited () {
+        this.setState({
+            loadOver: true
+        });
     }
 
     render () {
-        let state = this.state;
-        const article = state.data;
-        const titles = state.loading ? [] : article.title.split(' ');
-        const bgStyle = state.loading ? {} : {backgroundImage: `url(${article.posters[0]})`};
+        const { article, loaded, loadOver } = this.state;
+        const titles = loaded ? article.title.split(' ') : [];
+        const bgStyle = loaded ?  { backgroundImage: `url(${article.posters[0]})` } : {};
 
         return (
             <div className={className('detail page')}>
                 <div className={className('detail-bg')} style={bgStyle}></div>
                 <div className={className('detail-mask')}></div>
                 {
-                    state.loading ? (
-                        <Skeletion />
-                    ) : (
+                    loaded ? (
                         <div className={className('detail-container')}>
                             <div className={className('detail-title')}>{titles[0]}<br />{titles[1]}</div>
                             <div className={className('detail-info')}>
                                 <img src="https://coocssweb.github.io/photos/personal.jpeg" className={className('detail-avatar')} />
                                 <div className={className('detail-user')}>
-                                    <p className={className('detail-author')}>作者: {article.author}</p>
+                                    <p className={className('detail-author')}>作者: {article.author}{article.id}</p>
                                     <p className={className('detail-date')}>日期: {formatDate(article.createAt, 'yyyy.MM.dd')}</p>
                                 </div>
                             </div>
@@ -51,8 +68,20 @@ class Index extends Component {
                                 <button className={className('btn btn-fill detail-like')}>点赞之交</button>
                             </div>
                         </div>
-                    )
+                    ) : null
                 }
+                {
+                    !loadOver ? (
+                        <CSSTransition
+                            in={!loaded}
+                            timeout={500}
+                            classNames='fadeOut'
+                            onExited={this.handleSkeletonExited}>
+                            <Skeletion />
+                        </CSSTransition>
+                    ) : null
+                }
+
             </div>
         );
     }
