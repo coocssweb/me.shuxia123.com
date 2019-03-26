@@ -1,9 +1,16 @@
+.projectList{
+
+}
 .projectItem{
-    width: 48.5%;
-    float: left;
     padding: 30px;
     border: 1px solid #e6e6e6;
-    box-sizing: border-box;
+    &-wrapper{
+        width: 50%;
+        float: left;
+        padding: 0px 8px;
+        box-sizing: border-box;
+        margin-bottom: 16px;
+    }
     &-title{
         font-size: 24px;
         font-weight: 300;
@@ -18,9 +25,47 @@
     &-more{
         display: inline-block;
         margin-top: 15px;
-        color: $colorGray;
+        color: $colorWhite;
+        background-color: $colorGreen;
+        padding: 5px 10px;
+        font-size: 12px;
         &:hover{
             text-decoration: underline;
+        }
+    }
+
+    &Skeleton{
+        padding: 30px;
+        border: 1px solid #e6e6e6;
+        &-wrapper{
+            width: 50%;
+            float: left;
+            padding: 0px 8px;
+            box-sizing: border-box;
+            margin-bottom: 16px;
+        }
+        &-title{
+            background-color: $colorSkeleton;
+            width: 50%;
+            height: 27px;
+        }
+        &-description{
+            margin-top: 15px;
+            p{
+                height: 13px;
+                background-color: $colorSkeleton;
+                margin-top: 5px;
+                &:last-child{
+                    width: 80%;
+                }
+            }
+        }
+        &-more{
+            margin-top: 15px;
+            height: 12px;
+            background-color: $colorSkeleton;
+            width: 70px;
+            display: inline-block;
         }
     }
 }

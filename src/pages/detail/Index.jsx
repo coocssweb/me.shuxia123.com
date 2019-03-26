@@ -9,6 +9,7 @@ class Index extends Component {
     constructor (props) {
         super(props);
         this.handleSkeletonExited = this.handleSkeletonExited.bind(this);
+        this.handleScroll = this.handleScroll.bind(this);
         this.state = {
             loaded: props.server,
             loadOver: props.server,
@@ -29,6 +30,26 @@ class Index extends Component {
                 loaded: true
             });
         });
+        this.domGlobalHeader = document.querySelector('.globalHeader');
+        this.domMask = document.querySelector('.detail-mask');
+        document.addEventListener('scroll', this.handleScroll);
+        document.querySelector('body').classList.add('innerBody');
+    }
+
+    componentWillUnmount () {
+        document.removeEventListener('scroll', this.handleScroll);
+        document.querySelector('body').classList.remove('innerBody');
+        this.domGlobalHeader.style.backgroundColor = '';
+    }
+
+    handleScroll (e) {
+        let scrollHeight = (window.scrollY / 500);
+        scrollHeight = scrollHeight > 1 ? 1 : scrollHeight;
+        const opacityGlobalHeader =  scrollHeight * .7 + 0.3;
+        const opacityMask = scrollHeight * 0.35 + 0.45;
+        this.domGlobalHeader.style.backgroundColor = `rgba(0, 0, 0, ${opacityGlobalHeader})`;
+        this.domMask.style.opacity = opacityMask;
+        console.log(opacityMask, opacityGlobalHeader);
     }
 
     handleSkeletonExited () {
@@ -63,10 +84,6 @@ class Index extends Component {
                                 }
                             </div>
                             <div className={className('detail-content')} dangerouslySetInnerHTML={{__html: article.content}}></div>
-                            <div className={className('detail-toolbar')}>
-                                <p className={className('detail-likecount')}>已经有 <mark>{ article.likeCount }</mark> 人点赞了</p>
-                                <button className={className('btn btn-fill detail-like')}>点赞之交</button>
-                            </div>
                         </div>
                     ) : null
                 }

@@ -1,10 +1,12 @@
 import ArticleModel from '../dao/models/article';
+import ProjectModel from '../dao/models/project';
+import TagModel from '../dao/models/tag';
 
 const SITE_NAME = '王佳欣的小站';
 
 let home = async function (ctx, next) {
-    const { page = 1, size = 3 } = ctx.request.query;
-    const result = await ArticleModel.fetch({ }, page, size);
+    const ideas = await ArticleModel.fetch({ }, 1, 3);
+    const projects = await ProjectModel.fetch({ }, 1, 4);
 
     await ctx.render('index.html', {
         seo: {
@@ -14,7 +16,28 @@ let home = async function (ctx, next) {
         },
         data: {
             home: {
-                recommends: result,
+                ideas,
+                projects,
+                server: true
+            }
+        }
+    });
+    await next();
+};
+
+let projects = async function (ctx, next) {
+    const { page = 1, size = 10 } = ctx.request.query;
+    const result = await ProjectModel.fetch({ }, page, size);
+
+    await ctx.render('index.html', {
+        seo: {
+            title: `开源项目_分享我的一些开源项目 - ${SITE_NAME}`,
+            keyword: '王佳欣的开源项目,王佳欣的代码,王佳欣的项目',
+            description: '开源项目，王佳欣会分享一些做好的开源项目。'
+        },
+        data: {
+            projects: {
+                list: result,
                 server: true
             }
         }
@@ -24,7 +47,13 @@ let home = async function (ctx, next) {
 
 let ideas = async function (ctx, next) {
     const { page = 1, size = 10 } = ctx.request.query;
-    const result = await ArticleModel.fetch({ }, page, size);
+    const { classify = '' } = ctx.params;
+    const query = {};
+    if (classify) {
+        query.classify = classify;
+    }
+    const result = await ArticleModel.fetch(query, page, size);
+    const classifies = await TagModel.fetch();
 
     await ctx.render('index.html', {
         seo: {
@@ -35,6 +64,7 @@ let ideas = async function (ctx, next) {
         data: {
             ideas: {
                 list: result,
+                classifies: [{ id: 0, name: '全部内容', path: '' }, ...classifies],
                 server: true
             }
         }
@@ -65,5 +95,6 @@ let detail = async function (ctx, next) {
 module.exports = {
     home,
     ideas,
+    projects,
     detail
 };

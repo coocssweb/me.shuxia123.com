@@ -1,11 +1,20 @@
 import Base from './base';
 
 class Index extends Base {
-    fetchHome () {
-        return this.request({ path: 'recommends', needDelay: true});
+    fetchRecommendIdeas () {
+        return this.request({ path: 'recommend/ideas', needDelay: true });
     }
-    fetchIdeas (page) {
-        return this.request({ path: `ideas`, data: { page }, needDelay: true });
+    fetchRecommendProjects () {
+        return this.request({ path: 'recommend/projects', needDelay: true });
+    }
+    fetchClassifies () {
+        return this.request({ path: 'classifies', needDelay: true });
+    }
+    fetchIdeas ({ classify, page }) {
+        return this.request({ path: `ideas/${classify}`, data: { page }, needDelay: true });
+    }
+    fetchProjects (page) {
+        return this.request({ path: 'projects', needDelay: true });
     }
     fetchDetail (id) {
         return this.request({ path: `detail/${id}`, needDelay: true });

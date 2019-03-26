@@ -1,11 +1,18 @@
+.articleList{
+
+}
+
 .articleItem{
-    width: 30%;
+    width: 33.33333336%;
+    padding: 0px $paddingSizeHalf;
     text-decoration: none;
+    box-sizing: border-box;
+    float: left;
     &:hover{
         .articleItem{
             &-photo{
                 filter: none;
-                transform: scale(1.03);
+                transform: scale3d(1.03, 1.03, 1.03);
             }
             &-title{
                 color: $colorBlack;
@@ -15,7 +22,6 @@
     &-photo{
         display: block;
         filter: grayscale(100%);
-        filter: gray;
         transition: .5s ease;
         position: absolute;
         left: 0px;
@@ -24,8 +30,7 @@
     }
     &-photowrapper{
         overflow: hidden;
-        border-radius: 4px;
-        padding-bottom: 60%;
+        padding-bottom: 70%;
         position: relative
     }
     &-title{
@@ -40,10 +45,12 @@
     }
 
     &Skeleton{
-        width: 30%;
+        width: 33.33333336%;
+        padding: 0px $paddingSizeHalf;
+        box-sizing: border-box;
+        float: left;
         &-photowrapper{
-            border-radius: 4px;
-            padding-bottom: 60%;
+            padding-bottom: 70%;
             background-color: $colorSkeleton;
         }
         &-title{

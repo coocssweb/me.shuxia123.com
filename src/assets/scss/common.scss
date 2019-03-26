@@ -21,7 +21,6 @@ h1, h2, h3, h4, h5, div, p{
     max-width: $globalPcWidth;
     margin: 0px auto;
 }
-$logoColor: #00857a;
 .global{
     &Header{
         //position: absolute;
@@ -30,6 +29,7 @@ $logoColor: #00857a;
         top: 0px;
         height: 60px;
         z-index: 3;
+        background-color: $colorBlue;
         &-content{
             width: $globalPcWidth;
             margin: 0px auto;
@@ -38,11 +38,12 @@ $logoColor: #00857a;
         &-nav{
             text-align: right;
             padding-top: 10px;
+            padding-right: $paddingSizeHalf;
         }
         &-menu{
             display: inline-block;
             text-decoration: none;
-            color: #71777c;
+            color: $colorWhite;
             font-size: 15px;
             margin-right: 30px;
             padding: 0px 10px;
@@ -51,7 +52,7 @@ $logoColor: #00857a;
             height: 44px;
             line-height: 44px;
             &:hover{
-                color: $colorBlack;
+                color: #f5f5f5;
             }
             &:last-child{
                 margin-right: 0px;
@@ -60,26 +61,26 @@ $logoColor: #00857a;
         &-logo{
             position: absolute;
             top: 13px;
-            left: 0px;
+            left: $paddingSizeHalf;
             height: 34px;
             width: 34px;;
             span{
                 display: block;
                 height: 16px;
                 width: 16px;;
-                background-color: $logoColor;
+                background-color: $colorWhite;
                 position: absolute;
-                color: $logoColor;
                 line-height: 16px;
                 text-align: center;
                 box-sizing: border-box;
                 font-size: 12px;
+                color: $colorWhite;
             }
             &--l{
                 left: 0px;
                 top: 0px;
                 background-color: transparent !important;
-                border-top: 1px solid $logoColor;
+                border-top: 1px solid $colorWhite;
             }
             &--r{
                 top: 0px;
@@ -94,7 +95,7 @@ $logoColor: #00857a;
                 bottom: 0px;
                 text-align: center;
                 background-color: transparent !important;
-                border-right: 1px solid $logoColor;
+                border-right: 1px solid $colorWhite;
             }
         }
         &-1984{
@@ -123,6 +124,16 @@ $logoColor: #00857a;
     }
 }
 
+.innerBody{
+    .global {
+        &Header {
+            position: fixed;
+            background-color: rgba(0, 0, 0, .3);
+            z-index: 10;
+        }
+    }
+}
+
 .clearfix{
     &:after{
         content: '';
@@ -134,8 +145,9 @@ $logoColor: #00857a;
 
 
 @import "pages/home";
-@import "pages/ideas";
+@import "pages/page";
 @import "pages/detail";
 @import "components/articleItem";
 @import "components/projectItem";
+@import "components/classifyItem";
 @import "components/coolpanel";

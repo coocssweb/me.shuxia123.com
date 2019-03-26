@@ -3,7 +3,7 @@
  * 用于定于全局基础颜色、基础size
  */
 // 全局宽度
-$globalPcWidth: 1080px;
+$globalPcWidth: 980px;
 $globalMobileWidth: 750px;
 $globalBgColor: #fff;
 $globalBorderColor: #EBEBEB;
@@ -23,12 +23,15 @@ $colorPrimaryDark: rgb(0, 105, 109);
 $colorPrimaryHover: rgba(0, 132, 137, .05);
 $colorPrimaryActive: rgba(0, 132, 137, .15);
 $colorOrange: rgba(249,217,66,.4);
-$colorGreen: #57B173;
+$colorGreen: #44883e;
 $colorSkeleton: #f1f1f1;
 $colorSkeletonDark: #eee;
+$colorBlue: #1f73f3;
 // 大小
 $sizeXS: 12px;
 $sizeS: 14px;
 $sizeM: 16px;
 $sizeL: 24px;
 $sizeXL: 32px;
+$paddingSize: 16px;
+$paddingSizeHalf: 8px;

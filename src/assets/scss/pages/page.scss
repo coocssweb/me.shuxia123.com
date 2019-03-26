@@ -1,0 +1,58 @@
+.pageSlogan{
+    background-color: $colorBlue;
+    border-top: 1px solid #347eef;
+    padding: 20px 0px;
+    &-content {
+        max-width: $globalPcWidth;
+        box-sizing: border-box;
+        margin: 0px auto;
+        color: $colorWhite;
+        padding-left: 28px;
+        position: relative;
+        &:before{
+            content: '';
+            height: 100%;
+            width: 2px;
+            background-color: $colorWhite;
+            position: absolute;
+            left: $paddingSizeHalf;
+            top: 0px;
+        }
+    }
+    &-title{
+        font-size: 18px;
+    }
+    &-subtitle{
+        font-size: 12px;
+        margin-top: 10px;
+    }
+}
+
+.idea{
+    position: relative;
+    &Classify{
+        max-width: $globalPcWidth;
+        margin: 25px auto 0px auto;
+        box-sizing: border-box;
+        padding: 0px $paddingSizeHalf;
+    }
+
+    &List{
+        &-wrapper{
+            max-width: $globalPcWidth;
+            margin: 25px auto 0px auto;
+        }
+        .articleItem, .articleItemSkeleton{
+            margin-bottom: 25px;
+        }
+    }
+}
+
+.project{
+    &List{
+        &-wrapper{
+            max-width: $globalPcWidth;
+            margin: 25px auto 0px auto;
+        }
+    }
+}

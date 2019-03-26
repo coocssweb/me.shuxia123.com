@@ -1,8 +1,12 @@
 .home{
     &Slogan{
         text-align: center;
-        padding: 200px 0px;
-        background-image: linear-gradient(80deg, #00857a, #006a75) !important;
+        padding: 100px 0px;
+        //background-image: linear-gradient(80deg, #00857a, #006a75) !important;
+        //background-color: #f29aaa;
+        background-color: $colorBlue;
+        border-top: 1px solid #347eef;
+        background-position: center;
         color: $colorWhite;
         font-family: coofont;
         &-title{
@@ -14,7 +18,7 @@
             font-weight: 300;
             margin-top: 30px;
             mark{
-                background-color: rgba(250, 221, 77, 0.664);
+                background-color: rgba(255, 255, 00, 0.5);
                 color: $colorWhite;
                 display: inline;
                 padding: 0px 5px;
@@ -24,7 +28,6 @@
     &Recommend{
         padding: 50px 0px;
         &-project{
-            // background-color: #fcfcfc;
             border-bottom: 1px solid #f0f0f0;
             border-top: 1px solid #f0f0f0;
         }
@@ -35,25 +38,24 @@
         &-title{
             font-size: 30px;
             color: #484848;
+            padding-left: $paddingSizeHalf;
         }
         &-subtitle{
             color: $colorGray;
             font-size: 14px;
             margin-bottom: 50px;
             margin-top: 12px;
-        }
-        &-list{
-            display: flex;
-            justify-content: space-between;
+            padding-left: $paddingSizeHalf;
         }
         &-more{
             text-align: center;
             margin-top: 50px;
         }
-        &-line{
-            margin-bottom: 50px;
-            &:last-child{
-                margin-bottom: 0px;
+        &-projectList{
+            .projectItem-wrapper{
+                &:nth-child(3), &:nth-child(4){
+                    margin-bottom: 0px;
+                }
             }
         }
         &-item{
