@@ -7,6 +7,9 @@ class Index extends Base {
     fetchRecommendProjects () {
         return this.request({ path: 'recommend/projects', needDelay: true });
     }
+    fetchRecommendDemos () {
+        return this.request({ path: 'recommend/demos', needDelay: true });
+    }
     fetchClassifies () {
         return this.request({ path: 'classifies', needDelay: true });
     }

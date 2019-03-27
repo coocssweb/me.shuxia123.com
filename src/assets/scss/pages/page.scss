@@ -1,6 +1,6 @@
 .pageSlogan{
-    background-color: $colorBlue;
-    border-top: 1px solid #347eef;
+    background-color: #262c5a;
+    //border-top: 1px solid #262c5a;
     padding: 20px 0px;
     &-content {
         max-width: $globalPcWidth;
@@ -35,6 +35,13 @@
         margin: 25px auto 0px auto;
         box-sizing: border-box;
         padding: 0px $paddingSizeHalf;
+        overflow-x: auto;
+        &::-webkit-scrollbar {
+            display: none;
+        }
+        &-content{
+            white-space: nowrap;
+        }
     }
 
     &List{
@@ -53,6 +60,58 @@
         &-wrapper{
             max-width: $globalPcWidth;
             margin: 25px auto 0px auto;
+        }
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .page{
+        &.idea, &.projects, &.demos{
+            padding-top: 48px;
+        }
+    }
+
+    .body-detail{
+
+    }
+
+    .body-home{
+
+    }
+
+    .body-columns{
+
+    }
+
+    .pageSlogan{
+        background-color: transparent;
+        border-top: none;
+        padding-bottom: 0px;
+        &-content {
+            padding: 0px 8px;
+        }
+        &-title{
+            font-size: 18px;
+            color: #484848;
+        }
+        &-subtitle{
+            font-size: 14px;
+            margin-top: 5px;
+            color: $colorGray;
+            line-height: 18px;
+        }
+    }
+    .idea{
+        &Classify{
+            margin-top: 20px;
+        }
+        &List{
+            &-wrapper{
+                margin-top: 20px;
+            }
+            .articleItem, .articleItemSkeleton{
+                margin-bottom: 20px;
+            }
         }
     }
 }

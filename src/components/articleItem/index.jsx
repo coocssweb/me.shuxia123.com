@@ -6,8 +6,7 @@ export default (props) => {
     const titles = (article.title || ' ') .split(' ');
     return (
         <Link to={`/detail/${article.id}`} className={className('articleItem')}>
-            <div className={className('articleItem-photowrapper')}>
-                <img className={className('articleItem-photo')} src={article.posters[0]} />
+            <div className={className('articleItem-photo')} style={ {backgroundImage: `url(${ article.posters[0] })`} }>
             </div>
             <h2 className={className('articleItem-title')}>{ titles[0] }</h2>
             <p className={className('articleItem-description')}>{ titles[1] }</p>
@@ -18,7 +17,7 @@ export default (props) => {
 export const Skeleton = () => {
     return (
         <div className={className('articleItemSkeleton')}>
-            <div className={className('articleItemSkeleton-photowrapper')}>
+            <div className={className('articleItemSkeleton-photo')}>
             </div>
             <h2 className={className('articleItemSkeleton-title')}></h2>
             <p className={className('articleItemSkeleton-description')}></p>

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import className from 'classnames';
 import ArticleItem, { Skeleton as ArticleItemSkeleton } from '@components/articleItem';
 import ProjectItem, { Skeleton as ProjectItemSkeleton } from '@components/projectItem';
+import DemoItem, { Skeleton as DemoItemSkeleton } from '@components/demoItem';
 import { Link } from 'react-router-dom';
 import withPage from '../../hoc/withPage';
 
@@ -48,8 +49,11 @@ class Index extends Component {
         return (
             <div className={className('home page')}>
                 <div className={className('homeSlogan')}>
-                    <p className={className('homeSlogan-title')}>写「漂亮的」代码</p>
-                    <p className={className('homeSlogan-subtitle')}>It is a <mark>beautiful</mark> day, <mark>Don't</mark> let it get away.</p>
+                    <div className={className('homeSlogan-content')}>
+                        <p className={className('homeSlogan-title')}>写漂亮的代码</p>
+                        <p className={className('homeSlogan-subtitle')}>每一个不曾起舞的日子，都是对生命的辜负。</p>
+                        <p className={className('homeSlogan-author')}>--尼采</p>
+                    </div>
                 </div>
                 <div className={className('homeRecommend')}>
                     <div className={className('homeRecommend-content')}>
@@ -91,10 +95,9 @@ class Index extends Component {
                     <div className={className('homeRecommend-content')}>
                         <h2 className={className('homeRecommend-title')}>小实验室</h2>
                         <h3 className={className('homeRecommend-subtitle')}>去探索，即使从零开始，开始了就成功了90%</h3>
-                        <div className={className('homeRecommend-items')}>
-                            <a href="javascript:;" className={className('homeRecommend-item')}>绚丽的按钮</a>
-                            <a href="javascript:;" className={className('homeRecommend-item')}>有趣的Loading</a>
-                            <a href="javascript:;" className={className('homeRecommend-item')}>场景切换</a>
+                        <div className={className('homeRecommend-demoList')}>
+                            <DemoItem name="按钮" description="好看的按钮效果" />
+                            <DemoItem name="手势" description="演示常见的手势" />
                         </div>
                     </div>
                 </div>

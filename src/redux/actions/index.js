@@ -13,7 +13,17 @@ export const fetchRecommendIdeas = (callback) => {
 
 export const fetchRecommendProjects = (callback) => {
     return {
-        types: [actionTypes.RECOMMEND_PROJECTS_FETCH_REQUEST, actionTypes.RECOMMEND_PROJECTS_FETCH_SUCCESS, actionTypes.RECOMMEND_PROJECTS_FETCH_SUCCESS],
+        types: [actionTypes.RECOMMEND_PROJECTS_FETCH_REQUEST, actionTypes.RECOMMEND_PROJECTS_FETCH_SUCCESS, actionTypes.RECOMMEND_PROJECTS_FETCH_ERROR],
+        promise: () => {
+            return api.fetchRecommendProjects();
+        },
+        callback
+    };
+};
+
+export const fetchRecommendDemos = (callback) => {
+    return {
+        types: [actionTypes.RECOMMEND_DEMOS_FETCH_REQUEST, actionTypes.RECOMMEND_DEMOS_FETCH_SUCCESS, actionTypes.RECOMMEND_DEMOS_FETCH_ERROR],
         promise: () => {
             return api.fetchRecommendProjects();
         },

@@ -33,12 +33,10 @@ class Index extends Component {
         this.domGlobalHeader = document.querySelector('.globalHeader');
         this.domMask = document.querySelector('.detail-mask');
         document.addEventListener('scroll', this.handleScroll);
-        document.querySelector('body').classList.add('innerBody');
     }
 
     componentWillUnmount () {
         document.removeEventListener('scroll', this.handleScroll);
-        document.querySelector('body').classList.remove('innerBody');
         this.domGlobalHeader.style.backgroundColor = '';
     }
 
@@ -49,7 +47,6 @@ class Index extends Component {
         const opacityMask = scrollHeight * 0.35 + 0.45;
         this.domGlobalHeader.style.backgroundColor = `rgba(0, 0, 0, ${opacityGlobalHeader})`;
         this.domMask.style.opacity = opacityMask;
-        console.log(opacityMask, opacityGlobalHeader);
     }
 
     handleSkeletonExited () {

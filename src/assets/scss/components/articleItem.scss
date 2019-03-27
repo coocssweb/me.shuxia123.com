@@ -12,7 +12,6 @@
         .articleItem{
             &-photo{
                 filter: none;
-                transform: scale3d(1.03, 1.03, 1.03);
             }
             &-title{
                 color: $colorBlack;
@@ -20,23 +19,18 @@
         }
     }
     &-photo{
-        display: block;
-        filter: grayscale(100%);
-        transition: .5s ease;
-        position: absolute;
-        left: 0px;
-        top: 0px;
-        width: 100%;;
-    }
-    &-photowrapper{
         overflow: hidden;
         padding-bottom: 70%;
-        position: relative
+        position: relative;
+        background-size: cover;
+        background-position: center;
+        transition: .2s ease;
+        filter: grayscale(100%);
     }
     &-title{
         margin-top: 10px;
         color: $colorGray;
-        transition: .5s ease;
+        transition: .2s ease;
         font-size: 24px;
     }
     &-description{
@@ -49,7 +43,7 @@
         padding: 0px $paddingSizeHalf;
         box-sizing: border-box;
         float: left;
-        &-photowrapper{
+        &-photo{
             padding-bottom: 70%;
             background-color: $colorSkeleton;
         }
@@ -68,3 +62,22 @@
     }
 }
 
+@media screen and (max-width: 768px) {
+    .articleItem{
+        width: 50%;
+        &-photo{
+            padding-bottom: 80%;
+        }
+        &-title{
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        &-description{
+            margin-top: 5px;
+            font-size:12px;
+        }
+        &Skeleton{
+            width: 50%;
+        }
+    }
+}

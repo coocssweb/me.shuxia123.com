@@ -1,4 +1,4 @@
-.classifyItem{
+.demoItem{
     display: inline-block;
     background-color: $colorWhite;
     margin-right: 10px;
@@ -45,7 +45,7 @@
 }
 
 @media screen and (max-width: 768px) {
-    .classifyItem{
+    .demoItem{
         width: auto;
         padding: 10px 24px;
         &-name{

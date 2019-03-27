@@ -54,7 +54,9 @@ let ideas = async function (ctx, next) {
     }
     const result = await ArticleModel.fetch(query, page, size);
     const classifies = await TagModel.fetch();
-
+    const total = classifies.reduce((prev, current) => {
+        return prev + current.total;
+    }, 0);
     await ctx.render('index.html', {
         seo: {
             title: `想法_分享关于前端的一些想法 - ${SITE_NAME}`,
@@ -64,7 +66,7 @@ let ideas = async function (ctx, next) {
         data: {
             ideas: {
                 list: result,
-                classifies: [{ id: 0, name: '全部内容', path: '' }, ...classifies],
+                classifies: [{ id: 0, name: '所有', path: '', total }, ...classifies],
                 server: true
             }
         }

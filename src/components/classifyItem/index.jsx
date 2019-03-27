@@ -8,7 +8,8 @@ export default (props) => {
         <NavLink
             to={`${url}/${classify.path}`}
             className={className({'classifyItem': true, 'classifyItem--active': classify.path === path})}>
-            { classify.name }
+            <span className={className('classifyItem-name')}>{ classify.name }</span>
+            <span className={className('classifyItem-total')}>{ classify.total }篇文章</span>
         </NavLink>
     );
 };

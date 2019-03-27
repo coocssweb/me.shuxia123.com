@@ -100,13 +100,19 @@ ArticleSchema.methods = {
 
 // 静态查询方法
 ArticleSchema.statics = {
-    fetch: function (query, page = 1, size = 10) {
+    fetchAll: function (query, page = 1, size = 10) {
         const skip = (page - 1) * size;
-        const limit = size;
         return this.find(
             {
                 ...query
-            }, { _id: 0, content: 0, by: 0 }).skip(skip).limit(parseInt(limit)).sort({ id: -1 });
+            }, { _id: 0, by: 0 }).skip(skip).limit(parseInt(size)).sort({ id: -1 });
+    },
+    fetch: function (query, page = 1, size = 10) {
+        const skip = (page - 1) * size;
+        return this.find(
+            {
+                ...query
+            }, { _id: 0, content: 0, by: 0 }).skip(skip).limit(parseInt(size)).sort({ id: -1 });
     },
     findById: function (id) {
         return this.findOne({ id });
@@ -115,7 +121,7 @@ ArticleSchema.statics = {
         return this.remove({ id });
     },
     updateInclude: async function (condition, data) {
-        return this.update(condition, { $set: data });
+        return this.updateOne(condition, { $set: data });
     }
 };
 

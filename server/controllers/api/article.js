@@ -1,9 +1,10 @@
 import errorCode from '../../const/errorCode';
 import ArticleModel from '../../dao/models/article';
+import TagModel from '../../dao/models/tag';
 
 const fetch = async (ctx, next) => {
     const { page = 1, size = 10, classify } = ctx.request.query;
-    const result = await ArticleModel.fetch({ classify }, page, size);
+    const result = await ArticleModel.fetchAll({ classify }, page, size);
     ctx.body = ctx.bodyFormatter(undefined, result);
 };
 
@@ -20,12 +21,12 @@ const fetchOne = async (ctx, next) => {
 const create = async (ctx, next) => {
     const requestData = ctx.request.body;
     const article = new ArticleModel(requestData);
-    console.log(article);
     await new Promise((resolve, reject) => {
         article.save(error => {
             error ? reject(error) : resolve(article)
         });
     }).then((response) => {
+        TagModel.updateTotal(requestData.classify, 1);
         ctx.body = ctx.bodyFormatter(undefined, response);
     }, (error) => {
         ctx.body = ctx.bodyFormatter({ ...errorCode.CREATE_ERROR, desc: JSON.stringify(error) });
@@ -44,7 +45,9 @@ const edit = async (ctx, next) => {
 
 const remove = async (ctx, next) => {
     let { id } = ctx.params;
+    const result = await ArticleModel.findById(id);
     await ArticleModel.removeById(id).then((response) => {
+        TagModel.updateTotal(result.classify, -1);
         ctx.body = ctx.bodyFormatter(undefined);
     }, (error) => {
         ctx.body = ctx.bodyFormatter({ ...errorCode.REMOVE_ERROR, desc: JSON.stringify(error) });

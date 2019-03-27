@@ -1,15 +1,15 @@
 import * as actionTypes from '../constants';
 
 const initialState = {
-    server: false,
-    article: null
+    list: [],
+    server: false
 };
 
 export default (state = initialState, action) => {
     switch (action.type) {
-        case actionTypes.DETAIL_FETCH_SUCCESS:
+        case actionTypes.DEMOS_FETCH_SUCCESS:
             const { response } = action.result;
-            return Object.assign({}, state, { article: response, server: false });
+            return Object.assign({}, state, { list: response });
         default:
             return state;
     }

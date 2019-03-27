@@ -82,6 +82,7 @@ class Index extends Component {
                     </div>
                 </div>
                 <div className={className('ideaClassify')}>
+                    <div className={className('ideaClassify-content')}>
                     {
                         state.classifiesLoaded ? (
                             state.classifies.map(item => <ClassifyItem url='/ideas' path={state.classifyPath} classify={item} key={item.id} />)
@@ -89,6 +90,7 @@ class Index extends Component {
                             this.skeletonArray.map((item, index) => <ClassifyItemSkeleton key={index} />)
                         )
                     }
+                    </div>
                 </div>
                 <div className={className('ideaList-wrapper')}>
                     <div className={className('ideaList articleList clearfix')}>

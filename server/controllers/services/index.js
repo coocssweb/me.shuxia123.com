@@ -17,7 +17,10 @@ const fetchRecommendProjects = async (ctx, next) => {
 
 const fetchClassifies = async (ctx, next) => {
     const result = await TagModel.fetch();
-    ctx.body = ctx.bodyFormatter(undefined, [{ id: 0, name: '全部内容', path: '' }, ...result]);
+    const total = result.reduce((prev, current) => {
+        return prev + current.total;
+    }, 0);
+    ctx.body = ctx.bodyFormatter(undefined, [{ id: 0, name: '所有', path: '', total }, ...result]);
 };
 
 const fetchIdeas = async (ctx, next) => {
