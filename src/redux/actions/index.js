@@ -25,7 +25,7 @@ export const fetchRecommendDemos = (callback) => {
     return {
         types: [actionTypes.RECOMMEND_DEMOS_FETCH_REQUEST, actionTypes.RECOMMEND_DEMOS_FETCH_SUCCESS, actionTypes.RECOMMEND_DEMOS_FETCH_ERROR],
         promise: () => {
-            return api.fetchRecommendProjects();
+            return api.fetchRecommendDemos();
         },
         callback
     };
@@ -62,6 +62,16 @@ export const fetchProjects = (page, callback) => {
     };
 };
 
+export const fetchDemos = (callback) => {
+    return {
+        types: [actionTypes.DETAIL_FETCH_REQUEST, actionTypes.DEMOS_FETCH_SUCCESS, actionTypes.DEMOS_FETCH_ERROR],
+        promise: () => {
+            return api.fetchDemos();
+        },
+        callback
+    };
+};
+
 export const fetchDetail = (id, callback) => {
     return {
         types: [actionTypes.DETAIL_FETCH_REQUEST, actionTypes.DETAIL_FETCH_SUCCESS, actionTypes.DETAIL_FETCH_ERROR],
@@ -69,5 +79,11 @@ export const fetchDetail = (id, callback) => {
             return api.fetchDetail(id);
         },
         callback
+    };
+};
+
+export const resetDetailServer = () => {
+    return {
+        type: actionTypes.DETAIL_RESET_SERVER
     };
 };

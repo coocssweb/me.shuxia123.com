@@ -64,6 +64,17 @@
     }
 }
 
+.demos{
+    &List{
+        &-wrapper{
+            max-width: $globalPcWidth;
+            margin: 25px auto 0px auto;
+            box-sizing: border-box;
+            padding: 0px 8px;
+        }
+    }
+}
+
 @media screen and (max-width: 768px) {
     .page{
         &.idea, &.projects, &.demos{
@@ -112,6 +123,12 @@
             .articleItem, .articleItemSkeleton{
                 margin-bottom: 20px;
             }
+        }
+    }
+
+    .demosList{
+        .demoItemSkeleton{
+            margin-bottom: 10px;
         }
     }
 }

@@ -9,18 +9,26 @@ import withPage from '../../hoc/withPage';
 class Index extends Component {
     constructor (props) {
         super(props);
+
+        this.ideasSkeletonArray = Array(3).fill('');
+        this.projectsSkeletonArray = Array(4).fill('');
+        this.demosSkeletonArray = Array(5).fill('');
+
         this.state = {
             ideasLoaded: props.server || props.ideas.length > 0,
             projectsLoaded: props.server || props.projects.length > 0,
-            ideas: props.server ? props.ideas : Array(3).fill(''),
-            projects: props.server ? props.projects : Array(4).fill('')
+            demosLoaded: props.server || props.demos.length > 0,
+            ideas: props.ideas,
+            projects: props.projects,
+            demos: props.demos,
         };
     }
 
     static getDerivedStateFromProps (props, state) {
         return {
-            ideas: props.ideas.length ? props.ideas : Array(3).fill(''),
-            projects: props.projects.length ? props.projects : Array(4).fill('')
+            ideas: props.ideas,
+            projects: props.projects,
+            demos: props.demos,
         };
     }
 
@@ -36,6 +44,11 @@ class Index extends Component {
             props.fetchRecommendProjects((result) => {
                 this.setState({
                     projectsLoaded: true
+                });
+            });
+            props.fetchRecommendDemos((result) => {
+                this.setState({
+                    demosLoaded: true
                 });
             });
         }
@@ -64,7 +77,7 @@ class Index extends Component {
                                 state.ideasLoaded ? (
                                     state.ideas.map(item => <ArticleItem article={item} key={item.id} />)
                                 ) : (
-                                    state.ideas.map((item, index) => <ArticleItemSkeleton key={index} />)
+                                    this.ideasSkeletonArray.map((item, index) => <ArticleItemSkeleton key={index} />)
                                 )
                             }
                         </div>
@@ -82,7 +95,7 @@ class Index extends Component {
                                 state.ideasLoaded ? (
                                     state.projects.map(item => <ProjectItem project={item} key={item.id} />)
                                 ) : (
-                                    state.projects.map((item, index) => <ProjectItemSkeleton key={index} />)
+                                    this.projectsSkeletonArray.map((item, index) => <ProjectItemSkeleton key={index} />)
                                 )
                             }
                         </div>
@@ -96,8 +109,13 @@ class Index extends Component {
                         <h2 className={className('homeRecommend-title')}>小实验室</h2>
                         <h3 className={className('homeRecommend-subtitle')}>去探索，即使从零开始，开始了就成功了90%</h3>
                         <div className={className('homeRecommend-demoList')}>
-                            <DemoItem name="按钮" description="好看的按钮效果" />
-                            <DemoItem name="手势" description="演示常见的手势" />
+                            {
+                                state.demosLoaded ? (
+                                    state.demos.map(item => <DemoItem demo={item} key={item.id} />)
+                                ) : (
+                                    this.demosSkeletonArray.map((item, index) => <DemoItemSkeleton key={index} />)
+                                )
+                            }
                         </div>
                     </div>
                 </div>

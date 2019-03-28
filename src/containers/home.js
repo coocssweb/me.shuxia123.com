@@ -13,7 +13,8 @@ function mapStateToProps (state) {
 function mapDispatchToProps (dispatch) {
     return {
         fetchRecommendIdeas: (callback) => dispatch(actions.fetchRecommendIdeas(callback)),
-        fetchRecommendProjects: (callback) => dispatch(actions.fetchRecommendProjects(callback))
+        fetchRecommendProjects: (callback) => dispatch(actions.fetchRecommendProjects(callback)),
+        fetchRecommendDemos: (callback) => dispatch(actions.fetchRecommendDemos(callback))
     };
 }
 

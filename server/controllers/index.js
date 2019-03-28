@@ -1,12 +1,14 @@
 import ArticleModel from '../dao/models/article';
 import ProjectModel from '../dao/models/project';
 import TagModel from '../dao/models/tag';
+import DemoModel from '../dao/models/demo';
 
 const SITE_NAME = '王佳欣的小站';
 
 let home = async function (ctx, next) {
     const ideas = await ArticleModel.fetch({ }, 1, 3);
     const projects = await ProjectModel.fetch({ }, 1, 4);
+    const demos = await DemoModel.fetch({ }, 1, 5);
 
     await ctx.render('index.html', {
         seo: {
@@ -18,6 +20,7 @@ let home = async function (ctx, next) {
             home: {
                 ideas,
                 projects,
+                demos,
                 server: true
             }
         }
@@ -37,6 +40,25 @@ let projects = async function (ctx, next) {
         },
         data: {
             projects: {
+                list: result,
+                server: true
+            }
+        }
+    });
+    await next();
+};
+
+let demos = async function (ctx, next) {
+    const { page = 1, size = 10 } = ctx.request.query;
+    const result = await DemoModel.fetch({}, page, size);
+    await ctx.render('index.html', {
+        seo: {
+            title: `实验室_分享小实验demo - ${SITE_NAME}`,
+            keyword: '王佳欣的小实验,王佳欣的demo,王佳欣的探索',
+            description: '分享我的一些实验demo，去探索，即使从零开始，开始了就成功了90%。'
+        },
+        data: {
+            demos: {
                 list: result,
                 server: true
             }
@@ -98,5 +120,6 @@ module.exports = {
     home,
     ideas,
     projects,
+    demos,
     detail
 };

@@ -2,6 +2,7 @@ import errorCode from '../../const/errorCode';
 import ArticleModel from '../../dao/models/article';
 import ProjectModel from '../../dao/models/project';
 import TagModel from '../../dao/models/tag';
+import DemoModel from '../../dao/models/demo';
 
 const fetchRecommendIdeas = async (ctx, next) => {
     const { page = 1, size = 3 } = ctx.request.query;
@@ -12,6 +13,12 @@ const fetchRecommendIdeas = async (ctx, next) => {
 const fetchRecommendProjects = async (ctx, next) => {
     const { page = 1, size = 3 } = ctx.request.query;
     const result = await ProjectModel.fetch({ }, page, size);
+    ctx.body = ctx.bodyFormatter(undefined, result);
+};
+
+const fetchRecommendDemos = async (ctx, next) => {
+    const { page = 1, size = 5 } = ctx.request.query;
+    const result = await DemoModel.fetch({ }, page, size);
     ctx.body = ctx.bodyFormatter(undefined, result);
 };
 
@@ -40,6 +47,11 @@ const fetchProjects = async (ctx, next) => {
     ctx.body = ctx.bodyFormatter(undefined, result);
 };
 
+const fetchDemos = async (ctx, next) => {
+    const { page = 1, size = 10 } = ctx.request.query;
+    const result = await DemoModel.fetch({ }, page, size);
+    ctx.body = ctx.bodyFormatter(undefined, result);
+};
 
 const fetchOne = async (ctx, next) => {
     const { id } = ctx.params;
@@ -54,8 +66,10 @@ const fetchOne = async (ctx, next) => {
 export default {
     fetchRecommendIdeas,
     fetchRecommendProjects,
+    fetchRecommendDemos,
     fetchClassifies,
     fetchIdeas,
     fetchProjects,
+    fetchDemos,
     fetchOne
 };

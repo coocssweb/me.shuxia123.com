@@ -5,6 +5,7 @@ import Home from '../containers/home';
 import Detail from '../containers/detail';
 import Ideas from '../containers/ideas';
 import Projects from '../containers/projects';
+import Demos from '../containers/demos';
 import { windowScroll } from '../components/utils/domHelper'
 
 class Index extends Component {
@@ -17,7 +18,6 @@ class Index extends Component {
     }
 
     handleOpenNav () {
-
         windowScroll(this.state.haveOpened);
         this.setState({
             haveOpened: !this.state.haveOpened
@@ -36,7 +36,7 @@ class Index extends Component {
                             <span className={className('globalHeader-logo--b')}></span>
                             <span className={className('globalHeader-logo--n')}>欣</span>
                         </Link>
-                        <nav className={className('globalHeader-nav')}>
+                        <nav className={className('globalHeader-nav globalHeader-nav--mobile')}>
                             <Link
                                 to="/"
                                 className={className('globalHeader-menu')}
@@ -53,6 +53,20 @@ class Index extends Component {
                                 to="/demos"
                                 className={className('globalHeader-menu')}
                                 onClick={this.handleOpenNav}>实验室</Link>
+                        </nav>
+                        <nav className={className('globalHeader-nav globalHeader-nav--pc')}>
+                            <Link
+                                to="/"
+                                className={className('globalHeader-menu')}>首页</Link>
+                            <Link
+                                to={`/ideas/${this.props.classify || ''}`}
+                                className={className('globalHeader-menu')}>我的想法</Link>
+                            <Link
+                                to="/projects"
+                                className={className('globalHeader-menu')}>开源项目</Link>
+                            <Link
+                                to="/demos"
+                                className={className('globalHeader-menu')}>实验室</Link>
                         </nav>
                         <a
                             href="javascript:;"
@@ -71,6 +85,7 @@ class Index extends Component {
                     <Route path="/ideas" component={Ideas} exact />
                     <Route path="/ideas/:classify" component={Ideas} exact />
                     <Route path="/projects" component={Projects} exact />
+                    <Route path="/demos" component={Demos} exact />
                 </Switch>
             </React.Fragment>
         );

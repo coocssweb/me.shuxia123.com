@@ -10,6 +10,7 @@ class Index extends Component {
         super(props);
         this.handleSkeletonExited = this.handleSkeletonExited.bind(this);
         this.handleScroll = this.handleScroll.bind(this);
+        const { id } = this.props.match.params;
         this.state = {
             loaded: props.server,
             loadOver: props.server,
@@ -25,11 +26,20 @@ class Index extends Component {
 
     componentDidMount () {
         const { id } = this.props.match.params;
-        this.props.fetchDetail(id, () => {
-            this.setState({
-                loaded: true
+        if (!this.state.loaded) {
+            this.props.fetchDetail(id, () => {
+                this.setState({
+                    loaded: true
+                });
             });
-        });
+        }
+
+        if ( this.props.server ) {
+            // 重置服务端渲染状态
+            // 确保服务端渲染内容，只在首次起作用
+            this.props.resetServer();
+        }
+
         this.domGlobalHeader = document.querySelector('.globalHeader');
         this.domMask = document.querySelector('.detail-mask');
         document.addEventListener('scroll', this.handleScroll);
@@ -95,7 +105,6 @@ class Index extends Component {
                         </CSSTransition>
                     ) : null
                 }
-
             </div>
         );
     }

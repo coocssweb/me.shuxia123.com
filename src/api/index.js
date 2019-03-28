@@ -19,6 +19,9 @@ class Index extends Base {
     fetchProjects (page) {
         return this.request({ path: 'projects', needDelay: true });
     }
+    fetchDemos () {
+        return this.request({ path: 'demos', needDelay: true });
+    }
     fetchDetail (id) {
         return this.request({ path: `detail/${id}`, needDelay: true });
     }

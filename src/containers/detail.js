@@ -13,6 +13,7 @@ function mapStateToProps (state) {
 function mapDispatchToProps (dispatch) {
     return {
         fetchDetail: (id, callback) => dispatch(actions.fetchDetail(id, callback)),
+        resetServer: () => dispatch(actions.resetDetailServer())
     };
 }
 

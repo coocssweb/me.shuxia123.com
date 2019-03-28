@@ -66,7 +66,7 @@ $marginSize: 50px;
     }
     &-photo{
         display: block;
-        max-width: 100%;
+        width: 100%;
         margin-bottom: 10px;
         &:last-child{
             margin-bottom: 0px;
@@ -84,6 +84,9 @@ $marginSize: 50px;
             &:last-child{
                 margin-bottom: 0px;
             }
+        }
+        img{
+            width: 100%;
         }
     }
     &-toolbar{
@@ -109,7 +112,7 @@ $marginSize: 50px;
 .detailSkeleton{
     padding-top: 200px;
     padding-bottom: 50px;
-    width: $globalMobileWidth;
+    max-width: $globalMobileWidth;
     margin: 0px auto;
     &-wrapper{
         background-color: $colorWhite;
@@ -177,7 +180,6 @@ $marginSize: 50px;
     &-content{
         padding: 50px;
         p{
-            margin-top: 12px;
             background-color: $colorSkeletonDark;
             width: 100%;
             height: 16px;
@@ -232,6 +234,49 @@ $marginSize: 50px;
             font-size: 14px;
             p{
                 margin: 0px 24px 10px 24px;
+            }
+        }
+    }
+
+    .detailSkeleton{
+        padding-top: 50px;
+        &-wrapper {
+        }
+        &-title{
+            padding: 24px 24px 0px 24px;
+            p{
+                width: 100%;
+                height: 24px;
+                margin-top: 5px;
+                margin-left: 0px;
+                &:last-child{
+                    width: 30%;
+                }
+            }
+            &:after{
+                display: none;
+            }
+        }
+        &-info{
+            padding: 24px 24px 24px 74px;
+        }
+        &-avatar{
+            top: 24px;
+            width: 40px;
+            height: 40px;
+            left: 24px;
+        }
+        &-user{
+            height: 40px;
+        }
+        &-photolist{
+            padding-bottom: 100%;
+            height: auto;
+        }
+        &-content{
+            padding: 24px;
+            p{
+                margin-bottom: 10px;
             }
         }
     }
