@@ -3,7 +3,16 @@ export default (WrappedComponent) => {
     class Index extends Component {
         componentDidMount () {
             window.scrollTo(0, 0);
-            document.querySelector('body').classList.add(this.getUrl());
+            const url = this.getUrl();
+            document.querySelector('body').classList.add(url);
+            /*eslint-disable*/
+            // 百度PV统计
+            // const { id } = this.props.match.params;
+            // let pageUrl = url.replace('body-', '');
+            // if (id) {
+            //     pageUrl = `${pageUrl}/${id}`;
+            // }
+            // _hmt.push(['_trackPageview', `https://www.shuxia123.com/${pageUrl}`]);
         }
 
         getUrl () {

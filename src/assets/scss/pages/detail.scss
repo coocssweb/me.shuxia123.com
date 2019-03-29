@@ -89,23 +89,9 @@ $marginSize: 50px;
             width: 100%;
         }
     }
-    &-toolbar{
-        text-align: center;
-        margin-top: $marginSize;
-    }
-    &-likecount{
-        color: $colorWhite;
-        margin-bottom: 20px;
-        mark{
-            background-color: $colorOrange;
-        }
-    }
-    &-like{
-        box-shadow: rgba(0, 0, 0, 0.12) 0px 3px 10px;
-        &:hover{
-            transform: translate3d(0px, -1px, 0px);
-            box-shadow: rgba(0, 0, 0, 0.3) 0px 3px 10px;
-        }
+    &-discuss{
+        background-color: $colorWhite;
+        padding: 60px;
     }
 }
 
@@ -235,6 +221,9 @@ $marginSize: 50px;
             p{
                 margin: 0px 24px 10px 24px;
             }
+        }
+        &-discuss{
+            padding: 24px;
         }
     }
 

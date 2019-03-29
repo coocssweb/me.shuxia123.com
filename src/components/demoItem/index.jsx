@@ -8,6 +8,7 @@ export default (props) => {
         <a
             href={ path }
             target="_blank"
+            rel="nofollow"
             className={className({'demoItem': true})}>
             <span className={className('demoItem-name')}>{ name }</span>
             <span className={className('demoItem-total')}>{ description }</span>

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import className from 'classnames';
 import { CSSTransition } from 'react-transition-group';
+import Discuss from '@components/discuss';
+import HighLightJavascript from 'highlight.js/lib/languages/javascript';
 import withPage from '../../hoc/withPage';
 import Skeletion from './skeleton';
 import {formatDate} from '../../utils'
@@ -43,6 +45,14 @@ class Index extends Component {
         this.domGlobalHeader = document.querySelector('.globalHeader');
         this.domMask = document.querySelector('.detail-mask');
         document.addEventListener('scroll', this.handleScroll);
+    }
+
+    componentDidUpdate () {
+        if (this.state.loaded) {
+            document.querySelectorAll('pre code').forEach((block) => {
+                HighLightJavascript.highlightBlock(block);
+            });
+        }
     }
 
     componentWillUnmount () {
@@ -91,6 +101,13 @@ class Index extends Component {
                                 }
                             </div>
                             <div className={className('detail-content')} dangerouslySetInnerHTML={{__html: article.content}}></div>
+                            <div className={className('detail-discuss')}>
+                                <Discuss
+                                    shortname="www-shuxia123-com"
+                                    identifier={`${article.id}`}
+                                    title={article.title}
+                                    />
+                            </div>
                         </div>
                     ) : null
                 }

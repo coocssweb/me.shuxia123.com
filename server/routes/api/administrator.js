@@ -10,7 +10,7 @@ router.get('/auth/info',
     passport.authenticate('administrator', { session: false }), 
     apiControl.fetchOne);
 
-// router.post( '/init', apiControl.create );
+router.post( '/init', apiControl.create );
 
 router.put(
     '/auth', 
