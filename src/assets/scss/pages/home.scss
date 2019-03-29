@@ -83,14 +83,14 @@
     .homeSlogan-content {
         background-clip: text;
         color: transparent !important;
-        background-image: url(https://www.apple.com/v/iphone-xr/d/images/overview/copy_texture_4_small.jpg);
+        background-image: url(//assets.shuxia123.com/images/text-bg.jpg);
         animation: backgroundMove 10s linear infinite alternate;
     }
 }
 @media screen and (max-width: 768px) {
     .home {
         &Slogan{
-            background-image: url(https://coocssweb.github.io/photos/mbg6.jpg);
+            background-image: url(//assets.shuxia123.com/images/index-bg.jpg);
             background-color: #000;
             background-size: cover;
             background-position: center;

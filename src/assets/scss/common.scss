@@ -3,12 +3,6 @@
 @import "base/button";
 @import "base/animation";
 @import "base/global";
-@font-face {
-    font-family: 'coofont';
-    src:  url('http://ssupload.qingmang.mobi/qingmang-website/static/fonts/FZNBSJW.c1b6c5e.woff2');
-    font-weight: normal;
-    font-style: normal;
-}
 body{
     background-color: $globalBgColor;
     font-family: -apple-system,"Helvetica Neue","Roboto","Arial","PingFang SC",sans-serif;
