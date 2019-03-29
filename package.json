@@ -5,9 +5,9 @@
   "main": "app.js",
   "scripts": {
     "start": "webpack-dev-server --config build/webpack.dev.config.js --open --hot",
-    "server:dev": "export NODE_ENV=development && nodemon ./server/index.js",
+    "server:dev": "nodemon ./server/index.js",
     "server-debug": "nodemon --inspect index.js",
-    "server": "export NODE_ENV=production && pm2 start ./server/index.js",
+    "server": "pm2 start ./server/index.js",
     "build:local": "webpack --mode production --config build/webpack.local.config.js --progress --hide-modules",
     "build:test": "webpack --mode production --config build/webpack.test.config.js --progress --hide-modules",
     "build": "webpack --mode production --config build/webpack.production.config.js --progress --hide-modules",

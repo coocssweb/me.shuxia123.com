@@ -1,7 +1,7 @@
 export default {
     // 正式环境
     production: {
-        host: 'me.shuxia123.com',
+        host: 'www.shuxia123.com',
         watch: false,
         noCache: false
     },
@@ -17,4 +17,4 @@ export default {
         watch: true,
         noCache: true
     }
-}[process.env.NODE_ENV];
+}['production'];
