@@ -19,8 +19,8 @@ module.exports = function (mode) {
         output: {
             path: resolve('../www.shuxia123.com_dist'),
             publicPath: configMode.publicPath,
-            filename: configMode.noHash ? '[name].js' : '[name].[chunkhash].js',
-            chunkFilename: configMode.noHash ? '[name].js' : '[name].[chunkhash].js'
+            filename: configMode.noHash ? '[name].js' : 'js/[name].[chunkhash].js',
+            chunkFilename: configMode.noHash ? '[name].js' : 'js/[name].[chunkhash].js'
         },
         module: {
             rules: [
