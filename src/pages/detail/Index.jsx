@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import className from 'classnames';
 import { CSSTransition } from 'react-transition-group';
 import Discuss from '@components/discuss';
-import HighLightJavascript from 'highlight.js/lib/languages/javascript';
+import HighLight from 'highlight.js/lib/highlight';
+import Javascript from 'highlight.js/lib/languages/javascript';
 import withPage from '../../hoc/withPage';
 import Skeletion from './skeleton';
 import {formatDate} from '../../utils'
@@ -50,7 +51,7 @@ class Index extends Component {
     componentDidUpdate () {
         if (this.state.loaded) {
             document.querySelectorAll('pre code').forEach((block) => {
-                HighLightJavascript.highlightBlock(block);
+                HighLight.registerLanguage('Javascript', Javascript);
             });
         }
     }

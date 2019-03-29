@@ -39,7 +39,7 @@ const upload = async (ctx, next) => {
         };
 
         let newFileName = await renameFunc();
-        ctx.body = ctx.bodyFormatter(undefined, { filename: `${Config.host}${fileDir}${newFileName}.${extName}` });
+        ctx.body = ctx.bodyFormatter(undefined, { filename: `${Config.assets}${fileDir}${newFileName}.${extName}` });
     } catch (e) {
         console.log(e);
         ctx.body = ctx.bodyFormatter({ ...errorCode.UPLOAD_ERROR, desc: JSON.stringify(e) });
