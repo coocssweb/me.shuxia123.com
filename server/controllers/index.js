@@ -2,6 +2,7 @@ import ArticleModel from '../dao/models/article';
 import ProjectModel from '../dao/models/project';
 import TagModel from '../dao/models/tag';
 import DemoModel from '../dao/models/demo';
+import contentFormatter from '../utils/articleContentFormatter';
 
 const SITE_NAME = '王佳欣的小站';
 
@@ -99,6 +100,7 @@ let ideas = async function (ctx, next) {
 let detail = async function (ctx, next) {
     const { id } = ctx.params;
     const result = await ArticleModel.findById(id);
+    result.content = contentFormatter(result.content);
 
     await ctx.render('index.html', {
         seo: {

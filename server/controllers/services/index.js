@@ -3,6 +3,7 @@ import ArticleModel from '../../dao/models/article';
 import ProjectModel from '../../dao/models/project';
 import TagModel from '../../dao/models/tag';
 import DemoModel from '../../dao/models/demo';
+import contentFormatter from '../../utils/articleContentFormatter';
 
 const fetchRecommendIdeas = async (ctx, next) => {
     const { page = 1, size = 3 } = ctx.request.query;
@@ -56,6 +57,7 @@ const fetchDemos = async (ctx, next) => {
 const fetchOne = async (ctx, next) => {
     const { id } = ctx.params;
     const result = await ArticleModel.findById(id);
+    result.content = contentFormatter(result.content);
     if (result) {
         ctx.body = ctx.bodyFormatter(undefined, result);
     } else {

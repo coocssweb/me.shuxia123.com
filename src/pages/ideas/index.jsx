@@ -7,7 +7,8 @@ import withPage from '../../hoc/withPage';
 class Index extends Component {
     constructor (props) {
         super(props);
-        this.skeletonArray = Array(5).fill(null);
+        this.skeletonArray = Array(3).fill(null);
+        this.skeletonClassifyArray = Array(5).fill(null);
         const { classify = '' } = this.props.match.params;
         this.state = {
             classifyPath: classify,
@@ -44,6 +45,9 @@ class Index extends Component {
                     classifiesLoaded: true
                 });
             });
+        }
+
+        if (!props.server && !this.state.ideas.length) {
             props.fetchIdeas({ classify: this.state.classifyPath, page: 1 }, (result) => {
                 this.setState({
                     ideasLoaded: true
@@ -87,7 +91,7 @@ class Index extends Component {
                         state.classifiesLoaded ? (
                             state.classifies.map(item => <ClassifyItem url='/ideas' path={state.classifyPath} classify={item} key={item.id} />)
                         ) : (
-                            this.skeletonArray.map((item, index) => <ClassifyItemSkeleton key={index} />)
+                            this.skeletonClassifyArray.map((item, index) => <ClassifyItemSkeleton key={index} />)
                         )
                     }
                     </div>

@@ -6,8 +6,8 @@
         top: 0px;
         height: 60px;
         z-index: 3;
-        //background-color: $colorBlue;
-        background-image: url(https://static.smartisanos.cn/jianguopro2s/assets/images/bg-shinyblue@2x.7f23cb5e5f3802fc103f410c9d308fdf.png);
+
+        background: #0f0f0f url(https://res.wx.qq.com/open/zh_CN/htmledition/res/img/bg/head_box_bg23b8804.png) no-repeat center;
         background-repeat: repeat-x;
         background-position: left bottom;
         &-content{
@@ -26,7 +26,7 @@
         &-menu{
             display: inline-block;
             text-decoration: none;
-            color: $colorWhite;
+            color: #b6b6b6;
             font-size: 15px;
             margin-right: 30px;
             padding: 0px 10px;
@@ -51,19 +51,19 @@
                 display: block;
                 height: 16px;
                 width: 16px;;
-                background-color: $colorWhite;
+                background-color: #b6b6b6;
                 position: absolute;
                 line-height: 16px;
                 text-align: center;
                 box-sizing: border-box;
                 font-size: 12px;
-                color: $colorWhite;
+                color: #b6b6b6;
             }
             &--l{
                 left: 0px;
                 top: 0px;
                 background-color: transparent !important;
-                border-top: 1px solid $colorWhite;
+                border-top: 1px solid #b6b6b6;
             }
             &--r{
                 top: 0px;
@@ -78,7 +78,7 @@
                 bottom: 0px;
                 text-align: center;
                 background-color: transparent !important;
-                border-right: 1px solid $colorWhite;
+                border-right: 1px solid #b6b6b6;
             }
         }
         &-btn{

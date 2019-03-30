@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import className from 'classnames';
 import { CSSTransition } from 'react-transition-group';
 import Discuss from '@components/discuss';
-import HighLight from 'highlight.js/lib/highlight';
-import Javascript from 'highlight.js/lib/languages/javascript';
 import withPage from '../../hoc/withPage';
 import Skeletion from './skeleton';
 import {formatDate} from '../../utils'
+
+let __prismAdded = false;
+let __prismLoaded = false;
 
 class Index extends Component {
     constructor (props) {
@@ -15,6 +16,7 @@ class Index extends Component {
         this.handleScroll = this.handleScroll.bind(this);
         const { id } = this.props.match.params;
         this.state = {
+            decorated: false,
             loaded: props.server,
             loadOver: props.server,
             article: props.article
@@ -46,14 +48,11 @@ class Index extends Component {
         this.domGlobalHeader = document.querySelector('.globalHeader');
         this.domMask = document.querySelector('.detail-mask');
         document.addEventListener('scroll', this.handleScroll);
+        this.addPrismJsScript();
     }
 
     componentDidUpdate () {
-        if (this.state.loaded) {
-            document.querySelectorAll('pre code').forEach((block) => {
-                HighLight.registerLanguage('Javascript', Javascript);
-            });
-        }
+        this.decorateCode();
     }
 
     componentWillUnmount () {
@@ -76,6 +75,38 @@ class Index extends Component {
         });
     }
 
+    decorateCode () {
+        if (__prismLoaded && this.state.loaded && !this.state.decorated) {
+            this.state.decorated = true;
+            Array.prototype.forEach.call(document.querySelectorAll('pre code'), (el) => {
+                el.parentNode.innerHTML = `<code class="language-javascript">${el.innerHTML}</code>`;
+            });
+        }
+    }
+
+    addPrismJsScript() {
+        if (__prismAdded) {
+            return;
+        }
+
+        const childJs = this.disqus = document.createElement('script');
+        const childCss = this.disqus = document.createElement('link');
+        const parent = document.getElementsByTagName('head')[0];
+
+        childJs.onload = () => {
+            __prismLoaded = true;
+            this.decorateCode();
+        };
+
+        childJs.type = 'text/javascript';
+        childJs.src = '//assets.shuxia123.com/js/prism.js';
+        childCss.rel = 'stylesheet';
+        childCss.href = '//assets.shuxia123.com/css/prism.css';
+        parent.appendChild(childJs);
+        parent.appendChild(childCss);
+        __prismAdded = true;
+    }
+
     render () {
         const { article, loaded, loadOver } = this.state;
         const titles = loaded ? article.title.split(' ') : [];
@@ -92,7 +123,7 @@ class Index extends Component {
                             <div className={className('detail-info')}>
                                 <img src="https://coocssweb.github.io/photos/personal.jpeg" className={className('detail-avatar')} />
                                 <div className={className('detail-user')}>
-                                    <p className={className('detail-author')}>作者: {article.author}{article.id}</p>
+                                    <p className={className('detail-author')}>作者: {article.author || '王佳欣' }</p>
                                     <p className={className('detail-date')}>日期: {formatDate(article.createAt, 'yyyy.MM.dd')}</p>
                                 </div>
                             </div>

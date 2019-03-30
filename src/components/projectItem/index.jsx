@@ -8,7 +8,9 @@ export default (props) => {
                 <div className={className('projectItem-content')}>
                     <h2 className={className('projectItem-title')}>{ project.name }</h2>
                     <p className={className('projectItem-description')}>{ project.description }</p>
-                    <a href={project.path} rel="nofollow" target="_blank" className={className('projectItem-more')}>了解更多</a>
+                    <div className={className('projectItem-footer')}>
+                        <a href={project.path} rel="nofollow" target="_blank" className={className('projectItem-more')}>了解更多</a>
+                    </div>
                 </div>
             </div>
         </div>

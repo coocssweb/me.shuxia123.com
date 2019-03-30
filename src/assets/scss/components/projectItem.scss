@@ -1,6 +1,6 @@
 .projectItem{
-    padding: 30px;
-    border: 1px solid #e6e6e6;
+    background-color: #fcfbf9;
+    padding: 0px 20px;
     &-wrapper{
         width: 50%;
         float: left;
@@ -9,31 +9,34 @@
         margin-bottom: 16px;
     }
     &-title{
-        font-size: 24px;
-        font-weight: 300;
-        color: $colorGreen;
+        font-size: 16px;
+        font-weight: 800;
+        color: $colorBlack;
+        padding-top: 20px;
     }
     &-description{
-        margin-top: 15px;
-        line-height: 1.8;
-        color: $colorGray;
-        font-size: 13px;
+        margin-top: 20px;
+        line-height: 1.5;
+        color: $colorBlack;
+        font-size: 14px;
+        position: relative;
+    }
+    &-footer{
+        text-align: center;
+        padding: 20px 0px;
     }
     &-more{
         display: inline-block;
-        margin-top: 15px;
-        color: $colorWhite;
-        background-color: $colorGreen;
-        padding: 5px 10px;
-        font-size: 12px;
+        color: $colorGreen;
+        font-size: 13px;
         &:hover{
             text-decoration: underline;
         }
     }
 
     &Skeleton{
-        padding: 30px;
-        border: 1px solid #e6e6e6;
+        padding: 20px;
+        background-color: #fcfbf9;
         &-wrapper{
             width: 50%;
             float: left;
@@ -43,11 +46,11 @@
         }
         &-title{
             background-color: $colorSkeleton;
-            width: 50%;
-            height: 27px;
+            width: 30%;
+            height: 18px;
         }
         &-description{
-            margin-top: 15px;
+            margin-top: 20px;
             p{
                 height: 13px;
                 background-color: $colorSkeleton;
@@ -58,11 +61,11 @@
             }
         }
         &-more{
-            margin-top: 15px;
-            height: 12px;
+            height: 13px;
             background-color: $colorSkeleton;
             width: 70px;
-            display: inline-block;
+            display: block;
+            margin: 20px auto 0px auto;
         }
     }
 }

@@ -6,7 +6,7 @@ import withPage from '../../hoc/withPage';
 class Index extends Component {
     constructor (props) {
         super(props);
-        this.skeletonArray = Array(4).fill(null);
+        this.skeletonArray = Array(3).fill(null);
         this.state = {
             loaded: props.server || props.list.length > 0,
             projects: props.list

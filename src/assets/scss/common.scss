@@ -3,9 +3,12 @@
 @import "base/button";
 @import "base/animation";
 @import "base/global";
+html{
+    overflow-y: scroll;
+}
 body{
     background-color: $globalBgColor;
-    font-family: -apple-system,"Helvetica Neue","Roboto","Arial","PingFang SC",sans-serif;
+    font-family: Circular,"Helvetica Neue",Helvetica,Arial,sans-serif;
     font-size: 14PX;
 }
 h1, h2, h3, h4, h5, div, p{

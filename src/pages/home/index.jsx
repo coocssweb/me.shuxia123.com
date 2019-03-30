@@ -35,7 +35,7 @@ class Index extends Component {
     componentDidMount () {
         const props = this.props;
         // 非服务端
-        if (!this.state.loaded) {
+        if (!this.state.ideasLoaded) {
             props.fetchRecommendIdeas((result) => {
                 this.setState({
                     ideasLoaded: true
@@ -82,7 +82,7 @@ class Index extends Component {
                             }
                         </div>
                         <div className={className('homeRecommend-more')}>
-                            <Link to="/ideas" className={className('btn btn-transparent btn--black btn--small')}>更多想法</Link>
+                            <Link to="/ideas" className={className('btn btn-transparent btn--black btn--small')}>他的更多想法</Link>
                         </div>
                     </div>
                 </div>
@@ -100,7 +100,7 @@ class Index extends Component {
                             }
                         </div>
                         <div className={className('homeRecommend-more')}>
-                            <Link to="/projects" className={className('btn btn-transparent btn--black btn--small')}>更多开源</Link>
+                            <Link to="/projects" className={className('btn btn-transparent btn--black btn--small')}>他的更多开源</Link>
                         </div>
                     </div>
                 </div>
