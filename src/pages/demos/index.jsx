@@ -20,6 +20,7 @@ class Index extends Component {
     }
 
     componentDidMount () {
+        document.title = '实验室_分享小实验demo - 王佳欣的小站';
         const props = this.props;
         // 正在加载中
         if (!this.state.loaded) {

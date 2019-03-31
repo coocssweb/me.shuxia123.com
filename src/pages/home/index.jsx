@@ -34,6 +34,7 @@ class Index extends Component {
 
     componentDidMount () {
         const props = this.props;
+        document.title = '王佳欣的小站';
         // 非服务端
         if (!this.state.ideasLoaded) {
             props.fetchRecommendIdeas((result) => {

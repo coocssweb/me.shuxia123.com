@@ -21,7 +21,7 @@ app.use(BodyParser());
 app.use(catchError());
 app.use(timeLogger());
 // 静态文件目录，设置后不用设置路由，也可以直接访问
-app.use(serve(`${path.join(__dirname, '..', 'dist/js')}`));
+app.use(serve(`${path.join(__dirname, '..', 'public')}`));
 // 模板目录
 app.use(templating('dist/', {
     noCache: Config.noCache,

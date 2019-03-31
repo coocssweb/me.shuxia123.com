@@ -51,11 +51,13 @@ class Index extends Component {
         document.addEventListener('scroll', this.handleScroll);
         this.addPrismJsScript();
         this.loadImage();
+        this.setArticle();
     }
 
     componentDidUpdate () {
         this.decorateCode();
         this.loadImage();
+        this.setArticle();
     }
 
     componentWillUnmount () {
@@ -84,6 +86,13 @@ class Index extends Component {
         if (this.state.loaded && !this.state.firstLoadedImage) {
             this.state.firstLoadedImage = true;
             lazyLoadImage();
+        }
+    }
+
+    setArticle () {
+        if (this.state.loaded && !this.state.haveSetTitle) {
+            this.state.haveSetTitle = true;
+            document.title = `${this.state.article.title} - 王佳欣的小站`
         }
     }
 
@@ -123,7 +132,7 @@ class Index extends Component {
 
     render () {
         const { article, loaded, loadOver } = this.state;
-        const titles = loaded ? article.title.split(' ') : [];
+        const titles = loaded ? article.title.split(/\s|,|，|-/) : [];
         const bgStyle = loaded ?  { backgroundImage: `url(${article.posters[0]})` } : {};
 
         return (

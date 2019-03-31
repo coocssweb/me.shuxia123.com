@@ -38,6 +38,7 @@ class Index extends Component {
 
     componentDidMount () {
         const props = this.props;
+        document.title = '想法_分享关于前端的一些想法 - 王佳欣的小站';
 
         if (!props.server && !this.state.classifies.length) {
             props.fetchClassifies((result) => {

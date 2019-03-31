@@ -21,6 +21,7 @@ class Index extends Component {
 
     componentDidMount () {
         const props = this.props;
+        document.title = '开源项目_分享我的一些开源项目 - 王佳欣的小站';
         // 正在加载中
         if (!this.state.loaded) {
             props.fetchProjects(1, (result) => {
