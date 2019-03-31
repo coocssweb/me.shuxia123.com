@@ -33,8 +33,12 @@ ProjectSchema.pre('save', async function (next) {
 });
 
 ProjectSchema.statics = {
-    fetch: function () {
-        return this.find({}, { _id: 0, by: 0 }).sort({ id: -1 });
+    fetch: function (query, page = 1, size = 10) {
+        const skip = (page - 1) * size;
+        return this.find(
+            {
+                ...query
+            }, { _id: 0, by: 0 }).skip(skip).limit(parseInt(size)).sort({ id: -1 });
     },
     removeById: async function (id) {
         return this.remove({ id });

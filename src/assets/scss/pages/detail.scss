@@ -135,6 +135,10 @@ $marginSize: 50px;
                 margin-bottom: 0px;
             }
         }
+        a{
+            color: $colorPrimary;
+            text-decoration: underline;
+        }
         img{
             width: 100%;
         }
@@ -314,6 +318,7 @@ $marginSize: 50px;
         }
         &-photolist{
             padding-bottom: 100%;
+            display: none;
             height: auto;
         }
         &-content{

@@ -6,16 +6,19 @@ import DemoModel from '../../dao/models/demo';
 import contentFormatter from '../../utils/articleContentFormatter';
 import previewImageFormatter from '../../utils/previewImageFormatter';
 import descriptionFormatter from '../../utils/descriptionFormatter';
+import { getDeviceAgent } from '../../utils';
 
 const fetchRecommendIdeas = async (ctx, next) => {
-    const { page = 1, size = 3 } = ctx.request.query;
+    const IS_MOBILE = getDeviceAgent(ctx.request) === 'MOBILE';
+    const { page = 1, size = IS_MOBILE ? 4 : 3 } = ctx.request.query;
     const result = await ArticleModel.fetch({ }, page, size);
     descriptionFormatter(ctx.request, result);
     ctx.body = ctx.bodyFormatter(undefined, result);
 };
 
 const fetchRecommendProjects = async (ctx, next) => {
-    const { page = 1, size = 3 } = ctx.request.query;
+    const IS_MOBILE = getDeviceAgent(ctx.request) === 'MOBILE';
+    const { page = 1, size = IS_MOBILE ? 3 : 4 } = ctx.request.query;
     const result = await ProjectModel.fetch({ }, page, size);
     ctx.body = ctx.bodyFormatter(undefined, result);
 };

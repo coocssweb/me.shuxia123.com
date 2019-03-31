@@ -77,7 +77,7 @@ class Index extends Component {
                             <span></span>
                         </a>
                     </div>
-                    <div className={className('globalHeader-mask')}></div>
+                    <div className={className('globalHeader-mask')} onClick={this.handleOpenNav}></div>
                 </div>
                 <Switch>
                     <Route path="/" component={Home} exact />

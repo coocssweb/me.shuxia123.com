@@ -81,7 +81,7 @@
     .page{
         &.idea, &.projects, &.demos{
             padding-top: 48px;
-            animation: fadeIn 1s .2s ease forwards;
+            animation: fadeIn 1.2s 0s ease forwards;
             opacity: 0;
         }
     }

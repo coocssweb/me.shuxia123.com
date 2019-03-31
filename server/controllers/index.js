@@ -5,12 +5,14 @@ import DemoModel from '../dao/models/demo';
 import contentFormatter from '../utils/articleContentFormatter';
 import previewImageFormatter from '../utils/previewImageFormatter';
 import descriptionFormatter from '../utils/descriptionFormatter';
+import { getDeviceAgent } from '../utils';
 
 const SITE_NAME = '王佳欣的小站';
 
 let home = async function (ctx, next) {
-    const ideas = await ArticleModel.fetch({ }, 1, 3);
-    const projects = await ProjectModel.fetch({ }, 1, 4);
+    const IS_MOBILE = getDeviceAgent(ctx.request) === 'MOBILE';
+    const ideas = await ArticleModel.fetch({ }, 1, IS_MOBILE ? 4 : 3);
+    const projects = await ProjectModel.fetch({ }, 1,IS_MOBILE ? 3 : 4);
     const demos = await DemoModel.fetch({ }, 1, 5);
     descriptionFormatter(ctx.request, ideas);
 

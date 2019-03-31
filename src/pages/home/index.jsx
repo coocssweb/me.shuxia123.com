@@ -65,8 +65,8 @@ class Index extends Component {
                 <div className={className('homeSlogan')}>
                     <div className={className('homeSlogan-content')}>
                         <p className={className('homeSlogan-title')}>写漂亮的代码</p>
-                        <p className={className('homeSlogan-subtitle')}>每一个不曾起舞的日子，都是对生命的辜负。</p>
-                        <p className={className('homeSlogan-author')}>--尼采</p>
+                        <p className={className('homeSlogan-subtitle')}>我们一直在路上，因为生活就如同一场现场音乐会。</p>
+                        <p className={className('homeSlogan-author')}>--保时捷</p>
                     </div>
                 </div>
                 <div className={className('homeRecommend')}>

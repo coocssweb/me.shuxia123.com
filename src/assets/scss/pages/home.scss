@@ -146,5 +146,12 @@
                 padding: 0px 8px;
             }
         }
+
+        .articleItem{
+            margin-bottom: 20px;
+            &:nth-child(3), &:nth-child(4) {
+                margin-bottom: 0px;
+            }
+        }
     }
 }
