@@ -3,8 +3,7 @@
         text-align: center;
         padding: 120px 0px;
         background-image: url(https://res.wx.qq.com/open/zh_CN/htmledition/res/img/bg/banner_bg3b8804.png);
-        //background-color: #1f73f3;
-        //background-image: linear-gradient(180deg,#851b8b,#3c2bbc);
+        background-position: center;
         color: $colorWhite;
         font-family: Circular, "PingFang-SC", "Hiragino Sans GB", "微软雅黑", "Microsoft YaHei", "Heiti SC" !important;
         &-content{
@@ -91,14 +90,12 @@
 @media screen and (max-width: 768px) {
     .home {
         &Slogan{
-            background-image: url(//assets.shuxia123.com/images/index-bg.jpg);
-            background-color: #000;
-            background-size: cover;
-            background-position: center;
             height: 100vh;
             box-sizing: border-box;
             display: flex;
             align-items: center;
+            background-size: cover;
+            background-position: center;
             &-content{
                 width: 100%;
                 box-sizing: border-box;
@@ -126,12 +123,14 @@
             }
             &-more{
                 margin-top: 20px;
-                padding: 0px 10px;
+                padding: 0px 24px;
                 .btn{
                     width: 100%;
                     box-sizing: border-box;
                     height: 40px;
                     line-height: 40px;
+                    border-color: $colorPrimary;
+                    color: $colorPrimary;
                 }
             }
             &-projectList{

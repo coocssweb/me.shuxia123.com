@@ -74,10 +74,14 @@
     }
 }
 
+
+
 @media screen and (max-width: 768px) {
     .page{
         &.idea, &.projects, &.demos{
             padding-top: 48px;
+            animation: fadeIn 1s .2s ease forwards;
+            opacity: 0;
         }
     }
 
@@ -96,18 +100,18 @@
     .pageSlogan{
         background-color: transparent;
         border-top: none;
-        padding-bottom: 0px;
         &-content {
             padding: 0px 8px;
+            &:before{
+                display: none;
+            }
         }
         &-title{
             font-size: 18px;
-            color: #484848;
         }
         &-subtitle{
             font-size: 14px;
             margin-top: 5px;
-            color: $colorGray;
             line-height: 18px;
         }
     }
@@ -128,6 +132,14 @@
     .demosList{
         .demoItemSkeleton{
             margin-bottom: 10px;
+        }
+    }
+
+    .project{
+        &List{
+            &-wrapper{
+                margin-top: 20px;
+            }
         }
     }
 }

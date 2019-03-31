@@ -22,3 +22,13 @@ export const formatDate = (timestamp = new Date(), formatStr = 'yyyy-MM-dd hh:mm
     }
     return formatStr;
 };
+
+export const formatImage = (url, type) => {
+    if (type === 'preview') {
+        return url.replace(/_\d+\./, (str) => {
+            return str.replace('.', '_preview.');
+        });
+    } else {
+        return url.replace('_preview', '');
+    }
+};

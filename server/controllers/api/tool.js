@@ -30,7 +30,7 @@ const upload = async (ctx, next) => {
                     fs.renameSync(`${filePath}${fileName}.${extName}`, `${filePath}${newFileName}.${extName}`);
                     // 压缩图片，存储预览图
                     newFile
-                        .size(40)
+                        .size(10)
                         .save(`${filePath}${newFileName}_preview.${extName}`, { quality: 100 });
                     resolve(newFileName);
                 });

@@ -11,10 +11,17 @@ body{
     font-family: Circular,"Helvetica Neue",Helvetica,Arial,sans-serif;
     font-size: 14PX;
 }
-h1, h2, h3, h4, h5, div, p{
+h1, h2, h3, h4, h5, div, p, ul{
     padding: 0px;
     margin: 0px;
     font-weight: normal;
+}
+blockquote{
+    padding: 5px 10px 5px 12px;
+    color: #646464;
+    border-left: 3px solid #d3d3d3;
+    background-color: #f5f5f5;
+    margin: 10px 0px;
 }
 .layout{
     max-width: $globalPcWidth;
@@ -39,9 +46,18 @@ a{
     .global {
         &Header {
             position: fixed;
-            background-color: rgba(0, 0, 0, .3);
-            background-image: none;
+            opacity: .3;
             z-index: 10;
+        }
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .body-detail {
+        .global {
+            &Header {
+                opacity: 1 !important;
+            }
         }
     }
 }

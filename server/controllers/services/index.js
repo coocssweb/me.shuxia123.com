@@ -4,6 +4,7 @@ import ProjectModel from '../../dao/models/project';
 import TagModel from '../../dao/models/tag';
 import DemoModel from '../../dao/models/demo';
 import contentFormatter from '../../utils/articleContentFormatter';
+import previewImageFormatter from '../../utils/previewImageFormatter';
 
 const fetchRecommendIdeas = async (ctx, next) => {
     const { page = 1, size = 3 } = ctx.request.query;
@@ -58,6 +59,9 @@ const fetchOne = async (ctx, next) => {
     const { id } = ctx.params;
     const result = await ArticleModel.findById(id);
     result.content = contentFormatter(result.content);
+    result.posters.forEach((item, index) => {
+        result.posters[index] = previewImageFormatter(result.posters[index]);
+    });
     if (result) {
         ctx.body = ctx.bodyFormatter(undefined, result);
     } else {

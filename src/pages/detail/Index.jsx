@@ -4,7 +4,8 @@ import { CSSTransition } from 'react-transition-group';
 import Discuss from '@components/discuss';
 import withPage from '../../hoc/withPage';
 import Skeletion from './skeleton';
-import {formatDate} from '../../utils'
+import {formatDate} from '../../utils';
+import lazyLoadImage from '../../utils/lazyLoadImage';
 
 let __prismAdded = false;
 let __prismLoaded = false;
@@ -49,15 +50,17 @@ class Index extends Component {
         this.domMask = document.querySelector('.detail-mask');
         document.addEventListener('scroll', this.handleScroll);
         this.addPrismJsScript();
+        this.loadImage();
     }
 
     componentDidUpdate () {
         this.decorateCode();
+        this.loadImage();
     }
 
     componentWillUnmount () {
         document.removeEventListener('scroll', this.handleScroll);
-        this.domGlobalHeader.style.backgroundColor = '';
+        this.domGlobalHeader.style.opacity = null;
     }
 
     handleScroll (e) {
@@ -65,8 +68,10 @@ class Index extends Component {
         scrollHeight = scrollHeight > 1 ? 1 : scrollHeight;
         const opacityGlobalHeader =  scrollHeight * .7 + 0.3;
         const opacityMask = scrollHeight * 0.35 + 0.45;
-        this.domGlobalHeader.style.backgroundColor = `rgba(0, 0, 0, ${opacityGlobalHeader})`;
+        this.domGlobalHeader.style.opacity = opacityGlobalHeader;
         this.domMask.style.opacity = opacityMask;
+        // 懒加载可视区域图片
+        lazyLoadImage();
     }
 
     handleSkeletonExited () {
@@ -74,13 +79,22 @@ class Index extends Component {
             loadOver: true
         });
     }
+    // 首次加载图片
+    loadImage () {
+        if (this.state.loaded && !this.state.firstLoadedImage) {
+            this.state.firstLoadedImage = true;
+            lazyLoadImage();
+        }
+    }
 
     decorateCode () {
+        // dom加载完
         if (__prismLoaded && this.state.loaded && !this.state.decorated) {
             this.state.decorated = true;
-            Array.prototype.forEach.call(document.querySelectorAll('pre code'), (el) => {
+            [...document.querySelectorAll('pre code')].map((el) => {
                 el.parentNode.innerHTML = `<code class="language-javascript">${el.innerHTML}</code>`;
             });
+            Prism.highlightAll();
         }
     }
 
@@ -129,7 +143,7 @@ class Index extends Component {
                             </div>
                             <div className={className('detail-photolist')}>
                                 {
-                                    article.posters.map((item, index) => (<img key={index} className={className('detail-photo')} src={item} />))
+                                    article.posters.map((item, index) => (<span key={index} className={className('detail-imgWrapper')}><img className={className('detail-photo')} src={item} /></span>))
                                 }
                             </div>
                             <div className={className('detail-content')} dangerouslySetInnerHTML={{__html: article.content}}></div>

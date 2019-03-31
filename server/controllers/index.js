@@ -3,6 +3,7 @@ import ProjectModel from '../dao/models/project';
 import TagModel from '../dao/models/tag';
 import DemoModel from '../dao/models/demo';
 import contentFormatter from '../utils/articleContentFormatter';
+import previewImageFormatter from '../utils/previewImageFormatter';
 
 const SITE_NAME = '王佳欣的小站';
 
@@ -101,7 +102,9 @@ let detail = async function (ctx, next) {
     const { id } = ctx.params;
     const result = await ArticleModel.findById(id);
     result.content = contentFormatter(result.content);
-
+    result.posters.forEach((item, index) => {
+        result.posters[index] = previewImageFormatter(result.posters[index]);
+    });
     await ctx.render('index.html', {
         seo: {
             title: `${result.title} - ${SITE_NAME}`,
