@@ -3,13 +3,12 @@ import className from 'classnames';
 import { Link } from 'react-router-dom';
 export default (props) => {
     const article = props.article;
-    const description = article.description.length > 60 ? article.description.substring(0, 60) : article.description;
     return (
         <Link to={`/detail/${article.id}`} className={className('articleItem')}>
             <div className={className('articleItem-photo')} style={ {backgroundImage: `url(${ article.posters[0] })`} }>
             </div>
             <h2 className={className('articleItem-title')}>{ article.title}</h2>
-            <p className={className('articleItem-description')}>{ description }。</p>
+            <p className={className('articleItem-description')}>{ article.description }。</p>
         </Link>
     );
 };

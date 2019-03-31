@@ -87,6 +87,16 @@
         }
         &Skeleton{
             width: 50%;
+            &-title{
+                width: 100%;
+                height: 16px;
+            }
+            &-description {
+                margin-top: 5px;
+                span{
+                    height: 12px;
+                }
+            }
         }
     }
 }

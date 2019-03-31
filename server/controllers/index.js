@@ -4,6 +4,7 @@ import TagModel from '../dao/models/tag';
 import DemoModel from '../dao/models/demo';
 import contentFormatter from '../utils/articleContentFormatter';
 import previewImageFormatter from '../utils/previewImageFormatter';
+import descriptionFormatter from '../utils/descriptionFormatter';
 
 const SITE_NAME = '王佳欣的小站';
 
@@ -11,6 +12,7 @@ let home = async function (ctx, next) {
     const ideas = await ArticleModel.fetch({ }, 1, 3);
     const projects = await ProjectModel.fetch({ }, 1, 4);
     const demos = await DemoModel.fetch({ }, 1, 5);
+    descriptionFormatter(ctx.request, ideas);
 
     await ctx.render('index.html', {
         seo: {
@@ -77,6 +79,7 @@ let ideas = async function (ctx, next) {
         query.classify = classify;
     }
     const result = await ArticleModel.fetch(query, page, size);
+    descriptionFormatter(ctx.request, result);
     const classifies = await TagModel.fetch();
     const total = classifies.reduce((prev, current) => {
         return prev + current.total;

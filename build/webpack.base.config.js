@@ -2,6 +2,7 @@ const webpack = require('webpack');
 const cleanWebpackPlugin = require('clean-webpack-plugin');
 const miniCssExtractPlugin = require('mini-css-extract-plugin');
 const htmlWebpackPlugin = require('html-webpack-plugin');
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 const { resolve } = require('./utils');
 const _config = require('./config');
@@ -135,6 +136,10 @@ module.exports = function (mode) {
             new miniCssExtractPlugin({
                 filename: 'css/[name].[contenthash:8].css'
             })
+        );
+        // 压缩css
+        webpackConfig.plugins.push(
+            new OptimizeCssAssetsPlugin()
         );
 
         // 公共代码

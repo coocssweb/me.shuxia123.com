@@ -135,7 +135,7 @@ class Index extends Component {
                         <div className={className('detail-container')}>
                             <div className={className('detail-title')}>{titles[0]}<br />{titles[1]}</div>
                             <div className={className('detail-info')}>
-                                <img src="https://coocssweb.github.io/photos/personal.jpeg" className={className('detail-avatar')} />
+                                <img src="//assets.shuxia123.com/images/personal.jpg" className={className('detail-avatar')} />
                                 <div className={className('detail-user')}>
                                     <p className={className('detail-author')}>作者: {article.author || '王佳欣' }</p>
                                     <p className={className('detail-date')}>日期: {formatDate(article.createAt, 'yyyy.MM.dd')}</p>

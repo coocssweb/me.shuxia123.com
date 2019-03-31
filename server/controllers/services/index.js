@@ -5,10 +5,12 @@ import TagModel from '../../dao/models/tag';
 import DemoModel from '../../dao/models/demo';
 import contentFormatter from '../../utils/articleContentFormatter';
 import previewImageFormatter from '../../utils/previewImageFormatter';
+import descriptionFormatter from '../../utils/descriptionFormatter';
 
 const fetchRecommendIdeas = async (ctx, next) => {
     const { page = 1, size = 3 } = ctx.request.query;
     const result = await ArticleModel.fetch({ }, page, size);
+    descriptionFormatter(ctx.request, result);
     ctx.body = ctx.bodyFormatter(undefined, result);
 };
 
@@ -40,6 +42,7 @@ const fetchIdeas = async (ctx, next) => {
         query.classify = classify;
     }
     const result = await ArticleModel.fetch(query, page, size);
+    descriptionFormatter(ctx.request, result);
     ctx.body = ctx.bodyFormatter(undefined, result);
 };
 
