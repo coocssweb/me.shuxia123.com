@@ -116,7 +116,7 @@ $marginSize: 50px;
         padding: $marginSize;
         img{
             display: block;
-            width: 100%;
+            width: 100% !important;
         }
         blockquote, img{
             margin-bottom: 15px;

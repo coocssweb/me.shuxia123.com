@@ -1,7 +1,7 @@
 export default (content) => {
     const regCode = /<pre>.*<\/pre>/ig;
     const regBr = /<br\/>/ig;
-    const regImage = /\d+\./ig;
+    const regImage = /_\d+\./ig;
     let result = content.replace(regCode, (str) => {
         return str.replace(regBr, '\n');
     });
