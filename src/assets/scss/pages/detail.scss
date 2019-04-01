@@ -95,7 +95,8 @@ $marginSize: 50px;
         }
         &.loaded{
             &:before{
-                animation: keyframeFadeOut ease-in-out forwards;
+                // animation: keyframeFadeOut ease-in-out forwards;
+                display: none;
             }
         }
     }
