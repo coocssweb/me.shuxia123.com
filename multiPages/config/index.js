@@ -1,0 +1,43 @@
+module.exports = {
+    production: {
+        devtool: false,
+        NODE_ENV: 'production',
+        HOST: 'h5.meitu.com',
+        jsSourceMap: false,
+        cssSourceMap: false,
+        eslint: false,
+        filePath: '',
+        staticPath: '',
+        cssPath: '',
+        imgPath: '',
+        filenameHash: true,
+    },
+    test: {
+        devtool: false,
+        NODE_ENV: 'test',
+        HOST: 'h5.meitu.com',
+        jsSourceMap: false,
+        cssSourceMap: false,
+        eslint: false,
+        filePath: '',
+        staticPath: '',
+        cssPath: '',
+        imgPath: '',
+        filenameHash: false,
+    },
+    development: {
+        // 开发 devServer 端口
+        port: 9000,
+        devtool: 'source-map',
+        NODE_ENV: 'development',
+        HOST: 'h5.meitu.com',
+        jsSourceMap: false,
+        cssSourceMap: false,
+        eslint: false,
+        staticPath: '/',
+        filePath: '',
+        cssPath: '',
+        imgPath: '',
+        filenameHash: false,
+    }
+};
