@@ -8,11 +8,11 @@
         background-repeat: no-repeat;
         background-size: cover;
         color: $colorWhite;
-        font-family: Circular, "PingFang-SC", "Hiragino Sans GB", "微软雅黑", "Microsoft YaHei", "Heiti SC" !important;
         &-content{
             max-width: $globalMobileWidth;
             margin: 0px auto;
             color: #e5895f;
+            font-family: "SF Pro SC","SF Pro Display","SF Pro Icons","PingFang SC","Helvetica Neue","Helvetica","Arial",sans-serif;
         }
         &-title{
             font-size: 35px;
@@ -84,10 +84,13 @@
 }
 @supports (-webkit-background-clip: text) {
     .homeSlogan-content {
-        background-clip: text;
-        color: transparent !important;
-        background-image: url(//assets.shuxia123.com/images/text-bg.jpg);
-        animation: backgroundMove 10s linear infinite alternate;
+        p{
+            background-clip: text;
+            color: transparent !important;
+            background-image: url(//assets.shuxia123.com/images/text-bg.jpg);
+            background-size: cover;
+            animation: backgroundMove 10s linear infinite alternate;
+        }
     }
 }
 @media screen and (max-width: 768px) {
