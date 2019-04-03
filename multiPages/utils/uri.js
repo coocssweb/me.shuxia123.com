@@ -9,10 +9,6 @@ const stringifyQuery = (query) => {
 };
 
 class URI {
-    constructor (protocol = 'http', host) {
-        this.protocol = protocol;
-        this.host = host;
-    }
     // 获取 Host
     _parseHost () {
         if (this.url === '') {
@@ -51,14 +47,14 @@ class URI {
         return query;
     }
     // 字符化 Url
-    stringifyUrl ({ url = '', protocol = this.protocol, host = this.host, path = '', query = {} }) {
+    format ({ url = '', protocol, host, path = '', query = {} }) {
         if (url) {
             return `${url}${url.indexOf('?') > -1 ? '' : '?'}${stringifyQuery(query)}`;
         }
         return `${this.protocol}//${host}${path}${stringifyQuery(query)}`;
     }
     // 格式化 Url
-    parseUrl (url = '') {
+    parse (url = '') {
         this.url = url;
         const host = this._parseHost();
         const path = this._parsePath();
