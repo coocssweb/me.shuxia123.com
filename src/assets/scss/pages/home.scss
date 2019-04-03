@@ -84,12 +84,13 @@
 }
 @supports (-webkit-background-clip: text) {
     .homeSlogan-content {
+        background-image: url(//assets.shuxia123.com/images/text-bg-2.jpg);
+        animation: backgroundMove 20s linear infinite alternate;
+        background-size: cover;
+        background-clip: text;
         p{
             background-clip: text;
             color: transparent !important;
-            background-image: url(//assets.shuxia123.com/images/text-bg.jpg);
-            background-size: cover;
-            animation: backgroundMove 10s linear infinite alternate;
         }
     }
 }

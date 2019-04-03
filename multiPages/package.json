@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --config build/webpack.dev.config.js --open --hot",
-    "build:test": "webpack -p --config build/webpack.test.config.js --progress --hide-modules && webpack -p --config build_pure/webpack.test.config.js --progress --hide-modules",
+    "build:test": "webpack -p --config build/webpack.test.config.js --progress --hide-modules",
     "build": "webpack -p --config build/webpack.product.config.js --progress --hide-modules"
   },
   "author": "",

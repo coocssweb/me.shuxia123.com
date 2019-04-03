@@ -18,9 +18,10 @@
         display: block;
     }
     &-total{
-        margin-top: 2px;
+        margin-top: 5px;
         color: rgb(118, 118, 118);
         display: block;
+        font-size: 14px;
     }
     &--active{
         background-color: $colorGreen;
