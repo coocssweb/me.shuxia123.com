@@ -1,6 +1,4 @@
-// import 'scss/demo.scss';
-// import App from 'appModules/loading';
-
-console.log('1234234132');
-console.log('2323');
-console.log(12341234);
+import add from './math';
+// let math = require('./mathRequire');
+// console.log(math);
+console.log(add(1, 2));
