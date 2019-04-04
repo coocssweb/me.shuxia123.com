@@ -1,17 +1,10 @@
-/**
- * App
- * Created by 王佳欣 on 2018/4/14.
- */
-const LIFE_CIRCLE = ['beforeCreate', 'create', 'close', 'open'];
+import tip from './modules/tip';
+import toast from './modules/tip';
+import statistics from './modules/statistics';
+import proxy from './modules/proxy';
+import router from './modules/router';
 
-function _mixin (destination, source) {
-    for (let key in source) {
-        if (source.hasOwnProperty(key)) {
-            destination[key] = source[key];
-        }
-    }
-    return destination;
-}
+const LIFE_CIRCLE = ['beforeCreate', 'create'];
 
 function _combine (destination, source) {
     for (let key in source) {
@@ -37,87 +30,26 @@ function App (options) {
 
 // App 原型链注册，通用事件
 function initEvents (App) {
-    /* eslint-disable */
-    // cnzz 统计
-    App.prototype.$cnzz = {
-        event ({dom, event}) {
-            _czc.push(['_trackEvent', dom, event]);
-        },
-        page ({page}) {
-            _czc.push(['_trackPageview', page]);
-        }
-    };
-
-    // 百度统计
-    App.prototype.$baidu = {
-        event ({dom, event}) {
-
-        },
-        page ({page}) {
-
-        }
-    };
-
-    // tip提示框
-    App.prototype.$tip = function ({message, type}) {
-        $('body').append(`<div class="globalTip"><div class="globalTip-inner">${message}</div></div>`);
-        $('.globalTip').addClass('show').on('animationend webkitAnimationEnd oAnimationEnd', function () {
-            $(this).remove();
-        });
-    };
-
-    // toast消息
-    App.prototype.$toast = {
-        open ({type, message, timeout}) {
-            $('body').append(`<div class="globalToast">
-            <div class="globalToast-mask"></div>
-            <div class="globalToast-box">
-                <i class='globalToast-icon ${type === 'loading' ? 'weui-loading' : `weui-icon-${type}`}'></i>
-                <p class="globalToast-content">${message}</p>
-            </div>
-        </div>`);
-
-            if (!timeout) {
-                return;
-            }
-
-            setTimeout(() => {
-                this.close();
-            }, timeout);
-        },
-        close () {
-            $('.globalToast').addClass('out').on('animationend webkitAnimationEnd oAnimationEnd', function () {
-                $(this).remove();
-            });
-        }
+    // 统计
+    App.prototype.$statistics = statistics;
+    // tip
+    App.prototype.$tip = tip;
+    // toast
+    App.prototype.$toast = toast;
+    // router
+    App.prototype.$router = router;
+    // route
+    App.prototype$route = {
+        url: '',
+        host: '',
+        query: {},
+        path: ''
     };
 
     /**
      * App命名周期相关
-     * ['beforeCreate', 'create', 'close', 'open']
+     * ['beforeCreate', 'create']
      */
-    App.prototype.open = function () {
-        if (this.$element && this.$element.page) {
-            his.$element.page
-                .addClass('animating')
-                .addClass('open')
-                .on('animationend webkitAnimationEnd oAnimationEnd', function () {
-                    $(this).addClass('show').removeClass('animating').removeClass('open');
-                });
-        }
-    };
-
-    App.prototype.close = function () {
-        if (this.$element && this.$element.page) {
-            this.$element.page
-                .addClass('animating')
-                .addClass('close')
-                .on('animationend webkitAnimationEnd oAnimationEnd', function () {
-                    $(this).removeClass('show').removeClass('animating').removeClass('close');
-                });
-        }
-    };
-
     App.prototype.beforeCreate = function () {
 
     };
@@ -126,7 +58,26 @@ function initEvents (App) {
         if (this.bindEvent) {
             this.bindEvent();
         }
-        this.open();
+
+        if (this.init) {
+            this.init();
+        }
+
+        if (this.watchs) {
+            for (let key in this.watchs) {
+                // this.xxx => this.watchs.xxx
+                Object.defineProperty(this, key, {
+                    get () {
+                        return this.watchs[key]
+                    },
+                    set (value) {
+                        this.watchs[key] = value;
+                    }
+                });
+                // 注册监听，this.xxx = value => this.xxxxUpdate
+                proxy(this.watchs, key, this[`${key}Update`]);
+            }
+        }
     };
 };
 
@@ -134,19 +85,16 @@ function initEvents (App) {
 function initUse (App) {
     // installedPlugins，已安装的插件
     const installedPlugins = [];
-    App.use = function (plugin) {
+    App.use = function (plugin, ...args) {
         if (installedPlugins.indexOf(plugin) > -1) {
             return false;
         }
-
-        const args = Array.from(arguments).slice(1);
-        args.unshift(this);
-        plugin.install.apply(plugin, args);
-
+        plugin.install.apply(plugin, [this, ...args]);
         return this;
     };
 }
 
+// 继承
 function initExtend (App) {
     App.extend = function (extendOptions) {
         extendOptions = extendOptions || {};
@@ -179,19 +127,9 @@ function initExtend (App) {
     };
 }
 
-function initMixin (App) {
-    App.mixin = function (mixin) {
-        _mixin(
-            App.prototype,
-            mixin
-        );
-    };
-}
-
 init(App);
 initEvents(App);
 initUse(App);
 initExtend(App);
-initMixin(App);
 
 export default App;

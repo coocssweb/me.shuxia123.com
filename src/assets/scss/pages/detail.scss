@@ -271,14 +271,18 @@ $marginSize: 50px;
 
         &-content{
             padding: 10px 20px;
-            color: #565a5c;
-            font-weight: 300;
-            font-size: 14px;
+            color: #333;
+            //font-weight: 300;
+            font-size: 16px;
+            line-height: 1.5;
             blockquote, img, ul, h2, p{
-                margin-bottom: 10px;
+                margin-bottom: 25px;
             }
             h2{
                 font-size: 16px;
+            }
+            blockquote{
+                padding: 10px 10px 10px 12px;
             }
         }
         &-discuss{
