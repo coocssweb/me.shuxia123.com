@@ -1,6 +1,9 @@
-const add = (numberA, numberB) => {
-    console.log('abadasdf');
+const add = (numA, numB) => {
     return numberA + numberB;
 };
 
-export default add;
+const sub = (numA, numB) => {
+    return numberA - numberB;
+};
+
+module.exports = add;
