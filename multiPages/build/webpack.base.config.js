@@ -23,9 +23,6 @@ module.exports = function webpackBaseConfig (NODE_ENV = 'development') {
         new webpack.optimize.CommonsChunkPlugin({
             name: 'runtime'
         }),
-        new webpack.HashedModuleIdsPlugin(),
-        new webpack.NamedChunksPlugin(),
-        new CopyrightPlugin(`/**\n * 作者: 王佳欣\n * 站点: http://www.shuxia123.com\n */`),
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': JSON.stringify(NODE_ENV),
             'process.env.STATIC_PATH': JSON.stringify(config.staticPath),
@@ -116,9 +113,9 @@ module.exports = function webpackBaseConfig (NODE_ENV = 'development') {
         resolve: {
             alias: {
                 app: resolve('app/'),
-                appModules: resolve('app/modules'),
-                utils: resolve('utils'),
-                scss: resolve('scss/'),
+                '@modules': resolve('app/modules'),
+                '@utils': resolve('utils'),
+                '@scss': resolve('assets/scss'),
                 layout: resolve('layout/index.js')
             }
         },
@@ -143,6 +140,16 @@ module.exports = function webpackBaseConfig (NODE_ENV = 'development') {
             ignored: 'node_modules'
         };
     } else {
+        webpackConfig.plugins.push(
+            new webpack.HashedModuleIdsPlugin()
+        );
+        webpackConfig.plugins.push(
+            new webpack.NamedChunksPlugin()
+        );
+        webpackConfig.plugins.push(
+            new CopyrightPlugin(`/**\n * 作者: 王佳欣\n * 站点: http://www.shuxia123.com\n */`)
+        );
+
         webpackConfig.plugins.push(
             new webpack.optimize.UglifyJsPlugin({
                 compress: {

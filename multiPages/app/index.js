@@ -1,31 +1,22 @@
-import tip from './modules/tip';
-import toast from './modules/tip';
-import statistics from './modules/statistics';
-import proxy from './modules/proxy';
-import router from './modules/router';
+import tip from '@modules/tip';
+import toast from '@modules/toast';
+import statistics from '@modules/statistics';
+import proxy from '@modules/proxy';
+import router from '@modules/router';
+import Share from '@modules/share';
+import Uri from '@utils/uri';
 
-const LIFE_CIRCLE = ['beforeCreate', 'create'];
-
-function _combine (destination, source) {
+function extend (destination, source) {
     for (let key in source) {
-        if (source.hasOwnProperty(key) && LIFE_CIRCLE.indexOf(key) === -1) {
-            destination.prototype[key] = source[key];
+        if (source.hasOwnProperty(key)) {
+            destination[key] = source[key];
         }
     }
-
-    LIFE_CIRCLE.map((key) => {
-        if (source.hasOwnProperty(key)) {
-            destination.prototype[key] = [destination.prototype[key], source[key]];
-        }
-    });
-
     return destination;
 }
 
 function App (options) {
-    this.$options = options || this.$options;
-    this.beforeCreate();
-    this.create();
+    this._init(options);
 }
 
 // App 原型链注册，通用事件
@@ -39,20 +30,7 @@ function initEvents (App) {
     // router
     App.prototype.$router = router;
     // route
-    App.prototype$route = {
-        url: '',
-        host: '',
-        query: {},
-        path: ''
-    };
-
-    /**
-     * App命名周期相关
-     * ['beforeCreate', 'create']
-     */
-    App.prototype.beforeCreate = function () {
-
-    };
+    App.prototype.$route = Uri.parse(window.location.href);
 
     App.prototype.create = function () {
         if (this.bindEvent) {
@@ -63,32 +41,41 @@ function initEvents (App) {
             this.init();
         }
 
-        if (this.watchs) {
+        if (this.watch) {
             for (let key in this.watchs) {
-                // this.xxx => this.watchs.xxx
                 Object.defineProperty(this, key, {
                     get () {
-                        return this.watchs[key]
+                        return this.watch[key];
                     },
                     set (value) {
-                        this.watchs[key] = value;
+                        this.watch[key] = value;
                     }
                 });
-                // 注册监听，this.xxx = value => this.xxxxUpdate
-                proxy(this.watchs, key, this[`${key}Update`]);
+                proxy(this.watch, key, this[`${key}Update`]);
             }
         }
     };
 };
 
+function init (App) {
+    App.prototype._init = function (options) {
+        this.$options = options || this.$options;
+        // 配置分享信息
+        if (this.$options.shareConfig) {
+            this.$share = new Share(this.$options.shareInfo);
+        }
+        this.create();
+    };
+}
+
 // 定义App.use
 function initUse (App) {
-    // installedPlugins，已安装的插件
     const installedPlugins = [];
     App.use = function (plugin, ...args) {
         if (installedPlugins.indexOf(plugin) > -1) {
             return false;
         }
+        /* eslint-disable */
         plugin.install.apply(plugin, [this, ...args]);
         return this;
     };
@@ -96,31 +83,22 @@ function initUse (App) {
 
 // 继承
 function initExtend (App) {
-    App.extend = function (extendOptions) {
-        extendOptions = extendOptions || {};
+    App.extend = function (...args) {
         const Super = this;
 
         const Sub = function (options) {
-            LIFE_CIRCLE.map((key) => {
-                if (this[key] instanceof Array) {
-                    let tempArray = [].concat(this[key]);
-                    this[key] = function () {
-                        for (let index = 0; index < tempArray.length; index++) {
-                            tempArray[index].call(this);
-                        }
-                    };
-                }
-            });
             this._init(options);
         };
 
         Sub.prototype = Object.create(Super.prototype);
         Sub.prototype.constructor = Sub;
 
-        _combine(
-            Sub,
-            extendOptions
-        );
+        [...args].map((item) => {
+            extend(
+                Sub.prototype,
+                item || {}
+            );
+        });
 
         Sub['super'] = Super;
         return Sub;

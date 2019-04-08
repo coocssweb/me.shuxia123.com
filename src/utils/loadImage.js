@@ -1,4 +1,4 @@
-export default (images) => {
+export default (images: Array) => {
     let hasLoadCount = 0;
     return new Promise((resolve, reject) => {
         const load = (src) => {

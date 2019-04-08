@@ -1,106 +1,44 @@
+import {loadJs} from '@utils';
+import Is from '@utils/is';
+/* eslint-disable */
 /**
- * 分享模块
- * Created by 王佳欣 on 2018/4/15.
+ * 微信分享
  */
-import {loadJs} from '../utils';
-import Is from '../utils/is';
-import {formatShareUrl} from '../utils/uri';
-
-class Share {
-    constructor ({
-        tokenUrl,
-        tokenType = 'json',
-        jsSdk = '//res.wx.qq.com/open/js/jweixin-1.2.0.js',
-        qqId
-    }) {
-        this.tokenUrl = tokenUrl;
-        this.jsSdk = jsSdk;
-        this.qqapi = `//open.mobile.qq.com/sdk/qqapi.js?_bid=${qqId}`;
-        this.tokenType = tokenType;
-        this.shareConfig = {
-            link: '',
-            title: '',
-            desc: '',
-            imgUrl: ''
-        };
-        this.trigger = null;
-        this.success = null;
-        this.fail = null;
-        this.cancel = null;
-
-        this.$body = $('body');
+class WeChat {
+    constructor (tokenUrl,
+                 tokenType = 'json',
+                 shareInfo
+    ) {
+        this.load(tokenUrl, tokenType, jsSdk, shareInfo);
+        this.$body.append(`<div class="globalShare globalShare-mask——social"></div>`);
+        this.$shareMask = $('.globalShare-mask');
     }
 
-    callShare () {
-        // 平台：QQ // QZone
-        if (Is.isQZone() || Is.isQQ()) {
-            window._mqq.ui.showShareMenu();
-            return false;
-        }
-        // 平台：微博 / 微信，提示蒙层
-        if (Is.isWeibo() || Is.isWechat()) {
-            this.$body.append(`<div class="globalShare globalShare——social"></div>`);
-            return false;
-        }
-
-        // 平台：浏览器
-        this.$body.append(`<div class="globalShare globalShare——browser"></div><div class="globalShare-content">
-                <div class="globalShare-title"># 分享到 #</div>
-                <div class="globalShare-list">
-                    <a 
-                        class="globalShare-item" 
-                        target="_share" 
-                        href="${encodeURI(`http://v.t.sina.com.cn/share/share.php?url=${this.shareConfig.link}&title=${this.shareConfig.title}/${this.shareConfig.desc}&charset=utf-8&pic=${this.shareConfig.imgUrl}`)}&searchPic=true">
-                        <span class="globalShare-icon globalShare-icon——weibo"></span>
-                        <span class="globalShare-name">微博</span>
-                    </a>
-                    <a 
-                        class="globalShare-item" 
-                        target="_share" 
-                        href="${encodeURI(`http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=${this.shareConfig.link}&title=${this.shareConfig.title}&desc=${this.shareConfig.desc}&charset=utf-8&pics=${this.shareConfig.imgUrl}&site=${this.shareConfig.link}&otype=share`)}">
-                        <span class="globalShare-icon globalShare-icon——qqzone"></span>
-                        <span class="globalShare-name">QQ空间</span>
-                    </a>
-                    <a 
-                        class="globalShare-item" 
-                        target="_share" 
-                        href="${encodeURI(`http://widget.renren.com/dialog/share?resourceUrl=${this.shareConfig.link}&title=${this.shareConfig.title}&description=${this.shareConfig.desc}&charset=utf-8&pic=${this.shareConfig.imgUrl}`)}">
-                        <span class="globalShare-icon globalShare-icon——renren"></span>
-                        <span class="globalShare-name">人人网</span>
-                    </a>
-                </div>
-                <a href="javascript:;" class="globalShare-cancel">取消</a>
-            </div>`);
-    }
-
-    previewImage (urls, currentIndex) {
-        window._wx.previewImage({
-            urls,
-            current: urls[currentIndex]
+    load (tokenUrl, tokenType, shareInfo) {
+        // 加载微信JsSdk
+        loadJs ('//res.wx.qq.com/open/js/jweixin-1.2.0.js').then(() => {
+            this.$weChat = wx;
+            return $.ajax({
+                url: tokenUrl,
+                dataType: tokenType,
+                type: 'get',
+                data: {
+                    url: location.href,
+                    t: new Date().getTime()
+                },
+                responseType: 'json',
+                async: true,
+                xhrFields: {withCredentials: true},
+            }).then(response => {
+                let {appId, timestamp, nonceStr, signature} = response;
+                this.setConfig({appId, timestamp, nonceStr, signature});
+                this.setShare(shareInfo);
+            });
         });
     }
 
-    downLoadImage () {
-
-    }
-
-    closeWindow () {
-        window._wx.closeWindow();
-    }
-
-    chooseWXPay ({timestamp, nonceStr, packageStr, signType, paySign}) {
-        window._wx.chooseWXPay({
-            timestamp,
-            nonceStr,
-            package: packageStr,
-            signType,
-            paySign
-        });
-    }
-
-    config ({appId, timestamp, nonceStr, signature}) {
-        /* eslint-disable */
-        window._wx.config({
+    setConfig ({appId, timestamp, nonceStr, signature}) {
+        this.$weChat.config({
             debug: false,
             appId,
             timestamp,
@@ -123,154 +61,179 @@ class Share {
         });
     }
 
-    _bindEvent () {
-        if (window._bind) {
-            return false;
-        }
-
-        /* eslint-disable */
-        window._bind = true;
-
-        this.$body.on('click', '.globalShare, .globalShare-cancel', () => {
-            $('.globalShare').addClass('out').on('animationend webkitAnimationEnd oAnimationEnd', function () {
-                $(this).remove();
-            });
-            $('.globalShare-content').addClass('out').on('animationend webkitAnimationEnd oAnimationEnd', function () {
-                $(this).remove();
-            });
-
-            this.cancel && this.cancel();
+    previewImage (images, currentIndex) {
+        this.$weChat.previewImage({
+            images,
+            current: images[currentIndex]
         });
+    }
 
+    closeWindow () {
+        this.$weChat.closeWindow();
+    }
+
+    setShare (shareInfo = {}) {
+        const {title, desc, shareUrl, imgUrl} = shareInfo;
+
+        this.$weChat.error(function (error) {
+            console.log(error);
+        });
+        this.$weChat.ready(function () {
+            [
+                'onMenuShareTimeline',
+                'onMenuShareAppMessage',
+                'onMenuShareQQ',
+                'onMenuShareWeibo',
+                'onMenuShareQZone'
+            ].map((platItem) => {
+                this.$weixin[platItem]({
+                    title,
+                    desc,
+                    link: shareUrl,
+                    imgUrl,
+                    trigger (e) {
+                    },
+                    success(e) {
+                    },
+                    fail() {
+                    },
+                    cancel() {
+                    }
+                });
+            });
+        });
+    }
+
+    callShare () {
+        this.$shareMask.addClass('fade-in');
+    }
+}
+
+/**
+ * QQ分享
+ */
+class QQ {
+    constructor (appId, shareInfo) {
+        this.loadQQ(appId, shareInfo)
+    }
+
+    loadQQ (appId, shareInfo) {
+        loadJs (`//open.mobile.qq.com/sdk/qqapi.js?_bid=${appId}`).then(() => {
+            this.$QQ = mqq;
+            this.setShare(shareInfo);
+        });
+    }
+
+    setShare (shareInfo = {}) {
+        let {title, desc, shareUrl, imgUrl} = shareInfo;
+
+        this.$QQ.data.setShareInfo({
+            title,
+            desc,
+            share_url: shareUrl,
+            image_url: imgUrl,
+        });
+    }
+
+    callShare () {
+        this.$QQ.ui.showShareMenu();
+    }
+}
+
+/**
+ * 浏览器分享
+ */
+class Browser {
+    constructor () {
+        // 分享按钮绑定
         this.$body.on('click', '.globalShare-item', () => {
             $('.globalShare').remove();
             $('.globalShare-content').remove();
-            this.success && this.success();
         });
-    }
-    // QQ分享
-    _initQQ () {
-        const setQQShare = () => {
-            let {title, desc, link, imgUrl} = this.shareConfig;
-
-            if (this.success) {
-                window._mqq.ui.setOnShareHandler((type) => {
-                    title = type === 3 ?  desc : title;
-                    window._mqq.ui.shareMessage({
-                        title,
-                        desc,
-                        share_type: type,
-                        share_url: link,
-                        image_url: imgUrl,
-                        back: true
-                    }, (result) => {
-                        if (result.retCode === 0) {
-                            this.success && this.success();
-                        } else if (result.retCode === 1) {
-                            this.fail && this.fail();
-                        }
-                    });
-                });
-            } else {
-                window._mqq.data.setShareInfo({
-                    title,
-                    desc,
-                    share_url: link,
-                    image_url: imgUrl,
-                });
-            }
-        };
-
-        if (window._mqq) {
-            setQQShare();
-            return false;
+        // 区分微博
+        if (Is.isWeibo()) {
+            this.$body.append(`<div class="globalShare globalShare-mask——social"></div>`);
+        } else {
+            $('body').append(`<div class="globalShare-mask globalShare-mask——browser"></div><div class="globalShare-content">
+                <div class="globalShare-title"># 分享到 #</div>
+                <div class="globalShare-list"></div>
+                <a href="javascript:;" class="globalShare-cancel">取消</a>
+            </div>`);
         }
 
-        loadJs (this.qqapi).then(() => {
-            window._mqq = mqq;
-            setQQShare();
-        });
+        this.$shareList = $('.globalShare-list');
+        this.$shareMask = $('.globalShare-mask');
+        this.$shareContent = $('.globalShare-content');
     }
-    // 微信分享
-    _initWechat () {
-	    let that = this;
-        const setWechatShare = () => {
-            const PLATS = ['onMenuShareTimeline', 'onMenuShareAppMessage', 'onMenuShareQQ', 'onMenuShareWeibo', 'onMenuShareQZone'];
 
-            /* eslint-disable */
-            window._wx.error(function (error) {
-                console.log(error);
-            });
+    setShare (shareInfo) {
+        this.$shareList.append(
+            `<a 
+                class="globalShare-item" 
+                target="_share" 
+                href="${encodeURI(`http://v.t.sina.com.cn/share/share.php?url=${shareInfo.shareUrl}&title=${shareInfo.title}/${shareInfo.desc}&charset=utf-8&pic=${shareInfo.imgUrl}`)}&searchPic=true">
+                <span class="globalShare-icon globalShare-icon——weibo"></span>
+                <span class="globalShare-name">微博</span>
+            </a>
+            <a 
+                class="globalShare-item" 
+                target="_share" 
+                href="${encodeURI(`http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=${shareInfo.shareUrl}&title=${shareInfo.title}&desc=${shareInfo.desc}&charset=utf-8&pics=${shareInfo.imgUrl}&site=${shareInfo.shareUrl}&otype=share`)}">
+                <span class="globalShare-icon globalShare-icon——qqzone"></span>
+                <span class="globalShare-name">QQ空间</span>
+            </a>
+            <a 
+                class="globalShare-item" 
+                target="_share" 
+                href="${encodeURI(`http://widget.renren.com/dialog/share?resourceUrl=${shareInfo.shareUrl}&title=${shareInfo.title}&description=${shareInfo.desc}&charset=utf-8&pic=${shareInfo.imgUrl}`)}">
+                <span class="globalShare-icon globalShare-icon——renren"></span>
+                <span class="globalShare-name">人人网</span>
+            </a>`
+        );
+    }
 
-            let {title, desc, link, imgUrl} = this.shareConfig;
-
-            window._wx.ready(function () {
-                PLATS.map((plat) => {
-                    window._wx[plat]({
-                        title,
-                        desc,
-                        link: formatShareUrl(link),
-                        imgUrl,
-                        trigger (e) {
-                            that.trigger && that.trigger();
-                        },
-                        success(e) {
-                            that.success && that.success();
-                        },
-                        fail() {
-                            that.fail && that.fail();
-                        },
-                        cancel() {
-                            that.cancel && that.cancel();
-                        }
-                    });
-                });
-            });
-        };
-
-        if (window._wx) {
-            setWechatShare();
-            return false;
+    callShare () {
+        this.$shareMask.addClass('fade-in');
+        if (!Is.isWeibo()) {
+            this.$shareContent.addClass('fade-in');
         }
-
-        // 加载微信JsSdk
-        loadJs (this.jsSdk).then(() => {
-            window._wx = wx;
-            return $.ajax({
-                url: this.tokenUrl,
-                dataType: this.tokenType,
-                type: 'get',
-                data: {
-                    url: location.href.split('#')[0],
-                    t: new Date().getTime()
-                },
-                responseType: 'json',
-                async: true,
-                xhrFields: {withCredentials: true},
-            }).then(response => {
-                let {appId, timestamp, nonceStr, signature} = response;
-                this.config({appId, timestamp, nonceStr, signature});
-                setWechatShare();
-            });
-        });
     }
-    // 设置分享信息
-    setShare (config) {
+}
+
+class Share {
+    constructor ({
+         tokenUrl,
+         tokenType = 'json',
+         appId,
+         shareInfo = { shareUrl: '', title: '', desc: '', imgUrl: '' }
+    }) {
+        // 分享工厂
+        if (Is.isWechat()) {
+            this.$WeChat = new WeChat(tokenUrl, tokenType, shareInfo);
+            this.setShare = this.$WeChat.setShare.bind(this);
+            this.callShare = this.$WeChat.callShare.bind(this);
+        } else if (Is.isQZone() || Is.isQQ()) {
+            this.$QQ = new QQ(appId);
+            this.setShare = this.$WeChat.setShare.bind(this);
+            this.callShare = this.$QQ.callShare.bind(this);
+        } else {
+            this.$Browser = new Browser();
+            this.setShare = this.$Browser.setShare.bind(this);
+            this.callShare = this.$Browser.callShare.bind(this);
+        }
         this._bindEvent();
-        this.shareConfig = {
-            link: config.link || '',
-            title: config.title || '',
-            desc: config.desc || '',
-            imgUrl: config.imgUrl || ''
-        };
+    }
 
-        this.trigger = config.trigger;
-        this.success = config.success;
-        this.fail = config.fail;
-        this.cancel = config.cancel;
-
-        Is.isWechat() && this._initWechat();
-        Is.isQQ() && this._initQQ();
+    _bindEvent () {
+        // 蒙层点击事件
+        this.$body.on('click', '.globalShare, .globalShare-cancel', () => {
+            $('.globalShare').removeClass('fade-in').addClass('fade-out').on('animationend webkitAnimationEnd oAnimationEnd', function () {
+                $(this).removeClass('fade-out');
+            });
+            $('.globalShare-content').removeClass('fade-in').addClass('out').on('animationend webkitAnimationEnd oAnimationEnd', function () {
+                $(this).removeClass('fade-out');
+            });
+        });
     }
 }
 

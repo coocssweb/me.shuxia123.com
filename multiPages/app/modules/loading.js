@@ -2,7 +2,7 @@
  * loading 模块
  * Created by 王佳欣 on 2018/4/3.
  */
-import { loadImages } from '../utils';
+import { loadImages } from '@utils';
 
 class Loading {
     constructor (options, callback) {

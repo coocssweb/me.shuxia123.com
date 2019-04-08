@@ -1,71 +1,88 @@
-// 字符串化
-// return key1=value1&key2=value2
 const stringifyQuery = (query) => {
-    const res = Object.keys(query).map((key) => {
-        return `${key}=${query[key]}`;
-    });
-
-    return res.join('&');
+    return Object.keys(query).map(key => `${key}=${query[key]}`).join('&');
 };
 
 class URI {
-    // 获取 Host
-    _parseHost () {
-        if (this.url === '') {
+    _parseHost (url) {
+        let string = url;
+        let port = '80';
+        if (string === '') {
             return '';
         }
-        const regHost = /\/\/(.*)\.(com|cn|net|cc)/;
-        const matchs = this.url.match(regHost);
-        if (matchs.length < 3) {
-            return '';
+
+        string = string.replace(/\/\//ig, '/');
+        let pos = string.indexOf('/');
+        if (pos !== -1) {
+            string = string.substring(0, pos);
         }
-        return `${matchs[1]}.${matchs[2]}`;
+
+        pos = string.indexOf(':');
+        if (pos !== -1) {
+            port = string.substring(pos, string.length);
+            string = string.substring(0, pos);
+        }
+
+        return {host: string, port};
     }
-    // 获取 Path
-    _parsePath () {
-        if (this.url === '') {
+    _parsePath (url) {
+        let string = url;
+        if (string === '') {
             return '';
         }
-        const urlSplits = this.url.split(/\.com|\.cn|\.net|\.cc/);
-        const pathStr = urlSplits[1];
-        if (pathStr === '') {
+
+        // www.abc.com/abc/ccc.html
+        let pos = string.indexOf('/');
+        if (pos === -1) {
             return '';
         }
-        return pathStr.replace(/^\//, '').replace(/\/[^/]*\.html/, '');
+        let lastPos = string.lastIndexOf('/');
+        if (pos === lastPos) {
+            return '';
+        }
+        return string.substring(pos, lastPos);
     }
-    // 获取 Url 查询参数
-    _parseQuery () {
-        if (this.url === '') {
+    _parseQuery (url) {
+        const string = url;
+        if (string === '') {
             return {};
         }
-        const queryStr = this.url.split('?');
+        const splits = string.split('?');
+        if (splits.length === 1) {
+            return {};
+        }
         const query = {};
-        queryStr.split('&').forEach((item) => {
+        splits[1].split('&').forEach((item) => {
             const values = item.split('=');
             query[values[0]] = values[1];
         });
         return query;
     }
-    // 字符化 Url
     format ({ url = '', protocol, host, path = '', query = {} }) {
         if (url) {
             return `${url}${url.indexOf('?') > -1 ? '' : '?'}${stringifyQuery(query)}`;
         }
         return `${this.protocol}//${host}${path}${stringifyQuery(query)}`;
     }
-    // 格式化 Url
     parse (url = '') {
         this.url = url;
-        const host = this._parseHost();
-        const path = this._parsePath();
-        const query = this._parseQuery();
+        let string = this.url;
+        let pos = string.indexOf('://');
+        if (pos !== -1) {
+            string = string.substring(pos + 3, string.length);
+        }
+
+        const { host, port } = this._parseHost(string);
+        const path = this._parsePath(string);
+        const query = this._parseQuery(string);
 
         return {
+            url,
             host,
+            port,
             path,
             query
         };
     }
-};
+}
 
 export default new URI();

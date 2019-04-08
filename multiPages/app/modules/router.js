@@ -1,8 +1,8 @@
 import Is from '@utils/is';
-import Type from 'utils/type';
-import Uri from 'utils/uri';
+import Type from '@utils/type';
+import Uri from '@utils/uri';
 
-const format = (...args) => {
+const format = (url) => {
     if (Type(url) === 'string') {
         return url.indexOf('http') === 0 ? url : `${this.route.host}/${url}`;
     } else {
@@ -24,7 +24,6 @@ export default {
             } else {
                 window.history.go(-1);
             }
-
         } else {
             window.history.go(-1);
         }
