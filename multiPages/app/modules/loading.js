@@ -5,9 +5,9 @@
 import { loadImages } from '@utils';
 
 class Loading {
-    constructor (options, callback) {
+    constructor (images = [], callback) {
         this.percent = 0;
-        this.images = options.images || [];
+        this.images = images;
         this.haveLoaded = false;
         this.loadedCallback = callback;
         this.$loadingPercent = $('.globalLoading-percent');
@@ -41,11 +41,11 @@ class Loading {
 
     init () {
         this.countdown(50);
-        loadImages(this.images).then(() => {
+        loadImage(this.images).then(() => {
             this.haveLoaded = true;
         });
     }
-};
+}
 
 // install
 const install = (App, config, callback) => {

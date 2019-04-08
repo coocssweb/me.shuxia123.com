@@ -3,7 +3,7 @@ const stringifyQuery = (query) => {
 };
 
 class URI {
-    _parseHost (url) {
+    parseHost (url) {
         let string = url;
         let port = '80';
         if (string === '') {
@@ -24,13 +24,12 @@ class URI {
 
         return {host: string, port};
     }
-    _parsePath (url) {
+    parsePath (url) {
         let string = url;
         if (string === '') {
             return '';
         }
 
-        // www.abc.com/abc/ccc.html
         let pos = string.indexOf('/');
         if (pos === -1) {
             return '';
@@ -41,7 +40,7 @@ class URI {
         }
         return string.substring(pos, lastPos);
     }
-    _parseQuery (url) {
+    parseQuery (url) {
         const string = url;
         if (string === '') {
             return {};
@@ -71,9 +70,9 @@ class URI {
             string = string.substring(pos + 3, string.length);
         }
 
-        const { host, port } = this._parseHost(string);
-        const path = this._parsePath(string);
-        const query = this._parseQuery(string);
+        const { host, port } = this.parseHost(string);
+        const path = this.parsePath(string);
+        const query = this.parseQuery(string);
 
         return {
             url,
