@@ -40,6 +40,7 @@ class Index extends Component {
         // We can do
         return (
             <div className={className('projects page')}>
+                <h1 className={className('page-title')}>开源项目</h1>
                 <div className={className('pageSlogan')}>
                     <div className={className('pageSlogan-content')}>
                         <p className={className('pageSlogan-title')}>我的开源</p>

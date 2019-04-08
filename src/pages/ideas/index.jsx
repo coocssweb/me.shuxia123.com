@@ -80,6 +80,7 @@ class Index extends Component {
         const { state } = this;
         return (
             <div className={className('idea page')}>
+                <h1 className={className('page-title')}>我的想法</h1>
                 <div className={className('pageSlogan')}>
                     <div className={className('pageSlogan-content')}>
                         <p className={className('pageSlogan-title')}>我的想法</p>

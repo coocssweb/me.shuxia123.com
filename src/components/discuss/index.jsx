@@ -66,7 +66,7 @@ class Index extends Component {
 
         child.async = true;
         child.type = 'text/javascript';
-        child.src = '//' + this.props.shortname + '.disqus.com/embed.js';
+        child.src = '//assets.shuxia123.com/js/embed.js';
 
         parent.appendChild(child);
         __disqusAdded = true;

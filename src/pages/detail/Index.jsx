@@ -142,6 +142,7 @@ class Index extends Component {
                 {
                     loaded ? (
                         <div className={className('detail-container')}>
+                            <h1 className={className('page-title')}>{article.title}</h1>
                             <div className={className('detail-title')}>{titles[0]}<br />{titles[1]}</div>
                             <div className={className('detail-info')}>
                                 <img src="//assets.shuxia123.com/images/personal.jpg" className={className('detail-avatar')} />

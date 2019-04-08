@@ -61,6 +61,7 @@ class Index extends Component {
         // We can do
         return (
             <div className={className('home page')}>
+                <h1 className={className('page-title')}>王佳欣的小站</h1>
                 <div className={className('homeSlogan')}>
                     <div className={className({ 'homeSlogan-content': true })}>
                         <p className={className('homeSlogan-title')}>写漂亮的代码</p>
