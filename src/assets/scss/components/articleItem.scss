@@ -38,6 +38,7 @@
         font-size: 14px;
         line-height: 1.3;
         color: $colorBlack;
+        padding-right: 50px;
     }
 
     &Skeleton{
@@ -84,6 +85,7 @@
         &-description{
             margin-top: 5px;
             font-size:12px;
+            padding-right: 0px;
         }
         &Skeleton{
             width: 50%;
