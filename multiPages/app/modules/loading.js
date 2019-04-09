@@ -41,7 +41,7 @@ class Loading {
 
     init () {
         this.countdown(50);
-        loadImage(this.images).then(() => {
+        loadImages(this.images).then(() => {
             this.haveLoaded = true;
         });
     }

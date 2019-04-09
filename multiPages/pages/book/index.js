@@ -1,4 +1,4 @@
-import '@scss/demo.scss';
+import '@scss/magazines.scss';
 import Loading from '@modules/loading';
 import App from 'app';
 // 分享模块
