@@ -1,0 +1,81 @@
+.button{
+    position: relative;
+    display: inline-block;
+    background: transparent;
+    padding: 0px 20px;
+    padding-right: 80px;
+    height: 40px;
+    text-transform: uppercase;
+    text-align: left;
+    line-height: 40px;
+    color: rgba(0, 0, 0, .8);
+    transition: all .55s ease-out;
+    &:focus, &:hover {
+        color: $colorBlack;
+        .button-border--stroke{
+            stroke-dasharray: 85 130;
+            stroke-dashoffset: -165;
+        }
+        .button-dot--middle{
+            transform: translateX(-2px);
+            color: $colorBlack;
+        }
+        .button-dot--short {
+            transform: translateX(-4px);
+            color: $colorBlack;
+        }
+    }
+
+    &-dotList{
+        position: absolute;
+        float: right;
+        top: 50%;
+        right: 20px;
+        width: 40px;;
+        height: 2px;
+        margin-top: -1px;
+    }
+    &-dot{
+        height: 100%;
+        float: left;
+        background: $colorBlack;
+        transition: transform .15s ease-out;
+        &--long{
+            width: 30px;
+        }
+        &--middle{
+            width: 4px;
+            margin-left: 2px;
+        }
+        &--short{
+            width: 2px;
+            margin-left: 2px;
+        }
+    }
+    &-border{
+        &List{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            svg{
+                fill: transparent;
+            }
+        }
+        &--stroke{
+            stroke: #000;
+            stroke-width: 4px;
+            stroke-dasharray: 85 130;
+            stroke-dashoffset: -90;
+            transition: all .55s ease-out;
+        }
+        &--meteor{
+            position: absolute;
+            fill: none;
+            stroke: rgba(0, 0, 0, 0.4);
+            stroke-width: 1px;
+            transition: all .55s ease-out;
+        }
+    }
+}

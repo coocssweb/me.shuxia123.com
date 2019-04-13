@@ -62,17 +62,16 @@ class Index extends Component {
 
     componentWillUnmount () {
         document.removeEventListener('scroll', this.handleScroll);
-        this.domGlobalHeader.style.opacity = null;
+        this.domGlobalHeader.style.backgroundColor = null;
     }
 
     handleScroll (e) {
         let scrollHeight = (window.scrollY / 500);
         scrollHeight = scrollHeight > 1 ? 1 : scrollHeight;
-        const opacityGlobalHeader =  scrollHeight * .7 + 0.3;
+        const opacityGlobalHeader =  scrollHeight * 1;
         const opacityMask = scrollHeight * 0.35 + 0.45;
-        this.domGlobalHeader.style.opacity = opacityGlobalHeader;
+        this.domGlobalHeader.style.backgroundColor = `rgba(0, 0, 0, ${opacityGlobalHeader})`;
         this.domMask.style.opacity = opacityMask;
-        // 懒加载可视区域图片
         lazyLoadImage();
     }
 
@@ -81,7 +80,7 @@ class Index extends Component {
             loadOver: true
         });
     }
-    // 首次加载图片
+    
     loadImage () {
         if (this.state.loaded && !this.state.firstLoadedImage) {
             this.state.firstLoadedImage = true;

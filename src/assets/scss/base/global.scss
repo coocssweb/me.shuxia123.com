@@ -1,15 +1,14 @@
+$logoColor: rgba(255, 255, 255, .8);
+
 .global{
     &Header{
-        //position: absolute;
+        position: absolute;
         width: 100%;
         left: 0px;
         top: 0px;
         height: 60px;
         z-index: 3;
-        background: #0f0f0f url(//assets.shuxia123.com/images/header.png) no-repeat center;
-        background-repeat: no-repeat;
-        background-size: cover;
-        background-position: left bottom;
+    
         &-content{
             max-width: $globalPcWidth;
             margin: 0px auto;
@@ -26,7 +25,7 @@
         &-menu{
             display: inline-block;
             text-decoration: none;
-            color: #b6b6b6;
+            color: $colorWhite;
             font-size: 15px;
             margin-right: 30px;
             padding: 0px 10px;
@@ -45,25 +44,25 @@
             position: absolute;
             top: 13px;
             left: $paddingSizeHalf;
-            height: 34px;
-            width: 34px;;
+            height: 31px;
+            width: 31px;;
             span{
                 display: block;
-                height: 16px;
-                width: 16px;;
-                background-color: #b6b6b6;
+                height: 14px;
+                width: 14px;;
+                background-color: $logoColor;
                 position: absolute;
                 line-height: 16px;
                 text-align: center;
                 box-sizing: border-box;
                 font-size: 12px;
-                color: #b6b6b6;
+                color: $logoColor;
             }
             &--l{
                 left: 0px;
                 top: 0px;
                 background-color: transparent !important;
-                border-top: 1px solid #b6b6b6;
+                border-top: 1px solid $logoColor;
             }
             &--r{
                 top: 0px;
@@ -78,7 +77,7 @@
                 bottom: 0px;
                 text-align: center;
                 background-color: transparent !important;
-                border-right: 1px solid #b6b6b6;
+                border-right: 1px solid $logoColor;
             }
         }
         &-btn{
@@ -106,26 +105,6 @@
 }
 
 @media screen and (max-width: 768px) {
-    .body-home{
-        .global {
-            &Header {
-                //background-color: #000;
-            }
-        }
-    }
-    //.body-detail, .body-column{
-    //    .global {
-    //        &Header {
-    //            &-nav{
-    //                background-color: $colorWhite;
-    //            }
-    //            &-menu{
-    //                border-bottom: 1px solid #f5f5f5;
-    //                color: $colorBlack;
-    //            }
-    //        }
-    //    }
-    //}
     .global {
         &Header {
             position: absolute;
@@ -134,6 +113,7 @@
             background-image: none;
             &--opened{
                 height: 360px;
+                top: 0px;
                 .globalHeader{
                     &-menu{
                         opacity: 1;
@@ -154,6 +134,7 @@
                 top: 14px;
                 transition: transform .5s cubic-bezier(0.52, 0.16, 0.24, 1);
                 transform: none;
+                z-index: 6;
                 span{
                     height: 9px;
                     width: 9px;
@@ -168,7 +149,7 @@
             &-nav{
                 position: absolute;
                 z-index: 5;
-                top: 48px;
+                top: 0px;
                 right: 0;
                 left: 0;
                 bottom: 0px;
@@ -178,7 +159,7 @@
                 -webkit-overflow-scrolling: touch;
                 transition: visibility .8s ease, transform .8s ease;
                 background-color: #0f0f0f;
-                padding: 0px 50px 0px 50px;
+                padding: 50px 50px 0px 50px;
                 text-align: left;
                 box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 2px 0px;
                 &--pc{
@@ -228,6 +209,7 @@
                 top: 0px;
                 right: 0px;
                 display: block;
+                z-index: 6;
                 span{
                     position: absolute;
                     width: 18px;
