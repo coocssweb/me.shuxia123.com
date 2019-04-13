@@ -3,6 +3,7 @@ import className from 'classnames';
 import ArticleItem, { Skeleton as ArticleItemSkeleton } from '@components/articleItem';
 import ProjectItem, { Skeleton as ProjectItemSkeleton } from '@components/projectItem';
 import DemoItem, { Skeleton as DemoItemSkeleton } from '@components/demoItem';
+// import loadImage from '@utils/loadImage';
 import { Link } from 'react-router-dom';
 import withPage from '../../hoc/withPage';
 
@@ -34,6 +35,11 @@ class Index extends Component {
     componentDidMount () {
         const props = this.props;
         document.title = '王佳欣的小站';
+
+        // loadImage(['http//assets.shuxia123.com/images/bg-lite.jpg']).then((result) => {
+        //
+        // });
+
         // 非服务端
         if (!this.state.ideasLoaded) {
             props.fetchRecommendIdeas((result) => {
@@ -62,7 +68,7 @@ class Index extends Component {
         return (
             <div className={className('home page')}>
                 <h1 className={className('page-title')}>王佳欣的小站</h1>
-                <div className={className('homeSlogan')}>
+                <div className={className('homeSlogan')} ref={(ref) => { this.homeSloganRef = ref; }}>
                     <div className={className({ 'homeSlogan-content': true })}>
                         <p className={className('homeSlogan-title')}>写漂亮的代码</p>
                         <p className={className('homeSlogan-subtitle')}>我们一直在路上，因为生活就如同一场现场音乐会。</p>

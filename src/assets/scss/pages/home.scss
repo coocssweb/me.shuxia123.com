@@ -1,18 +1,31 @@
 .home{
     &Slogan{
         text-align: center;
-        padding: 120px 0px;
-        background-image: url(//assets.shuxia123.com/images/home-banner.png);
+        padding: 150px 0px;
+        //background-image: url(//assets.shuxia123.com/images/bg-lite.jpg);
+        background-image: url(//assets.shuxia123.com/images/bg.jpg);
         background-color: #3f3f3f;
         background-position: center;
         background-repeat: no-repeat;
         background-size: cover;
         color: $colorWhite;
+        position: relative;
+        &:before{
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(0, 0, 0, .1);
+        }
         &-content{
             max-width: $globalMobileWidth;
             margin: 0px auto;
             color: #e5895f;
             font-family: "SF Pro SC","SF Pro Display","SF Pro Icons","PingFang SC","Helvetica Neue","Helvetica","Arial",sans-serif;
+            position: relative;
+            z-index: 1;
         }
         &-title{
             font-size: 35px;
