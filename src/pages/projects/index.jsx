@@ -35,9 +35,6 @@ class Index extends Component {
 
     render () {
         const { state } = this;
-        // slogans
-        // 去「勇敢的」承担
-        // We can do
         return (
             <div className={className('projects page')}>
                 <h1 className={className('page-title')}>开源项目</h1>

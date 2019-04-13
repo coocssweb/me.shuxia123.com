@@ -1,6 +1,5 @@
 @import "base/normalize";
 @import "base/variables";
-@import "base/button";
 @import "base/animation";
 @import "base/global";
 html{
@@ -8,12 +7,15 @@ html{
 }
 body{
     background-color: $globalBgColor;
-    font-family: Circular,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-family: "Microsoft YaHei","Helvetica Neue",HelveticaNeue,Helvetica,TeXGyreHeros,FreeSans,"Nimbus Sans L","Liberation Sans",Arial,sans-serif;
 }
 h1, h2, h3, h4, h5, div, p, ul{
     padding: 0px;
     margin: 0px;
     font-weight: normal;
+}
+svg {
+    fill: currentColor
 }
 blockquote{
     padding: 5px 10px 5px 12px;
@@ -45,8 +47,32 @@ a{
     .global {
         &Header {
             position: fixed;
-            opacity: .3;
             z-index: 10;
+            background-color: rgba(0, 0, 0, 0);
+        }
+    }
+}
+@media screen and (min-width: 769px) {
+    .body-column{
+        .global {
+            &Header {
+                position: relative;
+                &-menu{
+                    color: $colorBlack;
+                }
+                &-logo{
+                    span{
+                        background-color: $colorBlack;
+                        color: $colorBlack;
+                    }
+                    &--l{
+                        border-color: $colorBlack;
+                    }
+                    &--n{
+                        border-color: $colorBlack;
+                    }
+                }
+            }
         }
     }
 }
@@ -73,3 +99,4 @@ a{
 @import "components/classifyItem";
 @import "components/demoItem";
 @import "components/code";
+@import "components/button";

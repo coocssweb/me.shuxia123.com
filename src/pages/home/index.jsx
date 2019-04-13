@@ -3,8 +3,9 @@ import className from 'classnames';
 import ArticleItem, { Skeleton as ArticleItemSkeleton } from '@components/articleItem';
 import ProjectItem, { Skeleton as ProjectItemSkeleton } from '@components/projectItem';
 import DemoItem, { Skeleton as DemoItemSkeleton } from '@components/demoItem';
-import { Link } from 'react-router-dom';
+import Button from '@components/button';
 import withPage from '../../hoc/withPage';
+import loadImage from '../../utils/loadImage';
 
 class Index extends Component {
     constructor (props) {
@@ -13,13 +14,14 @@ class Index extends Component {
         this.ideasSkeletonArray = Array(3).fill('');
         this.projectsSkeletonArray = Array(4).fill('');
         this.demosSkeletonArray = Array(5).fill('');
+        this.handleScroll = this.handleScroll.bind(this);
         this.state = {
             ideasLoaded: props.server || props.ideas.length > 0,
             projectsLoaded: props.server || props.projects.length > 0,
             demosLoaded: props.server || props.demos.length > 0,
             ideas: props.ideas,
             projects: props.projects,
-            demos: props.demos,
+            demos: props.demos
         };
     }
 
@@ -52,17 +54,32 @@ class Index extends Component {
                 });
             });
         }
+        document.addEventListener('scroll', this.handleScroll);
+        
+        const maskUrl = `http://assets.shuxia123.com/images/${window.document.documentElement.clientWidth > 768 ? 'bg' : 'bg-mobile'}.jpg`;
+        loadImage([maskUrl]).then(() => {
+            const maskDom = document.querySelector('.homeSlogan-mask');
+            maskDom.style.backgroundImage = `url(${maskUrl})`;
+        });
+    }
+
+    componentWillUnmount () {
+        document.removeEventListener('scroll', this.handleScroll);
+        this.sloganMaskDom.style.transform = 'translate3d(0, 0, 0)';
+    }
+
+    handleScroll (e) {
+        let scrollHeight = window.scrollY;
+        this.sloganMaskDom.style.transform = `translate3d(0, ${scrollHeight / 2}px, 0)`;
     }
 
     render () {
         const { state } = this;
-        // slogans
-        // 去「勇敢的」承担
-        // We can do
         return (
             <div className={className('home page')}>
                 <h1 className={className('page-title')}>王佳欣的小站</h1>
                 <div className={className('homeSlogan')}>
+                    <div className={className('homeSlogan-mask')} ref={(ref) => { this.sloganMaskDom = ref }}></div>
                     <div className={className({ 'homeSlogan-content': true })}>
                         <p className={className('homeSlogan-title')}>写漂亮的代码</p>
                         <p className={className('homeSlogan-subtitle')}>我们一直在路上，因为生活就如同一场现场音乐会。</p>
@@ -83,7 +100,7 @@ class Index extends Component {
                             }
                         </div>
                         <div className={className('homeRecommend-more')}>
-                            <Link to="/ideas" className={className('btn btn-transparent btn--black btn--small')}>他的更多想法</Link>
+                            <Button link='/ideas'>更多想法</Button>
                         </div>
                     </div>
                 </div>
@@ -91,7 +108,7 @@ class Index extends Component {
                     <div className={className('homeRecommend-content')}>
                         <h2 className={className('homeRecommend-title')}>开源项目</h2>
                         <h3 className={className('homeRecommend-subtitle')}>写代码，和从以往开发中发现一些有价值的沉淀</h3>
-                        <div className={className('homeRecommend-projectList projectList clearfix')}>
+                        <div className={className('homeRecommend-projectList clearfix')}>
                             {
                                 state.ideasLoaded ? (
                                     state.projects.map(item => <ProjectItem project={item} key={item.id} />)
@@ -101,7 +118,7 @@ class Index extends Component {
                             }
                         </div>
                         <div className={className('homeRecommend-more')}>
-                            <Link to="/projects" className={className('btn btn-transparent btn--black btn--small')}>他的更多开源</Link>
+                            <Button link='/projects'>更多开源</Button>
                         </div>
                     </div>
                 </div>
@@ -117,6 +134,9 @@ class Index extends Component {
                                     this.demosSkeletonArray.map((item, index) => <DemoItemSkeleton key={index} />)
                                 )
                             }
+                        </div>
+                        <div className={className('homeRecommend-more')}>
+                            <Button link='/projects'>更多实验</Button>
                         </div>
                     </div>
                 </div>

@@ -6,7 +6,7 @@ import Detail from '../containers/detail';
 import Ideas from '../containers/ideas';
 import Projects from '../containers/projects';
 import Demos from '../containers/demos';
-import { windowScroll } from '../components/utils/domHelper'
+import { windowScroll } from '../components/utils/domHelper';
 
 class Index extends Component {
     constructor (props) {

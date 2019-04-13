@@ -1,6 +1,7 @@
 .projectItem{
-    background-color: #fcfbf9;
-    padding: 0px 20px;
+    background-color: #ffffff;
+    border: 1px solid $globalBorderColor;
+    border-radius: 3px;
     &-wrapper{
         width: 50%;
         float: left;
@@ -9,21 +10,23 @@
         margin-bottom: 16px;
     }
     &-title{
-        font-size: 16px;
+        font-size: 14px;
         font-weight: 800;
         color: $colorBlack;
-        padding-top: 20px;
+        padding: 20px 0px;
+        text-align: center;
+        border-bottom: 1px solid $globalBorderColor;
     }
     &-description{
-        margin-top: 20px;
         line-height: 1.5;
-        color: $colorBlack;
-        font-size: 14px;
+        color: $colorGray;
+        font-size: 13px;
+        padding: 20px;
         position: relative;
     }
     &-footer{
         text-align: center;
-        padding: 20px 0px;
+        padding-bottom: 20px;
     }
     &-more{
         display: inline-block;
@@ -48,6 +51,7 @@
             background-color: $colorSkeleton;
             width: 30%;
             height: 18px;
+            margin: 0px auto;
         }
         &-description{
             margin-top: 20px;
@@ -76,18 +80,18 @@
             width: 100%;
         }
         &-title{
-            font-size: 16px;
+            font-size: 14px;
+            padding: 10px 0px;
         }
         &-description{
             font-size: 13px;
             line-height: 1.5;
-            margin-top: 5px;
-        }
-        &-more{
-            margin-top: 5px;
+            padding-top: 10px;
+            padding-bottom: 0px;
         }
         &-footer{
-            padding: 15px 0px;
+            padding-bottom: 10px;
+            padding-top: 10px;
         }
 
 
