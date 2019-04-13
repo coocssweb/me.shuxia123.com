@@ -1,4 +1,4 @@
 import add from './math';
-// let math = require('./mathRequire');
-// console.log(math);
+import { average } from './average';
 console.log(add(1, 2));
+console.log(average(4, 6));
