@@ -4,15 +4,18 @@ const title = '';
 const keyword = '';
 const description = '';
 
-let data = {
-
-};
-
 export default layout.render({
     title,
     keyword,
     description,
     content,
-    data,
-    loading: true
+    loading: true,
+    location: [
+        {
+            name: '首页',
+            url: '/'
+        }, {
+            name: '杂志栏目',
+        }
+    ]
 });

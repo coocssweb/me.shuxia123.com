@@ -96,7 +96,7 @@ module.exports = function (mode) {
                 '@components': resolve('src/components')
             },
             // 文件后缀自动补全
-            extensions: ['.js', '.jsx'],
+            extensions: ['.js', '.jsx', '.ts', '.tsx'],
         },
         // 第三方依赖，可以写在这里，不打包
         externals: {}

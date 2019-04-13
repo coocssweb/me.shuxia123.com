@@ -9,7 +9,7 @@ module.exports = function webpackBaseConfig (NODE_ENV = 'development') {
     const files = require('../config/pages');
 
     let entry = {
-        // common: ['./app/index.js']
+        common: ['./app/index.js']
     };
 
     let plugins = [
@@ -17,15 +17,12 @@ module.exports = function webpackBaseConfig (NODE_ENV = 'development') {
             filename: `${config.filePath}css/${config.filenameHash ? '[name].[contenthash:8]' : '[name]'}.css`,
             allChunks: true
         }),
-        // new webpack.optimize.CommonsChunkPlugin({
-        //     name: 'common'
-        // }),
-        // new webpack.optimize.CommonsChunkPlugin({
-        //     name: 'runtime'
-        // }),
-        // new webpack.HashedModuleIdsPlugin(),
-        // new webpack.NamedChunksPlugin(),
-        new CopyrightPlugin(`/**\n * 作者: 王佳欣\n * 站点: http://www.shuxia123.com\n */`),
+        new webpack.optimize.CommonsChunkPlugin({
+            name: 'common'
+        }),
+        new webpack.optimize.CommonsChunkPlugin({
+            name: 'runtime'
+        }),
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': JSON.stringify(NODE_ENV),
             'process.env.STATIC_PATH': JSON.stringify(config.staticPath),
@@ -39,7 +36,7 @@ module.exports = function webpackBaseConfig (NODE_ENV = 'development') {
             new HtmlWebpackPlugin({
                 filename: item.filename,
                 template: item.template,
-                chunks: [item.name],
+                chunks: ['runtime', 'common', item.name],
                 hash: false,
                 inject: 'body',
                 xhtml: false,
@@ -116,9 +113,9 @@ module.exports = function webpackBaseConfig (NODE_ENV = 'development') {
         resolve: {
             alias: {
                 app: resolve('app/'),
-                appModules: resolve('app/modules'),
-                utils: resolve('utils'),
-                scss: resolve('scss/'),
+                '@modules': resolve('app/modules'),
+                '@utils': resolve('utils'),
+                '@scss': resolve('assets/scss'),
                 layout: resolve('layout/index.js')
             }
         },
@@ -126,34 +123,44 @@ module.exports = function webpackBaseConfig (NODE_ENV = 'development') {
 
     // 开发环境服务器配置
     if (NODE_ENV === 'development') {
-        // webpackConfig.devServer = {
-        //     contentBase: resolve('dist'),
-        //     compress: false,
-        //     host: '127.0.0.1',
-        //     port: config.port,
-        //     hot: true,
-        //     disableHostCheck: true,
-        //     historyApiFallback: true
-        // };
-        //
-        // // webpack watch 配置
-        // webpackConfig.watchOptions = {
-        //     poll: 500,
-        //     aggregeateTimeout: 500,
-        //     ignored: 'node_modules'
-        // };
+        webpackConfig.devServer = {
+            contentBase: resolve('dist'),
+            compress: false,
+            host: '127.0.0.1',
+            port: config.port,
+            hot: true,
+            disableHostCheck: true,
+            historyApiFallback: true
+        };
+
+        // webpack watch 配置
+        webpackConfig.watchOptions = {
+            poll: 500,
+            aggregeateTimeout: 500,
+            ignored: 'node_modules'
+        };
     } else {
         webpackConfig.plugins.push(
-            // new webpack.optimize.UglifyJsPlugin({
-            //     compress: {
-            //         warnings: false,
-            //         dead_code: true
-            //     },
-            //     sourceMap: true,
-            //     output: {
-            //         comments: false
-            //     }
-            // })
+            new webpack.HashedModuleIdsPlugin()
+        );
+        webpackConfig.plugins.push(
+            new webpack.NamedChunksPlugin()
+        );
+        webpackConfig.plugins.push(
+            new CopyrightPlugin(`/**\n * 作者: 王佳欣\n * 站点: http://www.shuxia123.com\n */`)
+        );
+
+        webpackConfig.plugins.push(
+            new webpack.optimize.UglifyJsPlugin({
+                compress: {
+                    warnings: false,
+                    dead_code: true
+                },
+                sourceMap: true,
+                output: {
+                    comments: false
+                }
+            })
         );
     }
 

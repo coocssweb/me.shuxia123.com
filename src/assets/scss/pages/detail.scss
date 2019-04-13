@@ -15,7 +15,7 @@ $marginSize: 50px;
         opacity: .45;
     }
     &-container{
-        max-width: $globalMobileWidth;
+        max-width: 850px;
         margin: 0px auto;
         position: relative;
         z-index: 2;
@@ -112,9 +112,11 @@ $marginSize: 50px;
     &-content{
         font-size: 16px;
         line-height: 1.8;
-        color: $colorBlack;
+        color: $colorBlackLite;
         background-color: $colorWhite;
         padding: $marginSize;
+        white-space: pre-wrap;
+        word-break: break-all;
         img{
             display: block;
             width: 100% !important;
@@ -126,12 +128,14 @@ $marginSize: 50px;
             margin-left: 10px;
             margin-bottom: 15px;
         }
-        h2{
+        h2, h1{
             font-weight: 800;
             margin-bottom: 15px;
+            font-size: 25px;
         }
         p{
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+            margin-top: 20px;
             &:last-child{
                 margin-bottom: 0px;
             }
@@ -153,7 +157,7 @@ $marginSize: 50px;
 .detailSkeleton{
     padding-top: 200px;
     padding-bottom: 50px;
-    max-width: $globalMobileWidth;
+    max-width: 850px;
     margin: 0px auto;
     &-wrapper{
         background-color: $colorWhite;
@@ -246,7 +250,7 @@ $marginSize: 50px;
         }
         &-title{
             color: $colorBlackLite;
-            font-size: 22px;
+            font-size: 20px;
             text-align: left;
             padding: 20px 20px 0px 20px;
             font-weight: normal;

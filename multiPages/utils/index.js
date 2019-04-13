@@ -25,7 +25,7 @@ export const loadJs = (url) => {
 /**
  * 懒加载图片
  */
-export const loadImage = (images) => {
+export const loadImages = (images) => {
     let haveLoadedCount = 0;
     return new Promise((resolve, reject) => {
         const load = (src) => {

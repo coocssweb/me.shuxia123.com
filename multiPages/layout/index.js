@@ -1,26 +1,22 @@
-/**
- * Layout
- * Created by 王佳欣 on 2018/6/4.
- */
 import layoutEjs from './layout.ejs';
 import headerEjs from './header.ejs';
 import footerEjs from './footer.ejs';
+import loadingEjs from './loading.ejs';
+import locationEjs from './location.ejs';
 
 // 渲染页面
 export default {
-    render: ({title, keyword, description, content, data, location, page = '', pure = false}) => {
+    render: ({title, keyword, description, content, location, loading = false}) => {
         const renderData = {
             title,
             keyword,
             description,
             header: headerEjs({STATIC_PATH: process.env.STATIC_PATH}),
             footer: footerEjs({STATIC_PATH: process.env.STATIC_PATH}),
-            content: typeof content === 'string' ? content : content(data),
+            loading: loading ? loadingEjs() : null,
+            content: typeof content === 'string' ? content : content(),
             console: process.env.NODE_ENV !== 'production',
-            STATIC_PATH: process.env.STATIC_PATH,
-            node_env: process.env.NODE_ENV,
-            page,
-            location
+            location: location && location.length ? locationEjs({location}) : null
         };
         return layoutEjs(renderData);
     }

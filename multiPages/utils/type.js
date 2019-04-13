@@ -4,7 +4,5 @@ let _class2type = {};
 });
 
 export default (obj) => {
-    return typeof obj === 'object' || typeof obj === 'function' ?
-        _class2type[Object.prototype.toString.call(obj)]:
-        typeof obj;
+    return typeof obj === 'object' || typeof obj === 'function' ? _class2type[Object.prototype.toString.call(obj)] : typeof obj;
 };

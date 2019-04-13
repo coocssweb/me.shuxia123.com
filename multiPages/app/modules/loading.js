@@ -2,12 +2,12 @@
  * loading 模块
  * Created by 王佳欣 on 2018/4/3.
  */
-import { loadImages } from '../utils';
+import { loadImages } from '@utils';
 
 class Loading {
-    constructor (options, callback) {
+    constructor (images = [], callback) {
         this.percent = 0;
-        this.images = options.images || [];
+        this.images = images;
         this.haveLoaded = false;
         this.loadedCallback = callback;
         this.$loadingPercent = $('.globalLoading-percent');
@@ -45,7 +45,7 @@ class Loading {
             this.haveLoaded = true;
         });
     }
-};
+}
 
 // install
 const install = (App, config, callback) => {
