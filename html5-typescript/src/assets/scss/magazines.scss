@@ -1,0 +1,26 @@
+@import "common";
+.section{
+    &--magazines{
+        background-color: #4ecad2;
+        color: #ffffff;
+        padding: 100PX 0;
+    }
+    &-wrapper{
+        max-width: $globalWidth;
+        margin: 0px auto;
+    }
+}
+
+.magazines{
+    &-content{
+        text-align: center;
+    }
+    &-title{
+        font-size: 30PX;
+    }
+    &-description{
+        text-align: center;
+        font-size: 16PX;
+        margin: 20PX 0;
+    }
+}

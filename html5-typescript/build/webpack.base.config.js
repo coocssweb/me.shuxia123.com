@@ -5,7 +5,7 @@ const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const CopyrightPlugin = require('./plugins/copyrightWebpackPlugin');
 const { resolve } = require('./utils');
 
-module.exports = function webpackBaseConfig(NODE_ENV = 'development') {
+module.exports = function webpackBaseConfig (NODE_ENV = 'development') {
     const config = require('../config')[NODE_ENV];
     const files = require('../config/pages');
     const IS_DEVELOPMENT = NODE_ENV === 'development';
@@ -25,9 +25,10 @@ module.exports = function webpackBaseConfig(NODE_ENV = 'development') {
         externals: {},
         devtool: config.devtool,
         module: {
-            rules: [{
+            rules: [
+                {
                     test: /\.ts$/,
-                    loader: 'ts-loader',
+                    loader: 'awesome-typescript-loader',
                     exclude: /(node_modules)/,
                 },
                 {
@@ -71,7 +72,7 @@ module.exports = function webpackBaseConfig(NODE_ENV = 'development') {
                         'postcss-loader',
                         'sass-loader'
                     ]
-                },
+                }
             ]
         },
         plugins: [
@@ -83,12 +84,13 @@ module.exports = function webpackBaseConfig(NODE_ENV = 'development') {
         ],
         resolve: {
             alias: {
-                app: resolve('app/'),
-                layout: resolve('layout/index.js'),
-                '@modules': resolve('app/modules'),
-                '@utils': resolve('utils'),
-                '@scss': resolve('assets/scss')
-            }
+                '@app': resolve('src/app/'),
+                '@layout': resolve('src/layout/index.ts'),
+                '@modules': resolve('src/app/modules'),
+                '@utils': resolve('src/utils'),
+                '@scss': resolve('src/assets/scss')
+            },
+            extensions: ['.ts', '.js', '.json']
         },
     };
 
@@ -123,7 +125,6 @@ module.exports = function webpackBaseConfig(NODE_ENV = 'development') {
         // webpack watch 配置
         webpackConfig.watchOptions = {
             poll: 500,
-            aggregeateTimeout: 500,
             ignored: 'node_modules'
         };
         // 热更新
@@ -132,7 +133,7 @@ module.exports = function webpackBaseConfig(NODE_ENV = 'development') {
         );
     } else {
         // 通用文件入口
-        webpackConfig.entry['common'] = ['./app/index.js'];
+        webpackConfig.entry['common'] = ['./app/index.ts'];
         webpackConfig.plugins.push(
             new webpack.optimize.CommonsChunkPlugin({
                 name: 'common'
@@ -194,6 +195,5 @@ module.exports = function webpackBaseConfig(NODE_ENV = 'development') {
             }
         };
     }
-
     return webpackConfig;
 };
