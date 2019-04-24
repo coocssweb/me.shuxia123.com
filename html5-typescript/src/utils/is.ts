@@ -3,14 +3,25 @@
  * @author: 王佳欣
  * @email: 1974740999@qq.com
  */
-let instance;
-export default (): Object => {
+interface Is {
+    isWeibo: Function,
+    isWechat: Function,
+    isQQ: Function,
+    isQZone: Function,
+    isAndroid: Function,
+    isIos: Function
+}
+
+let instance: Is;
+
+export default (): Is => {
     if (instance) {
         return instance;
     }
 
     const USER_AGENT = navigator.userAgent.toLowerCase();
-    return instance = {
+    
+    instance = {
         isWeibo (): boolean {
             return /weibo/.test(USER_AGENT);
         },
@@ -30,4 +41,6 @@ export default (): Object => {
             return /iphone|ipad|ipod/.test(USER_AGENT);
         }
     };
+
+    return instance;
 };

@@ -23,8 +23,8 @@ export default (target: Target): void => {
             if (value === newValue) {
                 return;
             }
+            callback(newValue, value);
             value = newValue;
-            callback(value);
         }
     });
 };

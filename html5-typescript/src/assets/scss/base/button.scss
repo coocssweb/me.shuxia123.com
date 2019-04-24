@@ -1,12 +1,12 @@
 .btn{
+    position: relative;
+    display: inline-block;
+    text-align: center;
+    cursor: pointer;
     background-image: none;
     border: none;
     outline: 0;
-    display: inline-block;
     transition: all 300ms;
-    cursor: pointer;
-    text-align: center;
-    position: relative;
     &:hover{
         opacity: .8;
     }
@@ -14,7 +14,14 @@
         background-color: $colorBlack;
         color: #ffffff;
     }
-    &-large{
+    &--disable {
+        background-color: $colorBlack;
+    }
+    &--small{
+        font-size: $fontSizeL;
+        padding: 12PX 20PX;
+    }
+    &--large{
         font-size: $fontSizeL;
         padding: 12PX 20PX;
     }

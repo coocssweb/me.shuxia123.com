@@ -84,8 +84,8 @@ module.exports = function webpackBaseConfig (NODE_ENV = 'development') {
         ],
         resolve: {
             alias: {
-                '@app': resolve('src/app/'),
-                '@layout': resolve('src/layout/index.ts'),
+                '@app': resolve('src/app/index.ts'),
+                '@layout': resolve('src/layout/index.js'),
                 '@modules': resolve('src/app/modules'),
                 '@utils': resolve('src/utils'),
                 '@scss': resolve('src/assets/scss')

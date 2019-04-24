@@ -4,8 +4,9 @@
  * @email: 1974740999@qq.com
  */
 
-export const getTransitionEvent = ():String => {
+export const getTransitionEvent = () => {
     let el = document.createElement('fake_a_element');
+    
     let transitions = {
         'transition':'transitionend',
         'OTransition':'oTransitionEnd',

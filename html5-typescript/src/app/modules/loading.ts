@@ -1,4 +1,10 @@
-import { loadImages } from '@utils';
+/**
+ * @file utils/loading.ts 加载动画
+ * @author: 王佳欣
+ * @email: 1974740999@qq.com
+ */
+
+import { loadImages } from '@utils/index';
 import { getTransitionEvent } from '@utils/device';
 import { EMPTY_FUNCTION } from '../../constant';
 
@@ -53,7 +59,8 @@ export default class Loading {
     private countDown (timeout: number): void {
         setTimeout(() => {
             this.setLoadingStatus();
-            if (this.haveLoadedPercent !== 50 && this.haveLoadedPercent !== 80) {
+            if (this.haveLoadedPercent !== 50 
+                && this.haveLoadedPercent !== 80) {
                 this.haveLoadedPercent += 1;
                 this.countDown(timeout);
             } else if (this.haveLoadedPercent === 50) {
