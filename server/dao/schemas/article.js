@@ -38,14 +38,14 @@ let ArticleSchema = new Mongoose.Schema({
     //         }
     //     }
     // ],
-    // createAt: {
-    //     type: Number,
-    //     default: Date.now()
-    // },
-    // updateAt: {
-    //     type: Number,
-    //     default: Date.now()
-    // }
+    createAt: {
+        type: Number,
+        default: Date.now()
+    },
+    updateAt: {
+        type: Number,
+        default: Date.now()
+    }
 }, {
     versionKey: false
 });
@@ -57,9 +57,8 @@ ArticleSchema.pre('save', async function(next) {
         this.likeCount = 0;
         this.readCount = 0;
         this.id = await autoIncrementId('articles');
-        console.log(this);
     } else {
-        this.updateAt = Date.now();
+        this.createAt = this.updateAt = Date.now();
     }
 
     next();
