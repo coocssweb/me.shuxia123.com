@@ -27,28 +27,29 @@ export default class WeChat extends Share {
         super();
         this.shareInfo = shareInfo;
         this.transitionEvent = getTransitionEvent();
-        this.handleLoadScript(tokenUrl);
+        this.handleLoadSignature(tokenUrl).then(({appId, timestamp, nonceStr, signature}) => {
+            this.setConfig({appId, timestamp, nonceStr, signature});
+            this.setShareInfo(this.shareInfo);
+        });
     }
 
-    private handleLoadScript (tokenUrl: string): any {
+    private async handleLoadSignature (tokenUrl: string) {
         // load wechat sdk
-        loadScript ('//res.wx.qq.com/open/js/jweixin-1.2.0.js').then(() => {
-            this.wechat = window.__wx__;
-            // request wechat token, then set share info
-            Ajax({
-                url: tokenUrl,
-                dataType: 'json',
-                data: {
-                    url: location.href,
-                    t: new Date().getTime()
-                },
-                xhrFields: {withCredentials: true},
-            }).then((response: any) => {
-                let {appId, timestamp, nonceStr, signature} = response;
-                this.setConfig({appId, timestamp, nonceStr, signature});
-                this.setShareInfo(this.shareInfo);
-            });
+        await loadScript ('//res.wx.qq.com/open/js/jweixin-1.2.0.js');
+        this.wechat = window.__wx__;
+
+        // request wechat token
+        const result =  await Ajax({
+            url: tokenUrl,
+            dataType: 'json',
+            data: {
+                url: location.href,
+                t: new Date().getTime()
+            },
+            xhrFields: {withCredentials: true},
         });
+
+        return result;
     }
 
     private setConfig ({appId, timestamp, nonceStr, signature}): void {
@@ -124,6 +125,7 @@ export default class WeChat extends Share {
     private handleDestory () {
         if (this.$domShare.classList.contains('globalShare—--out')) {
             this.unbindEvents();
+            
             // remove dom
             document.body.removeChild(this.$domShare);
         }

@@ -20,14 +20,14 @@ export default class QQ extends Share {
     constructor (appId: string, shareInfo: ShareInfo) {
         super();
         this.shareInfo = shareInfo;
-        this.loadQQ(appId);
-    }
-
-    private loadQQ (appId: string) {
-        loadScript (`//open.mobile.qq.com/sdk/qqapi.js?_bid=${appId}`).then(() => {
-            this.qq = window.__mqq__;
+        this.loadQQ(appId).then(() => {
             this.setShareInfo();
         });
+    }
+
+    private async loadQQ (appId: string) {
+        await loadScript (`//open.mobile.qq.com/sdk/qqapi.js?_bid=${appId}`);
+        this.qq = window.__mqq__;
     }
 
     public setShareInfo () {

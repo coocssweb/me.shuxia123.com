@@ -22,6 +22,11 @@ function App (data: object, watchs: object) {
 }
 
 App.prototype = {
+
+    bindEvents: EMPTY_FUNCTION,
+
+    init: EMPTY_FUNCTION,
+
     $tip: function (message: string, duration?: number, callback?: Function) {
         new Tip(message, duration, callback);
     },
@@ -33,10 +38,6 @@ App.prototype = {
     $confirm: function () {
         return new Confirm();
     },
-
-    bindEvents: EMPTY_FUNCTION,
-
-    init: EMPTY_FUNCTION,
 
     _init: function () {
         this.bindEvents();
@@ -76,7 +77,7 @@ App.prototype = {
     }
 }
 
-// extends app, and return sub
+// extends app, return sub
 App.extends = (...args: any) => {
     const Super = App;
 

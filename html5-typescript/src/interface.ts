@@ -1,13 +1,18 @@
+export enum ContentType {
+    Urlencoded = 'application/x-www-from-urlencoded',
+    FormData = 'multipart/form-data'
+};
+
 export interface XhrFields{
-    withCredentials? : boolean
+    withCredentials : boolean
 };
 
 export interface AjaxOptions {
     url?: string,
-    method?: string,
     data?: object,
     dataType?: string, 
     contentType?: string, 
+    method?: string,
     xhrFields?: XhrFields,
     token?: string,
     async?: boolean

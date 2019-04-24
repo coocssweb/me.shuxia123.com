@@ -59,19 +59,23 @@ export default class Loading {
     private countDown (timeout: number): void {
         setTimeout(() => {
             this.setLoadingStatus();
+            
             if (this.haveLoadedPercent !== 50 
                 && this.haveLoadedPercent !== 80) {
                 this.haveLoadedPercent += 1;
                 this.countDown(timeout);
-            } else if (this.haveLoadedPercent === 50) {
+            } 
+            else if (this.haveLoadedPercent === 50) {
                 // 加载50% 做假暂停
                 this.haveLoadedPercent += this.haveLoadedHalf ? 1 : 0;
                 this.countDown(timeout);
-            } else if (this.haveLoadedPercent === 80) {
+            } 
+            else if (this.haveLoadedPercent === 80) {
                 // 加载80% 做假暂停
                 this.haveLoadedPercent += this.haveLoaded ? 1 : 0;
                 this.countDown(timeout);
-            } else if (this.haveLoadedPercent > 99) {
+            } 
+            else if (this.haveLoadedPercent > 99) {
                 this.loadedCallback();
                 this.handleLoadEnd();
             }
@@ -80,7 +84,7 @@ export default class Loading {
 
     public start (): void {
         this.countDown(50);
-        loadImages(this.images, (loadedCount) => {
+        loadImages(this.images, (loadedCount: number) => {
             this.haveLoadedCount = loadedCount;
             this.haveLoadedHalf = this.haveLoadedCount > this.images.length / 2; 
         }).then(() => {

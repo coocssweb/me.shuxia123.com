@@ -4,7 +4,6 @@
  * @email: 1974740999@qq.com
  */
 
-import { ShareInfo } from '../../../interface';
 import { getTransitionEvent } from '@utils/device';
 import Share from './share';
 
@@ -47,6 +46,7 @@ export default class Browser extends Share {
     private handleDestory () {
         if (this.$domShare.classList.contains('globalShare—--out')) {
             this.unbindEvents();
+            
             // remove dom
             document.body.removeChild(this.$domShare);
         }

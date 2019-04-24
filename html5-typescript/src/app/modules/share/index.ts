@@ -24,11 +24,14 @@ export default class Index {
 
     constructor (tokenUrl?: string, appId?: string, shareInfo?: ShareInfo) {
         shareInfo = { ...shareInfo, ...defaultShareInfo };
+        
         if (_is.isWechat) {
             this.platform = new Wechat(tokenUrl, shareInfo);
-        } else if (_is.isQQ) {
+        } 
+        else if (_is.isQQ) {
             this.platform = new QQ(appId, shareInfo);
-        } else {
+        } 
+        else {
             this.platform = new Browser();
         }
     }

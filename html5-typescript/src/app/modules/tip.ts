@@ -36,6 +36,7 @@ export default class Tip {
     private handleDestory () {
         if (this.$dom.classList.contains('globalTip--out')) {
             this.unbindEvents();
+            
             // remove dom
             document.body.removeChild(this.$dom);
         }

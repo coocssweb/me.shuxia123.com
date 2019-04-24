@@ -9,7 +9,8 @@ interface Is {
     isQQ: Function,
     isQZone: Function,
     isAndroid: Function,
-    isIos: Function
+    isIos: Function,
+    isIphoneX: Function
 }
 
 let instance: Is;
@@ -39,6 +40,10 @@ export default (): Is => {
         },
         isIos (): boolean {
             return /iphone|ipad|ipod/.test(USER_AGENT);
+        },
+        isIphoneX (): boolean {
+            return this.isIos() && window.screen.width === 375 
+            && window.screen.height === 812
         }
     };
 

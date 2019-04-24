@@ -5,7 +5,7 @@
  */
 import { EMPTY_FUNCTION } from '../constant';
 
-// 异步加载javascript文件
+// load javascript
 export const loadScript = (src: string): Promise<any> => {
     return new Promise((resolve, reject) => {
         const script = document.createElement('script');
@@ -17,11 +17,11 @@ export const loadScript = (src: string): Promise<any> => {
     });
 };
 
-// 异步加载图片
+// load photos
 export const loadImages = (images: Array<string>, callback: Function = EMPTY_FUNCTION): Promise<number> => {
     let haveLoadedCount = 0;
     return new Promise((resolve, reject) => {
-        const loadOneOver = () => {
+        const loadedOne = () => {
             haveLoadedCount++;
             callback(haveLoadedCount);
             if (haveLoadedCount === images.length) {
@@ -31,8 +31,8 @@ export const loadImages = (images: Array<string>, callback: Function = EMPTY_FUN
 
         const load = (src: string): void => {
             const image = new Image();
-            image.onload = loadOneOver;
-            image.onerror = loadOneOver;
+            image.onload = loadedOne;
+            image.onerror = loadedOne;
             image.src = src;
         };
 
