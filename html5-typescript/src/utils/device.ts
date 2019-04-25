@@ -20,3 +20,20 @@ export const getTransitionEvent = () => {
         }
     }
 }
+
+export const getAnimationEvent = () => {
+    let el = document.createElement('fake_a_element');
+    
+    let animations = {
+        'animation':'animationend',
+        'OAnimation':'oAnimationEnd',
+        'MozAnimation':'animationend',
+        'WebkitAnimation':'webkitAnimationEnd'
+    }
+
+    for (let animation in animations) {
+        if (el.style[animation] !== undefined) {
+            return animations[animation];
+        }
+    }
+};

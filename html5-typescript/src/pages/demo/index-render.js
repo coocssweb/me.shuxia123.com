@@ -1,14 +1,14 @@
 import layout from '@layout';
 import content from './index.ejs';
-const title = '这是首页';
-const keyword = '首页关键字';
-const description = '首页描述';
+const title = '这是另一个页面';
+const keyword = '另一个页面关键字';
+const description = '另一个页面描述';
 
 export default layout.render({
     title,
     keyword,
     description,
     content,
-    loading: false,
+    loading: true,
     location: []
 });

@@ -7,6 +7,7 @@
     border: none;
     outline: 0;
     transition: all 300ms;
+    padding: 10PX 20PX;
     &:hover{
         opacity: .8;
     }
@@ -19,10 +20,10 @@
     }
     &--small{
         font-size: $fontSizeL;
-        padding: 12PX 20PX;
+        padding: 8PX 15PX;
     }
     &--large{
         font-size: $fontSizeL;
-        padding: 12PX 20PX;
+        padding: 15PX 25PX;
     }
 }

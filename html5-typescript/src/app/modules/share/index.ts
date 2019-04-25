@@ -11,33 +11,33 @@ import IS from '@utils/is';
 import Share from './share';
 const _is = IS();
 
-const defaultShareInfo: ShareInfo = {
-    title: document.title,
-    desc: '',
-    link: window.location.href,
-    imgUrl: ''
-};
-
 export default class Index {
     private shareInfo: ShareInfo;
     private platform: Share;
 
+    static defaultShareInfo: ShareInfo = {
+        title: document.title,
+        desc: '',
+        link: window.location.href,
+        imgUrl: ''
+    };
+
     constructor (tokenUrl?: string, appId?: string, shareInfo?: ShareInfo) {
-        shareInfo = { ...shareInfo, ...defaultShareInfo };
+        shareInfo = { ...Index.defaultShareInfo, ...shareInfo };
         
-        if (_is.isWechat) {
+        if (_is.isWechat()) {
             this.platform = new Wechat(tokenUrl, shareInfo);
         } 
-        else if (_is.isQQ) {
+        else if (_is.isQQ()) {
             this.platform = new QQ(appId, shareInfo);
         } 
         else {
-            this.platform = new Browser();
+            this.platform = new Browser(shareInfo);
         }
     }
 
     public setShareInfo (shareInfo: ShareInfo) {
-        shareInfo = { ...shareInfo, ...defaultShareInfo };
+        shareInfo = { ...Index.defaultShareInfo, ...shareInfo };
         this.platform.setShareInfo(shareInfo);
     }
 

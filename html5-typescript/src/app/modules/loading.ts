@@ -3,9 +3,9 @@
  * @author: 王佳欣
  * @email: 1974740999@qq.com
  */
-
+import '@scss/globalLoading.scss';
 import { loadImages } from '@utils/index';
-import { getTransitionEvent } from '@utils/device';
+import { getAnimationEvent } from '@utils/device';
 import { EMPTY_FUNCTION } from '../../constant';
 
 export default class Loading {
@@ -20,40 +20,48 @@ export default class Loading {
     private $loadingContainer: HTMLElement;
     private $loadingProgress: HTMLElement;
     private $loadingValue: HTMLElement;
-    private transitionEvent: string;
+    private animationEvent: string;
 
     constructor (images: Array<string>, callback?: Function) {
         this.images = images;
         this.loadedCallback = callback || EMPTY_FUNCTION;
-        this.$loadingContainer = document.querySelector('.globalLoading-container');
+
+        // rebind
+        this.handleDestory = this.handleDestory.bind(this);
+
+        this.$loadingContainer = document.querySelector('.globalLoading');
         this.$loadingProgress = document.querySelector('.globalLoading-progress');
         this.$loadingValue = document.querySelector('.globalLoading-value');
-        this.transitionEvent = getTransitionEvent();
+        this.animationEvent = getAnimationEvent();
 
         this.bindEvents();
     }
 
     private bindEvents () {
-        this.$loadingContainer.addEventListener(this.transitionEvent, this.handleDestory);
+        this.$loadingContainer.addEventListener(this.animationEvent, this.handleDestory);
     }
 
-    private handleDestory () {
+    private handleDestory (e: any) {
+        if (e.target !== e.currentTarget) {
+            return;
+        }
+
         this.unbindEvents();
         // remove dom
         this.$loadingContainer.parentNode.removeChild(this.$loadingContainer);
     }
 
     private unbindEvents () {
-        this.$loadingContainer.removeEventListener(this.transitionEvent, this.handleDestory);
+        this.$loadingContainer.removeEventListener(this.animationEvent, this.handleDestory);
     }
 
     private handleLoadEnd (): void {
-        this.$loadingContainer.classList.add('globalOut');
+        this.$loadingContainer.classList.add('doOut');
     }
 
     private setLoadingStatus (): void {
-        this.$loadingValue.innerHTML  = `${this.haveLoadedPercent}%`;
-        this.$loadingProgress.style.width = `${this.haveLoadedPercent}%`;
+        this.$loadingValue && (this.$loadingValue.innerHTML  = `${this.haveLoadedPercent}%`);
+        this.$loadingProgress && (this.$loadingProgress.style.width = `${this.haveLoadedPercent}%`);
     }
 
     private countDown (timeout: number): void {
@@ -61,7 +69,8 @@ export default class Loading {
             this.setLoadingStatus();
             
             if (this.haveLoadedPercent !== 50 
-                && this.haveLoadedPercent !== 80) {
+                && this.haveLoadedPercent !== 80
+                && this.haveLoadedPercent < 100) {
                 this.haveLoadedPercent += 1;
                 this.countDown(timeout);
             } 
@@ -89,6 +98,7 @@ export default class Loading {
             this.haveLoadedHalf = this.haveLoadedCount > this.images.length / 2; 
         }).then(() => {
             this.haveLoaded = true;
+            this.haveLoadedPercent = this.haveLoadedPercent < 90 ? 90 : this.haveLoadedPercent;
         });
     }
 };

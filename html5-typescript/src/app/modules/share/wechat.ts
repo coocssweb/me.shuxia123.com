@@ -5,7 +5,7 @@
  */
 
 import { ShareInfo } from '../../../interface';
-import { getTransitionEvent } from '@utils/device';
+import { getAnimationEvent } from '@utils/device';
 import { loadScript } from '@utils/index';
 import { ajax as Ajax } from '../ajax';
 import Share from './share';
@@ -21,12 +21,18 @@ export default class WeChat extends Share {
     private $domShare: HTMLElement;
     private wechat: any;
     private shareInfo: ShareInfo;
-    private transitionEvent: string;
+    private animationEvent: string;
+    private created: boolean = false;
 
     constructor (tokenUrl: string, shareInfo: ShareInfo) {
         super();
         this.shareInfo = shareInfo;
-        this.transitionEvent = getTransitionEvent();
+        this.animationEvent = getAnimationEvent();
+
+        // rebind
+        this.handleDestory = this.handleDestory.bind(this);
+        this.handleOut = this.handleOut.bind(this);
+
         this.handleLoadSignature(tokenUrl).then(({appId, timestamp, nonceStr, signature}) => {
             this.setConfig({appId, timestamp, nonceStr, signature});
             this.setShareInfo(this.shareInfo);
@@ -100,30 +106,35 @@ export default class WeChat extends Share {
     }
 
     public callShare () {
+        if (this.created) {
+            return;
+        }
+        this.created = true;
         // create dom
         this.$domShare = document.createElement('div');
         this.$domShare.classList.add('globalShare');
         this.$domShare.classList.add('globalShare—wechat');
-        document.body.appendChild(this.$domShare);
         this.bindEvents();
+        document.body.appendChild(this.$domShare);
     }
 
     private bindEvents () {
         this.$domShare.addEventListener('click', this.handleOut);
-        this.$domShare.addEventListener(this.transitionEvent, this.handleDestory);
+        this.$domShare.addEventListener(this.animationEvent, this.handleDestory);
     }
 
     private unbindEvents () {
         this.$domShare.removeEventListener('click', this.handleOut);
-        this.$domShare.removeEventListener(this.transitionEvent, this.handleDestory);
+        this.$domShare.removeEventListener(this.animationEvent, this.handleDestory);
     }
 
     private handleOut () {
-        this.$domShare.classList.add('globalShare—-out');
+        this.$domShare.classList.add('doOut');
     }
 
     private handleDestory () {
-        if (this.$domShare.classList.contains('globalShare—--out')) {
+        if (this.$domShare.classList.contains('doOut')) {
+            this.created = false;
             this.unbindEvents();
             
             // remove dom

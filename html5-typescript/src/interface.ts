@@ -3,6 +3,14 @@ export enum ContentType {
     FormData = 'multipart/form-data'
 };
 
+export interface TipOptions {
+    message?: string,
+    duration?: number,
+    theme?: string,
+    closable?: boolean,
+    callback?: Function
+};
+
 export interface XhrFields{
     withCredentials : boolean
 };

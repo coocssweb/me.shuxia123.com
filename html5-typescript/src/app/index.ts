@@ -1,3 +1,4 @@
+import '@scss/common.scss';
 import App from './app';
 
 interface AppOptions {

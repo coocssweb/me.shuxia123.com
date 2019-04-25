@@ -23,10 +23,10 @@ export default class URI {
             hostname = url.substring(0, pos);
         }
     
-        pos = url.indexOf(':');
+        pos = hostname.indexOf(':');
 
         if (pos !== -1) {
-            port = parseInt(hostname.substring(pos, hostname.length) || '80');
+            port = parseInt(hostname.substring(pos + 1, hostname.length) || '80');
             hostname = hostname.substring(0, pos);
         }
 

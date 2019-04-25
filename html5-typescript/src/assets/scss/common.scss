@@ -1,6 +1,9 @@
 @import "base/normalize";
 @import "base/variables";
 @import "base/button";
+@import "base/animation";
+@import "globalTip";
+@import "globalShare";
 @import "globalHeader";
 @import "globalFooter";
 
@@ -11,7 +14,7 @@ html, body{
 }
 
 body {
-    font-family: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: Microsoft YaHei,Helvetica Neue,HelveticaNeue,Helvetica,TeXGyreHeros,FreeSans,Nimbus Sans L,Liberation Sans,Arial,sans-serif;
     font-size: 14px;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;

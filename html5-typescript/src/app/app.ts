@@ -1,7 +1,7 @@
 import { Tip, Confirm, Router, Statistic, proxy, ajax } from './modules/index';
 import URI from '@utils/uri';
 import { EMPTY_FUNCTION } from '../constant';
-import { AjaxOptions } from '../interface';
+import { AjaxOptions, TipOptions } from '../interface';
 
 // extend destination's key to source
 const extend = (destination: any, source: any) => {
@@ -27,8 +27,8 @@ App.prototype = {
 
     init: EMPTY_FUNCTION,
 
-    $tip: function (message: string, duration?: number, callback?: Function) {
-        new Tip(message, duration, callback);
+    $tip: function (options: TipOptions) {
+        new Tip(options);
     },
 
     $ajax: function (options: AjaxOptions) {
