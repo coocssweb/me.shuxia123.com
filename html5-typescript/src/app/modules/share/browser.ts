@@ -9,6 +9,7 @@ import { isNodeFound } from '@utils/domHelper';
 import Share from './share';
 
 export default class Browser extends Share {
+    static prefix = 'globalShare';
     private $domShare: HTMLElement;
     private $domWeibo: Node;
     private $domQzone: Node;
@@ -60,29 +61,29 @@ export default class Browser extends Share {
 
     private createShareDom () {
         this.$domShare = document.createElement('div');
-        this.$domShare.classList.add('globalShare');
-        this.$domShare.classList.add('globalShare—browser');
-        this.$domShare.innerHTML = `<div class="globalShare-inner">
-            <h3 class="globalShare-title">#分享价值#</h3>
-            <ul class="globalShare-list">
-                <li class="globalShare-item">
-                    <div class="globalShare-icon globalShare-icon--wx"><i></i>微信</div>
-                    <div class="globalShare-qrcode">
+        this.$domShare.classList.add(Browser.prefix);
+        this.$domShare.classList.add(`${Browser.prefix}—browser`);
+        this.$domShare.innerHTML = `<div class="${Browser.prefix}-inner">
+            <h3 class="${Browser.prefix}-title">#分享价值#</h3>
+            <ul class="${Browser.prefix}-list">
+                <li class="${Browser.prefix}-item">
+                    <div class="${Browser.prefix}-icon ${Browser.prefix}-icon--wx"><i></i>微信</div>
+                    <div class="${Browser.prefix}-qrcode">
                         <img src="http://static.ws.126.net/f2e/news/site_wss/images/qr_wx.jpg">
                     </div>
                 </li>
-                <li class="globalShare-item" >
-                    <div class="globalShare-icon globalShare-icon--wb"><i></i>微博</div>
+                <li class="${Browser.prefix}-item" >
+                    <div class="${Browser.prefix}-icon ${Browser.prefix}-icon--wb"><i></i>微博</div>
                 </li>
-                <li class="globalShare-item" >
-                    <div class="globalShare-icon globalShare-icon--qzone"><i></i>QQ空间</div>
+                <li class="${Browser.prefix}-item" >
+                    <div class="${Browser.prefix}-icon ${Browser.prefix}-icon--qzone"><i></i>QQ空间</div>
                 </li>
             </div>
         </div>`;
         
         document.body.appendChild(this.$domShare);
-        this.$domWeibo = document.querySelector('.globalShare-icon--wb');
-        this.$domQzone = document.querySelector('.globalShare-icon--qzone');
+        this.$domWeibo = document.querySelector(`.${Browser.prefix}-icon--wb`);
+        this.$domQzone = document.querySelector(`.${Browser.prefix}-icon--qzone`);
     }
 
     private openShare (e: any) {

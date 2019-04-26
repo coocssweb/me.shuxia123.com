@@ -16,10 +16,13 @@ new App({
     },
     sexHandler (value: any, oldValue: any) {
         console.log('changed sex from', oldValue, '=>', value);
-    },
-
-    handlePageLoading () {
-
+        this.$confirm({
+            title: '监听sex变化',
+            okLabel: '',
+            cancelLabel: '我知道了',
+            closable: false,
+            content: `修改 this.sex: <span class="value--old">"${oldValue}"</span>  =>  <span class="value--new">"${value}"</span>`
+        });
     },
 
     bindEvents () {
@@ -35,9 +38,35 @@ new App({
             });
         });
 
+        // demo for confirm
+        document.querySelector('.btn-confirm').addEventListener('click', () => {
+            this.$confirm({
+                title: '确认框标题',
+                okLabel: '2s, 后关闭',
+                content: '起初，这只是一个粉丝圈子的圈内自嗨。然而却意外的成为了一个影响了网络各大圈子的现象级事件。 于是我们开始思索这一事件的社会影响',
+                okCallback: () => {
+                    console.log(`click ok at:`, Date.now());
+                    // support callback for async
+                    return new Promise((resolve, reject) => {
+                        setTimeout(() => {
+                            resolve();
+                            console.log('close dialog at:', Date.now());
+                        }, 2000);
+                    });
+                }
+            });
+        });
+
         // demo for route
         document.querySelector('.btn-log').addEventListener('click', () => {
             console.log('当前路由信息', this.$route);
+            this.$confirm({
+                title: '当前路由信息',
+                okLabel: '',
+                cancelLabel: '我知道了',
+                closable: false,
+                content: JSON.stringify(this.$route)
+            });
         });
 
         // demo for proxy
@@ -57,9 +86,6 @@ new App({
     },
 
     init () {
-        console.log('index init');
-        console.log('this.name => this.data.name, ', this.name);
-
         // 测试分享模块
         const shareInfo = {
             title: '测试分享标题',

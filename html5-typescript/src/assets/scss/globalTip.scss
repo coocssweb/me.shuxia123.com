@@ -1,7 +1,7 @@
 @keyframes tipIn {
     0%{
         opacity: .5;
-        transform: translateY(-10PX) translateZ(0);
+        transform: translateY(-5PX) translateZ(0);
     }
     100%{
         opacity: 1;
@@ -27,7 +27,7 @@
     top: 50PX;
     left: 0PX;
     opacity: 0;
-    animation: tipIn .5s ease-out forwards;
+    animation: tipIn .3s ease-out forwards;
     z-index: 100;
     &-content{
         display: inline-block;

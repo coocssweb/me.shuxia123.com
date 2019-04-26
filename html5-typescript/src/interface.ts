@@ -11,6 +11,17 @@ export interface TipOptions {
     callback?: Function
 };
 
+export interface ConfirmOptions {
+    title: string,
+    closable: boolean,
+    content: any,
+    width: any,
+    okLabel: string,
+    cancelLabel: string,
+    okCallback: Function,
+    cancelCallback: Function,
+};
+
 export interface XhrFields{
     withCredentials : boolean
 };
@@ -24,6 +35,12 @@ export interface AjaxOptions {
     xhrFields?: XhrFields,
     token?: string,
     async?: boolean
+};
+
+export interface JsonpOptions {
+    url?: string,
+    data?: object,
+    [propName: string]: any
 };
 
 export interface Uri {

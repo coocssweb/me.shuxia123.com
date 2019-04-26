@@ -9,6 +9,8 @@ import { getAnimationEvent } from '@utils/device';
 import { EMPTY_FUNCTION } from '../../constant';
 
 export default class Loading {
+    static prefix = 'globalLoading';
+
     private haveLoadedPercent: number = 0;
     private haveLoadedCount: number = 0;
     private haveLoaded: boolean = false;
@@ -29,9 +31,9 @@ export default class Loading {
         // rebind
         this.handleDestory = this.handleDestory.bind(this);
 
-        this.$loadingContainer = document.querySelector('.globalLoading');
-        this.$loadingProgress = document.querySelector('.globalLoading-progress');
-        this.$loadingValue = document.querySelector('.globalLoading-value');
+        this.$loadingContainer = document.querySelector(`.${Loading.prefix}`);
+        this.$loadingProgress = document.querySelector(`.${Loading.prefix}-progress`);
+        this.$loadingValue = document.querySelector(`.${Loading.prefix}-value`);
         this.animationEvent = getAnimationEvent();
 
         this.bindEvents();

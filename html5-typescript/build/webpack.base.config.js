@@ -67,7 +67,12 @@ module.exports = function webpackBaseConfig (NODE_ENV = 'development') {
                     test: /\.scss$/,
                     include: resolve('src'),
                     use: [
-                        IS_DEVELOPMENT ? 'style-loader' : MiniCssExtractPlugin.loader,
+                        {
+                            loader: MiniCssExtractPlugin.loader,
+                            options: {
+                                hmr: IS_DEVELOPMENT,
+                            },
+                        },
                         'css-loader',
                         'postcss-loader',
                         'sass-loader'
@@ -99,7 +104,7 @@ module.exports = function webpackBaseConfig (NODE_ENV = 'development') {
             new HtmlWebpackPlugin({
                 filename: item.filename,
                 template: item.template,
-                chunks: IS_DEVELOPMENT ? [item.name] : ['runtime', 'common', item.name],
+                chunks: ['manifest', 'vendor', 'app', 'common', item.name],
                 hash: false,
                 inject: 'body',
                 xhtml: false,
@@ -109,6 +114,45 @@ module.exports = function webpackBaseConfig (NODE_ENV = 'development') {
             })
         );
     });
+
+    // 抽离css，命名采用contenthash
+    webpackConfig.plugins.push(
+        new MiniCssExtractPlugin({
+            filename: IS_DEVELOPMENT ? 'style.css' : 'css/[name].[contenthash:8].css',
+            chunkFilename: IS_DEVELOPMENT ? '[id].css' : 'css/[id].[contenthash:8].css',
+        })
+    );
+
+    // 公共代码
+    webpackConfig.optimization = {
+        splitChunks: {
+            chunks: 'all',
+            minSize: 0,
+            maxAsyncRequests: 5,
+            maxInitialRequests: 3,
+            automaticNameDelimiter: '-',
+            name: 'common',
+            cacheGroups: {
+                app: {
+                    test: /[\\/]src\/app[\\/]/,
+                    chunks: 'all',
+                    name: 'app',
+                    minChunks: 1,
+                    priority: 10
+                },
+                vendor: {
+                    test: /[\\/]node_modules[\\/]/,
+                    chunks: 'all',
+                    name: 'vendor',
+                    minChunks: 1,
+                    priority: 10
+                }
+            }
+        },
+        runtimeChunk: {
+            name: 'manifest',
+        }
+    };
 
     // 开发环境服务器配置
     if (IS_DEVELOPMENT) {
@@ -132,18 +176,13 @@ module.exports = function webpackBaseConfig (NODE_ENV = 'development') {
             new webpack.HotModuleReplacementPlugin()
         );
     } else {
-        // 通用文件入口
-        webpackConfig.entry['common'] = ['./app/index.ts'];
+        // 压缩css
         webpackConfig.plugins.push(
-            new webpack.optimize.CommonsChunkPlugin({
-                name: 'common'
+            new OptimizeCssAssetsPlugin({
+                cssProcessorOptions: { safe: true }
             })
         );
-        webpackConfig.plugins.push(
-            new webpack.optimize.CommonsChunkPlugin({
-                name: 'runtime'
-            })
-        );
+
         webpackConfig.plugins.push(
             new webpack.HashedModuleIdsPlugin()
         );
@@ -153,47 +192,6 @@ module.exports = function webpackBaseConfig (NODE_ENV = 'development') {
         webpackConfig.plugins.push(
             new CopyrightPlugin(`/**\n * 作者: 王佳欣\n * 站点: http://www.shuxia123.com\n */`)
         );
-
-        // 抽离css，命名采用contenthash
-        webpackConfig.plugins.push(
-            new MiniCssExtractPlugin({
-                filename: 'css/[name].[contenthash:8].css'
-            })
-        );
-        // 压缩css
-        webpackConfig.plugins.push(
-            new OptimizeCssAssetsPlugin()
-        );
-        // 公共代码
-        webpackConfig.optimization = {
-            splitChunks: {
-                chunks: 'initial',
-                minSize: 0,
-                maxAsyncRequests: 5,
-                maxInitialRequests: 3,
-                automaticNameDelimiter: '~',
-                name: true,
-                cacheGroups: {
-                    common: {
-                        test: /[\\/]src\/common[\\/]/,
-                        chunks: 'all',
-                        name: 'common',
-                        minChunks: 1,
-                        priority: 10
-                    },
-                    vendor: {
-                        test: /[\\/]node_modules[\\/]/,
-                        chunks: 'all',
-                        name: 'vendor',
-                        minChunks: 1,
-                        priority: 10
-                    }
-                }
-            },
-            runtimeChunk: {
-                name: 'manifest',
-            }
-        };
     }
     return webpackConfig;
 };

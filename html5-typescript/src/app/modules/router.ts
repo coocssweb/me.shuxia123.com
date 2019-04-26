@@ -19,7 +19,9 @@ export default class Router {
         } 
         else if (typeof url === 'string') {
             const uri = URI.parse(window.location.href);
-            urlResult = url.indexOf('/') === 0 ? `${uri.hostname}${url}` : `${uri.hostname}${uri.path}/${url}`
+            const port = uri.port === 80 ? '' : `:${uri.port}`;
+            const path = url.indexOf('/') === 0 ? `${uri.path}/` : ''
+            urlResult = `${document.location.protocol}//${uri.hostname}${port}${path}${url}`
         } 
         else {
             urlResult = URI.format(url);

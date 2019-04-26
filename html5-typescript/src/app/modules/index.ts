@@ -5,7 +5,7 @@ import Confirm from './confirm';
 import proxy from './proxy';
 import Share from './share/index';
 import Statistic from './statistic';
-import { ajax } from './ajax';
+import { ajax, jsonp } from './ajax';
 
 export {
     Tip,
@@ -15,5 +15,6 @@ export {
     Share,
     Statistic,
     proxy,
-    ajax
+    ajax,
+    jsonp
 };

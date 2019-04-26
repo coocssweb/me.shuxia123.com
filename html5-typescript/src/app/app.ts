@@ -1,7 +1,7 @@
-import { Tip, Confirm, Router, Statistic, proxy, ajax } from './modules/index';
+import { Tip, Confirm, Router, Statistic, proxy, ajax, jsonp } from './modules/index';
 import URI from '@utils/uri';
 import { EMPTY_FUNCTION } from '../constant';
-import { AjaxOptions, TipOptions } from '../interface';
+import { AjaxOptions, JsonpOptions, TipOptions, ConfirmOptions } from '../interface';
 
 // extend destination's key to source
 const extend = (destination: any, source: any) => {
@@ -22,7 +22,6 @@ function App (data: object, watchs: object) {
 }
 
 App.prototype = {
-
     bindEvents: EMPTY_FUNCTION,
 
     init: EMPTY_FUNCTION,
@@ -31,12 +30,16 @@ App.prototype = {
         new Tip(options);
     },
 
-    $ajax: function (options: AjaxOptions) {
+    $ajax: function (options: AjaxOptions): Promise<any> {
         return ajax(options);
     },
 
-    $confirm: function () {
-        return new Confirm();
+    $jsonp: function (options: JsonpOptions): Promise<any> {
+        return jsonp(options);
+    },
+
+    $confirm: function (options: ConfirmOptions) {
+        return new Confirm(options);
     },
 
     _init: function () {

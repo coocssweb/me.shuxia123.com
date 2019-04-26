@@ -18,6 +18,7 @@ declare global {
 };
 
 export default class WeChat extends Share {
+    static prefix = 'globalShare';
     private $domShare: HTMLElement;
     private wechat: any;
     private shareInfo: ShareInfo;
@@ -112,8 +113,8 @@ export default class WeChat extends Share {
         this.created = true;
         // create dom
         this.$domShare = document.createElement('div');
-        this.$domShare.classList.add('globalShare');
-        this.$domShare.classList.add('globalShare—wechat');
+        this.$domShare.classList.add(WeChat.prefix);
+        this.$domShare.classList.add(`${WeChat.prefix}—wechat`);
         this.bindEvents();
         document.body.appendChild(this.$domShare);
     }
