@@ -86,6 +86,9 @@ name: {                                 // 环境名称，如production
 ## 模块支持
 **创建一个app**
 
+文件路径: src/app/app.ts <br />
+app主体实现
+
 ```js
 new App({
     data: {
@@ -104,6 +107,7 @@ new App({
 ```
 
 **tip 模块的使用**
+
 文件路径: src/app/modules/tip.ts <br />
 tip模块，支持自定义主题，是否可关闭，自动关闭时间等。
 
@@ -119,6 +123,7 @@ this.$tip({
 ```
 
 **confirm 模块的使用**
+
 文件路径: src/app/modules/confirm.ts <br />
 confirm模块，支持自定义标题等信息，回调函数支持promise写法。
 
@@ -143,6 +148,7 @@ this.$confirm({
 ```
 
 **当前路由信息**
+
 通过路由信息可以获取host、port、path、query的信息
 
 ```js
@@ -151,6 +157,7 @@ console.log(this.$route);
 ```
 
 **router路由方法**
+
 文件路径: src/app/modules/router.ts <br />
 router模块，可调用路由方法进行页面跳转、刷新重载等操作。
 
@@ -162,6 +169,7 @@ this.$router.reload();
 ```
 
 **share组件的使用**
+
 文件路径: src/app/modules/share.ts <br />
 可以自定义分享信息
 
@@ -179,6 +187,7 @@ this.share.callShare();
 ```
 
 **loading 模块的使用**
+
 文件路径: src/app/modules/loading.ts <br />
 适用于移动端H5开发时，需要预加载一些图片资源。
 
@@ -194,7 +203,8 @@ loading.start();
 ```
 
 **ajax、jsonp的使用**
-文件路径: src/app/modules/ajax.ts <br />
+
+文件路径: src/app/modules/ajax.ts
 
 ```js
     this.$ajax(...).then();
