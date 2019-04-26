@@ -1,6 +1,7 @@
 <h1 align="center">mpa-typescript</h1>
 这是一个基于webpack4.0 的前端工程，
-<h2 align="center">Install</h2>
+## Install
+
 ```bash
 # install my cli tool
 npm install -g @coocss/cli
@@ -15,7 +16,9 @@ npm install
 # now you can start
 npm start
 ```
+
 <h2 align="center">Features</h2>
+
 ✔︎ 可配置多环境，开发环境、测试环境、预生产环境、生产环境等
 ✔︎ 可自定义配置多入口，简易配置，入口和入口间相互独立
 ✔︎ 拥有许多通用模块，让你从繁杂的网页开发中跳出来
