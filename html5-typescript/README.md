@@ -19,12 +19,12 @@ npm start
 
 <h2 align="center">Features</h2>
 
-✔︎ 可配置多环境，开发环境、测试环境、预生产环境、生产环境等
-✔︎ 可自定义配置多入口，简易配置，入口和入口间相互独立
-✔︎ 拥有许多通用模块，让你从繁杂的网页开发中跳出来
-✔︎ 基于Typescript实现，让你的Javascript代码更好维护
-✔︎ 无第三方依赖，代码体积小，如果你需要其他依赖可自行引入
-✔︎ 支持响应式开发
+- ✔︎ 可配置多环境，开发环境、测试环境、预生产环境、生产环境等
+- ✔︎ 可自定义配置多入口，简易配置，入口和入口间相互独立
+- ✔︎ 拥有许多通用模块，让你从繁杂的网页开发中跳出来
+- ✔︎ 基于Typescript实现，让你的Javascript代码更好维护
+- ✔ 无第三方依赖，代码体积小，如果你需要其他依赖可自行引入
+- ✔ 支持响应式开发
 
 ## 目录说明
 ```bash
@@ -42,10 +42,12 @@ npm start
 ```
 
 ## 多开发环境配置
-在 /config/index.js 文件内，可添加修改项目的环境，目前已配置development、test、production三个环境。
-在build目录下简历对应的webpack环境目录，并在ppackage.json配置对应构建命令即可。可参考test、production的配置。
-```js
+- 在 /config/index.js 文件内，可添加修改项目的环境，目前已配置development、test、production三个环境。
+- 在build目录下建立对应的webpack环境文件
+- 并在ppackage.json配置对应构建命令即可。可参考test、production的配置。
+
 # 节点配置说明
+```js
 name: {                                 // 环境名称，如production
     devtool: false,                     // 是否使用devtool
     NODE_ENV: 'production',             // 全局 NODE_ENV 变量
@@ -61,7 +63,9 @@ name: {                                 // 环境名称，如production
 },
 ```
 ## 多入口文件配置
+
 在/config/pages.js文件内，可以添加多入口文件，具体如下，可参照home文件进行配置
+
 ```js
 {
     name: 'home',                                               // 入口名称
@@ -70,8 +74,10 @@ name: {                                 // 环境名称，如production
     template: resolve('src/pages', 'home/index-render.js')      // 文件模板
 },
 ```
+
 ## 模块支持
-** 创建一个app **
+**创建一个app**
+
 ```js
 new App({
     data: {
@@ -89,7 +95,7 @@ new App({
 });
 ```
 
-** tip 的使用 **
+**tip 的使用**
 ```js 
 this.$tip({
     message: '这是一个提示框',              // 提示信息
@@ -101,7 +107,7 @@ this.$tip({
 });
 ```
 
-** confirm 的使用 **
+**confirm 的使用**
 ```js 
 
 this.$confirm({
@@ -123,13 +129,13 @@ this.$confirm({
 });
 ```
 
-** 当前路由信息 **
+**当前路由信息**
 ```js
 console.log(this.$route);
 // {"hostname":"127.0.0.1","port":9000,"path":"","query":{"id":"10","action":"justdoit"}}
 ```
 
-** router路由方法 **
+**router路由方法**
 ```js
 this.$router.push('/page.html');
 this.$router.repace('/page.html');
@@ -137,7 +143,7 @@ this.$router.goBack();
 this.$router.reload();
 ```
 
-** share组件 **
+**share组件的使用**
 ```js
 // 分享信息
 const shareInfo = {
@@ -151,8 +157,10 @@ this.share = new Share(微信分享的token请求Url, QQ分享的Appid, shareInf
 this.share.callShare();
 ```
 
-** ajax、jsonp **
+**ajax、jsonp的使用**
 ```js
     this.$ajax(...).then();
     this.$jsonp(...).then();
 ```
+
+**curry、compose的使用**
