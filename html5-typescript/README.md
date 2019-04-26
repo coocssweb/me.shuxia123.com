@@ -20,6 +20,7 @@ npm start
 # 开发完了，可以构建你的代码
 # 测试环境代码构建
 npm run build:test
+
 # 生产环境代码构建
 npm run build
 ```
@@ -53,7 +54,7 @@ npm run build
 - 在build目录下建立对应的webpack环境文件
 - 并在ppackage.json配置对应构建命令即可。可参考test、production的配置。
 
-# 节点配置说明
+## 节点配置说明
 ```js
 name: {                                 // 环境名称，如production
     devtool: false,                     // 是否使用devtool
@@ -102,7 +103,10 @@ new App({
 });
 ```
 
-**tip 的使用**
+**tip 模块的使用**
+文件路径: src/app/modules/tip.ts <br />
+tip模块，支持自定义主题，是否可关闭，自动关闭时间等。
+
 ```js 
 this.$tip({
     message: '这是一个提示框',              // 提示信息
@@ -114,9 +118,11 @@ this.$tip({
 });
 ```
 
-**confirm 的使用**
-```js 
+**confirm 模块的使用**
+文件路径: src/app/modules/confirm.ts <br />
+confirm模块，支持自定义标题等信息，回调函数支持promise写法。
 
+```js 
 this.$confirm({
     title: '标题',                                              // 标题
     okLabel: '确定',                                            // 确认按钮，空则不显示，默认值: 确定
@@ -137,12 +143,17 @@ this.$confirm({
 ```
 
 **当前路由信息**
+通过路由信息可以获取host、port、path、query的信息
+
 ```js
 console.log(this.$route);
 // {"hostname":"127.0.0.1","port":9000,"path":"","query":{"id":"10","action":"justdoit"}}
 ```
 
 **router路由方法**
+文件路径: src/app/modules/router.ts <br />
+router模块，可调用路由方法进行页面跳转、刷新重载等操作。
+
 ```js
 this.$router.push('/page.html');
 this.$router.repace('/page.html');
@@ -151,6 +162,9 @@ this.$router.reload();
 ```
 
 **share组件的使用**
+文件路径: src/app/modules/share.ts <br />
+可以自定义分享信息
+
 ```js
 // 分享信息
 const shareInfo = {
@@ -165,6 +179,9 @@ this.share.callShare();
 ```
 
 **loading 模块的使用**
+文件路径: src/app/modules/loading.ts <br />
+适用于移动端H5开发时，需要预加载一些图片资源。
+
 ```js
 const loading = new Loading(['http://assets.shuxia123.com/uploads/2019/1555171314834_width_1289_height_476.png',
     'http://assets.shuxia123.com/uploads/2019/1555170559378_width_800_height_349.png',
@@ -177,6 +194,8 @@ loading.start();
 ```
 
 **ajax、jsonp的使用**
+文件路径: src/app/modules/ajax.ts <br />
+
 ```js
     this.$ajax(...).then();
     this.$jsonp(...).then();
