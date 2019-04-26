@@ -1,3 +1,19 @@
+/*
+name: {                                 // 环境名称
+    devtool: false,                     // 是否使用devtool
+    NODE_ENV: 'production',             // 全局 NODE_ENV 变量
+    HOST: 'www.website.com',            // 该环境对应的host
+    API: 'www.website.com/api',         // 该环境对应的api
+    jsSourceMap: false,                 // 是否使用sourcemap
+    cssSourceMap: false,                // 是否使用sourcemap
+    eslint: false,                      // 是否使用eslint
+    filePath: '',                       // 构建后资源的目录
+    staticPath: '',                     // 静态资源资源的CDN路径
+    imgPath: '',                        // 图片资源的CDN路径
+    filenameHash: true,                 // 构建后的文件，是否使用hash的形式
+},
+*/
+
 module.exports = {
     production: {
         devtool: false,
@@ -9,7 +25,6 @@ module.exports = {
         eslint: false,
         filePath: '',
         staticPath: '',
-        cssPath: '',
         imgPath: '',
         filenameHash: true,
     },
@@ -23,7 +38,6 @@ module.exports = {
         eslint: false,
         filePath: '',
         staticPath: '',
-        cssPath: '',
         imgPath: '',
         filenameHash: false,
     },
@@ -38,7 +52,6 @@ module.exports = {
         eslint: false,
         staticPath: '/',
         filePath: '',
-        cssPath: '',
         imgPath: '',
         filenameHash: false,
     }
