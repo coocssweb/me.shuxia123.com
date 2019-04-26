@@ -9,10 +9,6 @@ new App({
         
     },
 
-    handlePageLoading () {
-
-    },
-
     bindEvents () {
        
     },

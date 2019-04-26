@@ -1,20 +1,27 @@
 <h1 align="center">mpa-typescript</h1>
-这是一个基于webpack4.0 的前端工程，
+这是一个基于webpack4.0 的前端工程，简化繁杂的前端开发。可配置多环境，可自定义配置多入口。无第三方依赖，代码体积小。支持一些好的写法，比如：Typescript，ES6、curry、compose等。
+
 ## Install
 
 ```bash
 # install my cli tool
 npm install -g @coocss/cli
 
-# create a project
+# 创建一个目录，项目可自定义
 coocss create html5
 
-# npm install
+# 安装依赖
 cd html5
 npm install
 
-# now you can start
+# 开始开发
 npm start
+
+# 开发完了，可以构建你的代码
+# 测试环境代码构建
+npm run build:test
+# 生产环境代码构建
+npm run build
 ```
 
 <h2 align="center">Features</h2>
@@ -155,6 +162,18 @@ const shareInfo = {
 this.share = new Share(微信分享的token请求Url, QQ分享的Appid, shareInfo);
 // 调用分析
 this.share.callShare();
+```
+
+**loading 模块的使用**
+```js
+const loading = new Loading(['http://assets.shuxia123.com/uploads/2019/1555171314834_width_1289_height_476.png',
+    'http://assets.shuxia123.com/uploads/2019/1555170559378_width_800_height_349.png',
+    'http://assets.shuxia123.com/uploads/2019/1554905994308_width_500_height_350.jpeg'
+], () => {
+    console.log('图片加完成')
+});
+// 开始图片依赖，加载完后会自动关闭loading页
+loading.start();
 ```
 
 **ajax、jsonp的使用**
