@@ -12,15 +12,15 @@ import Share from './share';
 const _is = IS();
 
 export default class Index {
-    private shareInfo: ShareInfo;
-    private platform: Share;
-
     static defaultShareInfo: ShareInfo = {
         title: document.title,
         desc: '',
         link: window.location.href,
         imgUrl: ''
     };
+    
+    private shareInfo: ShareInfo;
+    private platform: Share;
 
     constructor (tokenUrl?: string, appId?: string, shareInfo?: ShareInfo) {
         shareInfo = { ...Index.defaultShareInfo, ...shareInfo };
