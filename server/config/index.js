@@ -2,7 +2,7 @@ export default {
     // 正式环境
     production: {
         host: 'www.shuxia123.com',
-        assets: '//assets.shuxia123.com',
+        assets: '//www.shuxia123.com',
         watch: false,
         noCache: false
     },

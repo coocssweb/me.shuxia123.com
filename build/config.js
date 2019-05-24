@@ -10,7 +10,7 @@ module.exports = {
     production: {
         env: 'production',                      // 环境
         api: 'https://www.shuxia123.com/services/', // api 接口地址
-        publicPath: '//www.shuxia123.com/dist',// 静态资源地址
+        publicPath: '//www.shuxia123.com',// 静态资源地址
         imagePath: '',                          // 图片资源地址
         devtool: 'false',                       // devtool
         noHash: false,
