@@ -4,3 +4,4 @@ dist/
 node_modules/
 server/config/*
 multiPages/node_modules/
+template/
