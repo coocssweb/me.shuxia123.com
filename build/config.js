@@ -16,8 +16,8 @@ module.exports = {
         noHash: false,
     },
     // 开发环境构建，用于做ssr
-    local: {
-        env: 'local',                           // 环境
+    test: {
+        env: 'test',                           // 环境
         api: 'http://localhost:4322/services/',          // api 接口地址
         publicPath: 'http://localhost:8089/dist',   // 静态资源地址
         imagePath: '',                          // 图片资源地址

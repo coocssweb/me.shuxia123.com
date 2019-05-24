@@ -12,10 +12,9 @@ const SITE_NAME = '王佳欣的小站';
 let home = async function (ctx, next) {
     const IS_MOBILE = getDeviceAgent(ctx.request) === 'MOBILE';
     const ideas = await ArticleModel.fetch({ }, 1, IS_MOBILE ? 4 : 3);
-    const projects = await ProjectModel.fetch({ }, 1,IS_MOBILE ? 3 : 4);
+    const projects = await ProjectModel.fetch({ }, 1, IS_MOBILE ? 3 : 4);
     const demos = await DemoModel.fetch({ }, 1, 5);
     descriptionFormatter(ctx.request, ideas);
-
     await ctx.render('index.html', {
         seo: {
             title: '王佳欣的小站',

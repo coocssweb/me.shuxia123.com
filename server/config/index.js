@@ -19,4 +19,4 @@ export default {
         watch: true,
         noCache: true
     }
-}['production'];
+}['development'];
