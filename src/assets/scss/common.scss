@@ -52,11 +52,18 @@ a{
         }
     }
 }
+.body-column{
+    .global {
+        &Header {
+            position: relative;
+        }
+    }
+}
 @media screen and (min-width: 769px) {
     .body-column{
         .global {
             &Header {
-                position: relative;
+                position: absolute;
                 &-menu{
                     color: $colorBlack;
                 }

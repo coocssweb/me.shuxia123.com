@@ -56,7 +56,7 @@ class Index extends Component {
         }
         document.addEventListener('scroll', this.handleScroll);
         
-        const maskUrl = `http://assets.shuxia123.com/images/${window.document.documentElement.clientWidth > 768 ? 'bg' : 'bg-mobile'}.jpg`;
+        const maskUrl = `https://www.shuxia123.com/images/${window.document.documentElement.clientWidth > 768 ? 'bg' : 'bg-mobile'}.jpg`;
         loadImage([maskUrl]).then(() => {
             const maskDom = document.querySelector('.homeSlogan-mask');
             maskDom.style.backgroundImage = `url(${maskUrl})`;

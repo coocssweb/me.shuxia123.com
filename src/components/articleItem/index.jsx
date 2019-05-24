@@ -10,7 +10,7 @@ export default (props) => {
             </div>
             <p className={className('articleItem-time')}>日期: {formatDate(article.createAt, 'yyyy.MM.dd')}</p>
             <h2 className={className('articleItem-title')}>{ article.title}</h2>
-            <p className={className('articleItem-description')}>{ article.description }。</p>
+            <p className={className('articleItem-description')}>{ article.description }</p>
         </Link>
     );
 };

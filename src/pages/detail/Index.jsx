@@ -121,9 +121,9 @@ class Index extends Component {
         };
 
         childJs.type = 'text/javascript';
-        childJs.src = '//assets.shuxia123.com/js/prism.js';
+        childJs.src = '//www.shuxia123.com/js/prism.js';
         childCss.rel = 'stylesheet';
-        childCss.href = '//assets.shuxia123.com/css/prism.css';
+        childCss.href = '//www.shuxia123.com/css/prism.css';
         parent.appendChild(childJs);
         parent.appendChild(childCss);
         __prismAdded = true;
@@ -144,7 +144,7 @@ class Index extends Component {
                             <h1 className={className('page-title')}>{article.title}</h1>
                             <div className={className('detail-title')}>{titles[0]}<br />{titles[1]}</div>
                             <div className={className('detail-info')}>
-                                <img src="//assets.shuxia123.com/images/personal.jpg" className={className('detail-avatar')} />
+                                <img src="//www.shuxia123.com/images/personal.jpg" className={className('detail-avatar')} />
                                 <div className={className('detail-user')}>
                                     <p className={className('detail-author')}>作者: {article.author || '王佳欣' }</p>
                                     <p className={className('detail-date')}>日期: {formatDate(article.createAt, 'yyyy.MM.dd')}</p>
