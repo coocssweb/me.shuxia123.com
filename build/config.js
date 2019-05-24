@@ -9,17 +9,8 @@ module.exports = {
     // 生产环境
     production: {
         env: 'production',                      // 环境
-        api: 'http://www.shuxia123.com/services/', // api 接口地址
-        publicPath: '//assets.shuxia123.com/',// 静态资源地址
-        imagePath: '',                          // 图片资源地址
-        devtool: 'false',                       // devtool
-        noHash: false,
-    },
-    // 测试环境
-    test: {
-        env: 'test',                            // 环境
-        api: '',                                // api 接口地址
-        publicPath: '',                         // 静态资源地址
+        api: 'https://www.shuxia123.com/services/', // api 接口地址
+        publicPath: '//www.shuxia123.com/dist',// 静态资源地址
         imagePath: '',                          // 图片资源地址
         devtool: 'false',                       // devtool
         noHash: false,
@@ -28,7 +19,7 @@ module.exports = {
     local: {
         env: 'local',                           // 环境
         api: 'http://localhost:4322/services/',          // api 接口地址
-        publicPath: 'http://localhost:8089/',   // 静态资源地址
+        publicPath: 'http://localhost:8089/dist',   // 静态资源地址
         imagePath: '',                          // 图片资源地址
         devtool: 'false',                       // devtool,
         noHash: true,
