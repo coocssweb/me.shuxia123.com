@@ -1,0 +1,38 @@
+$logoColor: #000;
+$paddingSize: 16px;
+$paddingSizeHalf: 8px;
+
+.globalHeader{
+    border-bottom: 1PX solid #eeefef;
+    padding: 10PX 0px;
+    &-wrapper{
+        max-width: $globalWidth;
+        margin: 0px auto;
+        height: 32PX;
+        line-height: 32PX;
+        position: relative;
+    }
+    &-logo{
+        color: #000000;
+    }
+}
+
+
+
+.globalLocation{
+    &-wrapper{
+        max-width: $globalWidth;
+        margin: 0px auto;
+        padding: 20PX 0;
+    }
+    &-item{
+        font-size: $fontSizeM;
+        color: $colorGrayDark;
+        &--link{
+            color: $colorGrayDarker;
+            &:hover{
+                text-decoration: underline;
+            }
+        }
+    }
+}
