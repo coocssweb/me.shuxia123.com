@@ -17,7 +17,7 @@ module.exports = function webpackBaseConfig (NODE_ENV = 'development') {
     const webpackConfig = {
         entry,
         output: {
-            path: resolve('./dist'),
+            path: resolve('../../www.shuxia123.com_dist/demos'),
             publicPath: config.staticPath,
             filename: `${config.filePath}js/${config.filenameHash ? '[name].[chunkhash:8]' : '[name]'}.js`,
             chunkFilename: `${config.filePath}js/${config.filenameHash ? '[name].[chunkhash:8]' : '[name]'}.js`

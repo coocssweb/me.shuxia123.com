@@ -2,15 +2,9 @@ const { resolve } = require('../build/utils');
 
 module.exports = [
     {
-        name: 'home',
-        path: resolve('src/pages', 'home/index.ts'),
-        filename: 'index.html',
-        template: resolve('src/pages', 'home/index-render.js')
-    },
-    {
-        name: 'demo',
-        path: resolve('src/pages', 'demo/index.ts'),
-        filename: 'demo.html',
-        template: resolve('src/pages', 'demo/index-render.js')
+        name: 'svg',
+        path: resolve('src/pages', 'svg/index.ts'),
+        filename: 'svg.html',
+        template: resolve('src/pages', 'svg/index-render.js')
     }
 ];
