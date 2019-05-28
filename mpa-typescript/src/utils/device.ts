@@ -38,6 +38,23 @@ export const getTransition = () => {
     }
 };
 
+export const getTranform = () => {
+    let el = document.createElement('fake_a_element');
+    
+    let transforms = {
+        'transform':'transform',
+        'OTransform':'OTransform',
+        'MozTransform':'MozTransform',
+        'WebkitTransform':'webkitTransform'
+    };
+
+    for (let transform in transforms) {
+        if (el.style[transform] !== undefined) {
+            return transforms[transform];
+        }
+    }
+};
+
 export const getAnimationEvent = () => {
     let el = document.createElement('fake_a_element');
     
@@ -54,3 +71,7 @@ export const getAnimationEvent = () => {
         }
     }
 };
+
+export const getRPX = () => {
+    return 20 * (window.innerWidth / 375);
+}

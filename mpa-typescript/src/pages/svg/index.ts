@@ -1,4 +1,4 @@
-import '@scss/home.scss';
+import '@scss/svg.scss';
 import App from '@app';
 import * as Snap from 'snapsvg';
 
@@ -26,7 +26,6 @@ new App({
                 let moveToPoint = <SnapPoint>Snap.path.getPointAtLength(flightPath, step );
                 let x = moveToPoint.x - (spaceshipBBox.width/2);
                 let y = moveToPoint.y - (spaceshipBBox.height/2);
-                console.log('translate(' + x + ',' + y + ') rotate('+ (moveToPoint.alpha - 90)+', '+spaceshipBBox.cx+', '+spaceshipBBox.cy+')');
                 spaceship.transform('translate(' + x + ',' + y + ') rotate('+ (moveToPoint.alpha - 90)+', '+spaceshipBBox.cx+', '+spaceshipBBox.cy+')');
         
             },5000, mina.easeout ,function(){

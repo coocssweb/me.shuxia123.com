@@ -54,7 +54,8 @@
   },
   "dependencies": {
     "snapsvg": "^0.5.1",
-    "snapsvg-cjs": "^0.0.6"
+    "snapsvg-cjs": "^0.0.6",
+    "touchjs": "^0.2.14"
   },
   "browserslist": [
     "> 1%",

@@ -1,6 +1,15 @@
 import '@scss/base/common.scss';
 import App from './app';
 
+// window property
+declare global {
+    interface Window {
+        __mqq__: any,
+        touch: any,
+        $: any
+    }
+};
+
 interface AppOptions {
     data?: object,
     watchs?: object,

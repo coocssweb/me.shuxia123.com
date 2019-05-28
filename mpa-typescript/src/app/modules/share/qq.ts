@@ -7,13 +7,6 @@ import { ShareInfo } from '../../../interface';
 import { loadScript } from '@utils/index';
 import Share from './share';
 
-// window property
-declare global {
-    interface Window {
-        __mqq__: any
-    }
-};
-
 export default class QQ extends Share {
     private shareInfo: ShareInfo;
     private qq: any;
