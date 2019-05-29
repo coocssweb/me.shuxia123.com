@@ -12,6 +12,7 @@
     text-align: center;
     border-width: 1PX;
     border-style: solid;
+    user-select: none;
 
     &:hover{
         opacity: .8;

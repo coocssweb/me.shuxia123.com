@@ -1,35 +1,50 @@
-import { getTranform } from '@utils/device';
+import { getTranform, getRPX } from '@utils/device';
 import { DOMNode } from './interface';
 
 export default class Element {
     private photo:string;
+    private container: any;
     private $containerTarget: DOMNode;
     private $containerElement: HTMLElement;
     private $rotateElement: HTMLElement;
     private $scaleElement: HTMLElement;
     private $removeElement: HTMLElement;
     private $dragElement: HTMLElement;
+    private $dragTarget: DOMNode;
     private leftVal: number = 0;
     private topVal: number = 0;
     private oLeftVal: number = 0;
     private oTopVal: number = 0;
     private rotateVal: number = 0;
-    private scaleVal: number = 1;
     private dragStatus: number = 0;                             // 0 移动结束，1正在移动，2缩放，3旋转
-    private canDrag: boolean = false;
+    private canDrag: boolean = false;                           // false 首次触屏
     private elementWidth: number = 0;
     private elementHeight: number = 0;
-    private angle: number = 0;
-    private angleMouse: number = 0;
+    private angle: number = 0;                                  // 初始夹角
+    private angleMouse: number = 0;                             // 触屏点与原点的夹角
     private targetPosX: number = 0;
     private targetPosY: number = 0;
     
-    constructor (width:number, height: number, photo: string) {
+    constructor ($container:DOMNode, photo: string) {
         this.photo = photo;
+        const width = $container.width();
+        const height = $container.height();
+
+        this.handleSelect = this.handleSelect.bind(this);
+        this.handleRemove = this.handleRemove.bind(this);
+        this.handleDrag = this.handleDrag.bind(this);
+        this.handleDragEnd = this.handleDragEnd.bind(this);
+        this.handleScale = this.handleScale.bind(this);
+        this.handleScaleEnd = this.handleScaleEnd.bind(this);
+        this.handleRotate = this.handleRotate.bind(this);
+        this.handleRotateEnd = this.handleRotateEnd.bind(this);
+
         this.leftVal = this.oLeftVal = Math.random() * (width - 50);
         this.topVal = this.oTopVal = Math.random() * (height -  50);
         this.rotateVal = 360 - Math.random() * 50;
+
         this.createElement();
+        $container.append(this.$containerElement);
 
         this.elementWidth = this.$dragElement.clientWidth;
         this.elementHeight = this.$dragElement.clientHeight;
@@ -37,8 +52,8 @@ export default class Element {
         this.bindEvents();
     }
 
-    public getElement () {
-        return this.$containerElement;    
+    public setContainer (container) {
+        this.container = container;
     }
 
     private createElement () {
@@ -68,7 +83,8 @@ export default class Element {
         // drag element
         this.$dragElement = document.createElement('img');
         this.$dragElement.setAttribute('src', this.photo);
-
+        this.$dragTarget = window.$(this.$dragElement);
+        // append elements
         this.$containerElement.appendChild(this.$rotateElement);
         this.$containerElement.appendChild(this.$scaleElement);
         this.$containerElement.appendChild(this.$removeElement);
@@ -76,13 +92,28 @@ export default class Element {
     }
 
     private bindEvents () {
-        this.$removeElement.addEventListener('click', this.handleDestory.bind(this), false);
-        window.touch.on(this.$dragElement, 'drag', this.handleDrag.bind(this));
-        window.touch.on(this.$dragElement, 'dragend', this.handleDragEnd.bind(this));
-        window.touch.on(this.$removeElement, 'click', this.handleDestory.bind(this));
-        window.touch.on(this.$scaleElement, 'drag', this.handleScale.bind(this));
-        window.touch.on(this.$rotateElement, 'drag', this.handleRotate.bind(this));
-        window.touch.on(this.$rotateElement, 'dragend', this.handleRotateEnd.bind(this));
+        this.$containerElement.addEventListener('click', this.handleSelect, false);
+        this.$removeElement.addEventListener('click', this.handleRemove, false);
+        window.touch.on(this.$dragElement, 'drag', this.handleDrag);
+        window.touch.on(this.$dragElement, 'dragend', this.handleDragEnd);
+        window.touch.on(this.$scaleElement, 'drag', this.handleScale);
+        window.touch.on(this.$scaleElement, 'dragend', this.handleScaleEnd);
+        window.touch.on(this.$rotateElement, 'drag', this.handleRotate);
+        window.touch.on(this.$rotateElement, 'dragend', this.handleRotateEnd);
+    }
+
+    private destory () {
+        // remove event
+        this.$removeElement.removeEventListener('click', this.handleRemove, false);
+        this.$containerElement.removeEventListener('click', this.handleSelect, false);
+        window.touch.off(this.$dragElement, 'drag', this.handleDrag);
+        window.touch.off(this.$dragElement, 'dragend', this.handleDragEnd);
+        window.touch.off(this.$scaleElement, 'drag', this.handleScale);
+        window.touch.off(this.$scaleElement, 'dragend', this.handleScaleEnd);
+        window.touch.off(this.$rotateElement, 'drag', this.handleRotate);
+        window.touch.off(this.$rotateElement, 'dragend', this.handleRotateEnd);
+        // remove element
+        this.$containerElement.parentNode.removeChild(this.$containerElement);
     }
 
     // 获取中心坐标
@@ -132,18 +163,14 @@ export default class Element {
 
     // 获取旋转角度
     // 用于计算旋转的角度
+    // 勾股定理
     private getDeg (posA, posB) {
         return Math.atan2(posB.x - posA.x, posA.y - posB.y) / Math.PI * 180;
     }
 
-    private handleDestory () {
-        // remove event
-        this.$removeElement.removeEventListener('click', this.handleDestory.bind(this), false);
-        this.$scaleElement.removeEventListener('click', this.handleScale.bind(this), false);
-        this.$dragElement.removeEventListener('click', this.handleDrag.bind(this), false);
-        this.$rotateElement.removeEventListener('click', this.handleRotate.bind(this), false);
-        // remove element
-        this.$containerElement.parentNode.removeChild(this.$containerElement);
+    private handleSelect () {
+        window.$('.element.selected').removeClass('selected');
+        this.$containerElement.classList.add('selected');
     }
 
     private handleDrag (evt: any) {
@@ -169,11 +196,31 @@ export default class Element {
         this.topVal = this.oTopVal;
     }
 
-    private handleScale () {
+    private handleScale (evt:any) {
         if (this.dragStatus !==2 && this.dragStatus !== 0 ) {
             return ;
         }
         this.dragStatus = 2;
+        if (!this.canDrag) {
+            const [x, y] = this.getOriginPos();
+            this.targetPosX = x;
+            this.targetPosY = y;
+            this.canDrag = true;
+        }
+        let touch = evt.originEvent.targetTouches[0];
+        const { pageX, pageY } = touch;
+
+        // 对角线的一半
+        const halfDiagonal = Math.sqrt(this.elementWidth * this.elementWidth + this.elementHeight * this.elementHeight) / 2;
+        // 触屏点到中心点的距离
+        const distance = Math.sqrt((pageX - this.targetPosX) * (pageX - this.targetPosX) + (pageY - this.targetPosY) * (pageY - this.targetPosY));
+
+        const scaleRate= distance / halfDiagonal;
+
+        if(this.elementWidth / getRPX() > 2 || scaleRate > 1){
+            this.elementWidth = this.elementWidth * scaleRate;
+            this.$dragTarget.width(this.elementWidth); 
+        }
     }
 
     private handleScaleEnd () {
@@ -181,6 +228,7 @@ export default class Element {
             return ;
         }
         this.dragStatus = 0;
+        this.canDrag = false;
     }
 
     private handleRotate (evt: any) {
@@ -217,5 +265,14 @@ export default class Element {
         }
         this.dragStatus = 0;
         this.canDrag = false;
+    }
+
+    private handleRemove () {
+        this.container.removeItem(this);
+        this.destory();
+    }
+
+    public remove () {
+        this.destory();
     }
 };

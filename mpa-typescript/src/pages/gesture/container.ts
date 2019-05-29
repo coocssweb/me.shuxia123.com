@@ -18,16 +18,27 @@ export default class Container {
     }
 
     public add (src) {
-        const element = new Element(this.$container.width(), this.$container.height(), src);
-        this.$container.append(element.getElement());
-        this.elements.push(element);
+        if (this.elements.length < 5) {
+            const element = new Element(this.$container, src);
+            element.setContainer(this);
+            this.elements.push(element);
+        }
     }
 
-    public remove ($target:HTMLElement) {
-
+    public removeItem (element) {
+        for (let index = 0; index < this.elements.length; index ++) {
+            if (element === this.elements[index]) {
+                this.elements.splice(index, 1);
+                break;
+            }
+        }
     }
 
     public clear () {
+        this.elements.forEach((item, index) => {
+            item.remove();
+        });
 
+        this.elements = [];
     }
 }

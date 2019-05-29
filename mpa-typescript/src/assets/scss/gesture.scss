@@ -62,6 +62,7 @@
 .addons{
     color: #999;
     margin-top: 30px;
+    margin-bottom: 30px;
 }
 .element{
     position: absolute;
@@ -72,14 +73,15 @@
     }
     &.selected{
         border: 1PX dotted #ff0000;
+        z-index: 2;
         .elementBtn{
             display: block;
         }
     }
     &Btn{
         position: absolute;
-        width: 20PX;
-        height: 20PX;
+        width: 16PX;
+        height: 16PX;
         background-color: transparent;
         background-position: center;
         background-size: contain;
