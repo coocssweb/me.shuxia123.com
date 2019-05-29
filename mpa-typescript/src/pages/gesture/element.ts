@@ -211,9 +211,9 @@ export default class Element {
         const { pageX, pageY } = touch;
 
         // 对角线的一半
-        const halfDiagonal = Math.sqrt(this.elementWidth * this.elementWidth + this.elementHeight * this.elementHeight) / 2;
+        const halfDiagonal = Math.sqrt(Math.pow(this.elementWidth, 2) + Math.pow(this.elementHeight, 2)) / 2;
         // 触屏点到中心点的距离
-        const distance = Math.sqrt((pageX - this.targetPosX) * (pageX - this.targetPosX) + (pageY - this.targetPosY) * (pageY - this.targetPosY));
+        const distance = Math.sqrt(Math.pow((pageX - this.targetPosX), 2) + Math.pow((pageY - this.targetPosY), 2));
 
         const scaleRate= distance / halfDiagonal;
 
