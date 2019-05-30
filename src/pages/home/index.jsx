@@ -55,8 +55,6 @@ class Index extends Component {
                 });
             });
         }
-
-        lazyLoadBackgroundImage();
         document.addEventListener('scroll', this.handleScroll);
 
         const maskUrl = `https://www.shuxia123.com/images/${window.document.documentElement.clientWidth > 768 ? 'bg' : 'bg-mobile'}.jpg`;
@@ -64,6 +62,12 @@ class Index extends Component {
             const maskDom = document.querySelector('.homeSlogan-mask');
             maskDom.style.backgroundImage = `url(${maskUrl})`;
         });
+    }
+
+    componentDidUpdate () {
+        if (this.state.ideasLoaded) {
+            lazyLoadBackgroundImage();
+        }
     }
 
     componentWillUnmount () {

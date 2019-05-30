@@ -57,8 +57,6 @@ class Index extends Component {
                 });
             });
         }
-
-        lazyLoadBackgroundImage();
         document.addEventListener('scroll', this.handleScroll);
     }
 
@@ -85,6 +83,9 @@ class Index extends Component {
                     ideasLoaded: true
                 });
             });
+        }
+        if (this.state.ideasLoaded) {
+            lazyLoadBackgroundImage();
         }
         // todo 分页修改
     }
