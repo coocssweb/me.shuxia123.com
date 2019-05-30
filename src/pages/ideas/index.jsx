@@ -3,6 +3,7 @@ import className from 'classnames';
 import ArticleItem, { Skeleton as ArticleItemSkeleton } from '@components/articleItem';
 import ClassifyItem, { Skeleton as ClassifyItemSkeleton } from '@components/classifyItem';
 import withPage from '../../hoc/withPage';
+import { lazyLoadBackgroundImage } from '../../utils/lazyLoadImage';
 
 class Index extends Component {
     constructor (props) {
@@ -10,6 +11,7 @@ class Index extends Component {
         this.skeletonArray = Array(3).fill(null);
         this.skeletonClassifyArray = Array(5).fill(null);
         const { classify = '' } = this.props.match.params;
+        this.handleScroll = this.handleScroll.bind(this);
         this.state = {
             classifyPath: classify,
             ideasLoaded: props.server || props.list.length,
@@ -55,6 +57,17 @@ class Index extends Component {
                 });
             });
         }
+
+        lazyLoadBackgroundImage();
+        document.addEventListener('scroll', this.handleScroll);
+    }
+
+    handleScroll (e) {
+        lazyLoadBackgroundImage();
+    }
+
+    componentWillUnmount () {
+        document.removeEventListener('scroll', this.handleScroll);
     }
 
     componentDidUpdate () {

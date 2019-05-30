@@ -4,7 +4,7 @@ import { CSSTransition } from 'react-transition-group';
 import Discuss from '@components/discuss';
 import withPage from '../../hoc/withPage';
 import Skeletion from './skeleton';
-import {formatDate} from '../../utils';
+import { formatDate } from '../../utils';
 import lazyLoadImage from '../../utils/lazyLoadImage';
 
 let __prismAdded = false;
@@ -27,7 +27,7 @@ class Index extends Component {
     static getDerivedStateFromProps (props, state) {
         return {
             article: props.article
-        }
+        };
     }
 
     componentDidMount () {
@@ -40,7 +40,7 @@ class Index extends Component {
             });
         }
 
-        if ( this.props.server ) {
+        if (this.props.server) {
             // 重置服务端渲染状态
             // 确保服务端渲染内容，只在首次起作用
             this.props.resetServer();
@@ -68,7 +68,7 @@ class Index extends Component {
     handleScroll (e) {
         let scrollHeight = (window.scrollY / 500);
         scrollHeight = scrollHeight > 1 ? 1 : scrollHeight;
-        const opacityGlobalHeader =  scrollHeight * 1;
+        const opacityGlobalHeader = scrollHeight * 1;
         const opacityMask = scrollHeight * 0.35 + 0.45;
         this.domGlobalHeader.style.backgroundColor = `rgba(0, 0, 0, ${opacityGlobalHeader})`;
         this.domMask.style.opacity = opacityMask;
@@ -80,7 +80,7 @@ class Index extends Component {
             loadOver: true
         });
     }
-    
+
     loadImage () {
         if (this.state.loaded && !this.state.firstLoadedImage) {
             this.state.firstLoadedImage = true;
@@ -91,7 +91,7 @@ class Index extends Component {
     setArticle () {
         if (this.state.loaded && !this.state.haveSetTitle) {
             this.state.haveSetTitle = true;
-            document.title = `${this.state.article.title} - 王佳欣的小站`
+            document.title = `${this.state.article.title} - 王佳欣的小站`;
         }
     }
 

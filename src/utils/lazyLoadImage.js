@@ -23,3 +23,25 @@ export default () => {
         });
     });
 };
+
+export const lazyLoadBackgroundImage = () => {
+    const images = [...document.querySelectorAll('.articleItem-photo')];
+    const height = window.innerHeight;
+    images.forEach((item) => {
+        let top = item.getBoundingClientRect().top;
+        let imageHeight = item.getBoundingClientRect().height;
+
+        // 正在加载中、已经在、不在可视区则不加载
+        if (item.classList.contains('lazy-loading') || item.classList.contains('lazy-loaded') || top > height || top <= -imageHeight) {
+            return false;
+        }
+
+        item.classList.add('lazy-loading');
+        let imageSrc = formatImage(item.getAttribute('data-src'));
+        loadImage([imageSrc]).then(() => {
+            item.style.backgroundImage = `url(${imageSrc})`;
+            item.classList.remove('lazy-loading');
+            item.classList.add('lazy-loaded');
+        });
+    });
+};

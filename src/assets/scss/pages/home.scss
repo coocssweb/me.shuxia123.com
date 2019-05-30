@@ -98,6 +98,30 @@
             }
         }
     }
+    &Friendlinks{
+        border-top: 1px solid #f7f8fa;
+        padding: 30px 0px;
+        &-wrapper{
+            max-width: $globalPcWidth;
+            margin: 0px auto;
+        }
+        &-title{
+            color: #666 ;
+            font-size: 14px;
+        }
+        &-content{
+            margin-top: 10px;
+            a{
+                font-size: 14px;
+                color: #999999;
+                margin-right: 20px;
+                &:hover{
+                    text-decoration: underline;
+                    color: #666666;
+                }
+            }
+        }
+    }
 }
 @supports (-webkit-background-clip: text) {
     .homeSlogan-content {

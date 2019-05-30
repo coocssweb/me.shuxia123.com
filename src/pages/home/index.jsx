@@ -3,6 +3,7 @@ import className from 'classnames';
 import ArticleItem, { Skeleton as ArticleItemSkeleton } from '@components/articleItem';
 import ProjectItem, { Skeleton as ProjectItemSkeleton } from '@components/projectItem';
 import DemoItem, { Skeleton as DemoItemSkeleton } from '@components/demoItem';
+import { lazyLoadBackgroundImage } from '../../utils/lazyLoadImage';
 import Button from '@components/button';
 import withPage from '../../hoc/withPage';
 import loadImage from '../../utils/loadImage';
@@ -54,8 +55,10 @@ class Index extends Component {
                 });
             });
         }
+
+        lazyLoadBackgroundImage();
         document.addEventListener('scroll', this.handleScroll);
-        
+
         const maskUrl = `https://www.shuxia123.com/images/${window.document.documentElement.clientWidth > 768 ? 'bg' : 'bg-mobile'}.jpg`;
         loadImage([maskUrl]).then(() => {
             const maskDom = document.querySelector('.homeSlogan-mask');
@@ -69,6 +72,7 @@ class Index extends Component {
     }
 
     handleScroll (e) {
+        lazyLoadBackgroundImage();
         let scrollHeight = window.scrollY;
         this.sloganMaskDom.style.transform = `translate3d(0, ${scrollHeight / 2}px, 0)`;
     }
@@ -136,7 +140,20 @@ class Index extends Component {
                             }
                         </div>
                         <div className={className('homeRecommend-more')}>
-                            <Button link='/projects'>更多实验</Button>
+                            <Button link='/demos'>更多实验</Button>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="homeFriendlinks">
+                    <div className="homeFriendlinks-wrapper">
+                        <div className="homeFriendlinks-title">我喜欢的博客</div>
+                        <div className="homeFriendlinks-content">
+                            <a href="https://overreacted.io">Dan Abramov</a>
+                            <a href="https://jakearchibald.com">Jake Archibald</a>
+                            <a href="https://github.com/bvaughn">Brian Vaughn</a>
+                            <a href="https://css-tricks.com">Css-Tricks</a>
+                            <a href="https://medium.com">Medium</a>
                         </div>
                     </div>
                 </div>
