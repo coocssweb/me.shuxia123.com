@@ -57,6 +57,7 @@ class Index extends Component {
                 });
             });
         }
+        lazyLoadBackgroundImage();
         document.addEventListener('scroll', this.handleScroll);
     }
 

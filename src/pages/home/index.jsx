@@ -55,6 +55,7 @@ class Index extends Component {
                 });
             });
         }
+        lazyLoadBackgroundImage();
         document.addEventListener('scroll', this.handleScroll);
 
         const maskUrl = `https://www.shuxia123.com/images/${window.document.documentElement.clientWidth > 768 ? 'bg' : 'bg-mobile'}.jpg`;
