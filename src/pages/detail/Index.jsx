@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import className from 'classnames';
 import { CSSTransition } from 'react-transition-group';
-import Discuss from '@components/discuss';
 import withPage from '../../hoc/withPage';
 import Skeletion from './skeleton';
 import { formatDate } from '../../utils';
 import lazyLoadImage from '../../utils/lazyLoadImage';
+import Gitalk from 'gitalk';
 
 let __prismAdded = false;
 let __prismLoaded = false;
@@ -52,6 +52,7 @@ class Index extends Component {
         this.addPrismJsScript();
         this.loadImage();
         this.setArticle();
+        this.renderTalks();
     }
 
     componentDidUpdate () {
@@ -73,6 +74,21 @@ class Index extends Component {
         this.domGlobalHeader.style.backgroundColor = `rgba(0, 0, 0, ${opacityGlobalHeader})`;
         this.domMask.style.opacity = opacityMask;
         lazyLoadImage();
+    }
+
+    renderTalks () {
+        const { id } = this.props.match.params;
+        var gitalk = new Gitalk({
+            clientID: 'a97899e98b179995b328',
+            clientSecret: 'ff401cbd5bafb21800550f9044d00544c3f043ea',
+            repo: 'me.shuxia123.com',
+            owner: 'coocssweb',
+            admin: ['coocssweb'],
+            id,
+            distractionFreeMode: false
+        });
+  
+        gitalk.render('gitalk-container');
     }
 
     handleSkeletonExited () {
@@ -132,7 +148,7 @@ class Index extends Component {
     render () {
         const { article, loaded, loadOver } = this.state;
         const titles = loaded ? article.title.split(/\s|,|，|-/) : [];
-        const bgStyle = loaded ?  { backgroundImage: `url(${article.posters[0]})` } : {};
+        const bgStyle = loaded ? { backgroundImage: `url(${article.posters[0]})` } : {};
 
         return (
             <div className={className('detail page')}>
@@ -156,12 +172,7 @@ class Index extends Component {
                                 }
                             </div>
                             <div className={className('detail-content')} dangerouslySetInnerHTML={{__html: article.content}}></div>
-                            <div className={className('detail-discuss')}>
-                                <Discuss
-                                    shortname="www-shuxia123-com"
-                                    identifier={`${article.id}`}
-                                    title={article.title}
-                                    />
+                            <div className={className('detail-discuss')} id="gitalk-container">
                             </div>
                         </div>
                     ) : null

@@ -45,7 +45,7 @@ module.exports = function (mode) {
                     }
                 },
                 {
-                    test: /\.scss$/,
+                    test: /\.s?css$/,
                     include: resolve('src'),
                     use: [
                         (IS_DEVELOPMENT || IS_LOCAL) ? 'style-loader' : miniCssExtractPlugin.loader,

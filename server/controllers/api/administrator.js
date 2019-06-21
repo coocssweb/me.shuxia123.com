@@ -49,7 +49,7 @@ const edit = async (ctx, next) => {
 };
 
 const login = async (ctx, next) => {
-    let { name, password}  = ctx.request.body;
+    let { name, password } = ctx.request.body;
     let administrator = await AdministratorModel.findByName(name, true);
 
     if (administrator) {

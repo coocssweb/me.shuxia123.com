@@ -41,33 +41,9 @@ const upload = async (ctx, next) => {
         let newFileName = await renameFunc();
         ctx.body = ctx.bodyFormatter(undefined, { filename: `${Config.assets}${fileDir}${newFileName}.${extName}` });
     } catch (e) {
-        console.log(e);
         ctx.body = ctx.bodyFormatter({ ...errorCode.UPLOAD_ERROR, desc: JSON.stringify(e) });
     }
 };
-
-// const rename = async (ctx, next) => {
-//     const filePath = path.join(__dirname, '../../../dist/uploads/2019/');
-//     const newFile = images(`${filePath}1553153599680.jpg`);
-//     const width = newFile.width();
-//     const height = newFile.height();
-//     const fileName = '1553153599680';
-//     const newFileName = `${fileName}_width_${width}_height${height}`;
-//     console.log('1234');
-//     try {
-//         await fs.rename(`${filePath}${fileName}.jpg`, `${filePath}${newFileName}.jpg`, (err) => {
-//             console.log(err);
-//         });
-//     } catch (e) {
-//         console.log(e);
-//     }
-    
-//     console.log('1234');
-//     // 压缩图片，存储预览图
-//     newFile
-//         .size(20)
-//         .save(`${filePath}${newFileName}_preview.jpg`, { quality: 50 });
-// };
 
 const getTimeCurrent = async (ctx, next) => {
     ctx.body = ctx.bodyFormatter(undefined, { timestamp: Date.now() });
