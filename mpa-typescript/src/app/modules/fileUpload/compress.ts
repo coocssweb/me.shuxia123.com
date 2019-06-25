@@ -18,8 +18,11 @@ export default class Compress {
     constructor (imagePath: string, options) {
         this.options = { ...Compress.defaultOptions,  ...options };
         this.image = new Image();
-        this.loadImage(imagePath);
-        this.compress();
+
+        // load a image, and compress
+        this.loadImage(imagePath).then(() => {
+            this.compress();
+        });
     }
 
     private loadImage (photo: string) {
