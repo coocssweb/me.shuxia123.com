@@ -27,7 +27,7 @@
     "axios": "^0.18.0",
     "babel-eslint": "^10.0.1",
     "babel-loader": "^8.0.4",
-    "bcrypt": "^2.0.1",
+    "bcrypt": "^5.0.0",
     "browserslist": "^4.4.2",
     "clean-webpack-plugin": "^1.0.1",
     "co-busboy": "^1.4.0",
