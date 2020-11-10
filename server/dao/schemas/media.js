@@ -1,16 +1,15 @@
 import Mongoose from "Mongoose";
 import autoIncrementId from "../autoIncrementId";
 
-let BestwishSchema = new Mongoose.Schema(
+let MediaSchema = new Mongoose.Schema(
   {
     id: {
       type: Number,
       unique: true,
     },
-    description: String,
-    enable: Number,
+    name: String,
     code: String,
-    mediaId: String,
+    description: String,
     createAt: {
       type: Number,
       default: Date.now(),
@@ -25,10 +24,10 @@ let BestwishSchema = new Mongoose.Schema(
   }
 );
 
-BestwishSchema.pre("save", async function (next) {
+MediaSchema.pre("save", async function (next) {
   if (this.isNew) {
     this.createAt = this.updateAt = Date.now();
-    this.id = await autoIncrementId("bestwish");
+    this.id = await autoIncrementId("media");
   } else {
     this.updateAt = Date.now();
   }
@@ -36,18 +35,12 @@ BestwishSchema.pre("save", async function (next) {
   next();
 });
 
-BestwishSchema.statics = {
-  fetchAll: function (query, page = 1, size = 10) {
-    const skip = (page - 1) * size;
-    return this.find(
-      {
-        ...query,
-      },
-      { _id: 0, by: 0 }
-    )
-      .skip(skip)
-      .limit(parseInt(size))
-      .sort({ id: -1 });
+MediaSchema.statics = {
+  fetch: function () {
+    return this.find({}, { _id: 0, by: 0 }).sort({ id: 1 });
+  },
+  findById: function (id) {
+    return this.findOne({ id });
   },
   removeById: async function (id) {
     return this.remove({ id });
@@ -57,4 +50,4 @@ BestwishSchema.statics = {
   },
 };
 
-export default BestwishSchema;
+export default MediaSchema;

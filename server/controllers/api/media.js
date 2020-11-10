@@ -1,47 +1,37 @@
+import MediaModel from "../../dao/models/media";
 import errorCode from "../../const/errorCode";
-import BestwishModel from "../../dao/models/bestwish";
 
-const fetch = async (ctx, next) => {
-  const { page = 1, size = 10 } = ctx.request.query;
-  const result = await BestwishModel.fetchAll({}, page, size);
+const fetch = async function (ctx, next) {
+  const result = await MediaModel.fetch();
   ctx.body = ctx.bodyFormatter(undefined, result);
 };
 
-const fetchOne = async (ctx, next) => {
-  const { code } = ctx.params;
-
-  const result = await BestwishModel.fetchAll(
-    { enable: 1, code: code },
-    page,
-    size
-  );
-
+const fetchOne = async function (ctx, next) {
+  const { id } = ctx.request.params;
+  const result = await MediaModel.findById(id);
   if (result) {
-    let response = {};
-    let index = 0;
-    if (result.length > 0) {
-      index = parseInt(Math.random() * 10);
-      response = result[index];
-    }
-    ctx.body = ctx.bodyFormatter(undefined, response);
+    ctx.body = ctx.bodyFormatter(undefined, result);
   } else {
     ctx.body = ctx.bodyFormatter(errorCode.DATA_NOT_FOUND);
   }
 };
 
-const create = async (ctx, next) => {
+const create = async function (ctx, next) {
   const requestData = ctx.request.body;
-  const bestwish = new BestwishModel(requestData);
-
+  const tag = new MediaModel(requestData);
   await new Promise((resolve, reject) => {
-    bestwish.save((error) => {
-      error ? reject(error) : resolve(bestwish);
-    });
+    tag.save(
+      (error) => {
+        error ? reject(error) : resolve(tag);
+      },
+      { _id: 0, __v: 0, by: 0 }
+    );
   }).then(
     (response) => {
       ctx.body = ctx.bodyFormatter(undefined, response);
     },
     (error) => {
+      console.log(error);
       ctx.body = ctx.bodyFormatter({
         ...errorCode.CREATE_ERROR,
         desc: JSON.stringify(error),
@@ -50,10 +40,10 @@ const create = async (ctx, next) => {
   );
 };
 
-const edit = async (ctx, next) => {
+const edit = async function (ctx, next) {
   const requestData = ctx.request.body;
   const { id } = ctx.params;
-  await BestwishModel.updateInclude({ id: parseInt(id) }, requestData).then(
+  await MediaModel.updateInclude({ id: parseInt(id) }, requestData).then(
     (response) => {
       ctx.body = ctx.bodyFormatter(undefined);
     },
@@ -66,10 +56,9 @@ const edit = async (ctx, next) => {
   );
 };
 
-const remove = async (ctx, next) => {
+const remove = async function (ctx, next) {
   let { id } = ctx.params;
-
-  await BestwishModel.removeById(id).then(
+  await MediaModel.removeById(id).then(
     (response) => {
       ctx.body = ctx.bodyFormatter(undefined);
     },

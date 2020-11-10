@@ -6,6 +6,7 @@ import projectApi from "./api/project";
 import demoApi from "./api/demo";
 import toolApi from "./api/tool";
 import bestwishApi from "./api/bestwish";
+import mediaApi from "./api/media";
 import homeApi from "./home";
 import serviceApi from "./services";
 
@@ -17,6 +18,7 @@ router.use(projectApi.routes(), projectApi.allowedMethods());
 router.use(demoApi.routes(), demoApi.allowedMethods());
 router.use(toolApi.routes(), toolApi.allowedMethods());
 router.use(bestwishApi.routes(), bestwishApi.allowedMethods());
+router.use(mediaApi.routes(), mediaApi.allowedMethods());
 router.use(homeApi.routes(), homeApi.allowedMethods());
 router.use(serviceApi.routes(), serviceApi.allowedMethods());
 export default router;
