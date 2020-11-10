@@ -159,11 +159,11 @@ console.log("before");
 success: function (contentText) {
 try {
 var response = JSON.parse(contentText);
-if (!response || !response.data || response.code !== 0) {
+if (!response || !response.response || response.meta.code !== 0) {
     return;
 }
-var cnzzUrl= "https://v1.cnzz.com/z_stat.php?id=" + response.statsCode;
-var content = response.data.content;
+var cnzzUrl= "https://v1.cnzz.com/z_stat.php?id=" + response.response.code;
+var content = response.response.description;
 var $domContainer = document.createElement("div");
 $domContainer.classList.add("bestWish-ab-cd");
 $domContainer.setAttribute("id", "bestWish-ab-cd");
