@@ -32,6 +32,7 @@ const fetchOne = async (ctx, next) => {
 const create = async (ctx, next) => {
   const requestData = ctx.request.body;
   const bestwish = new BestwishModel(requestData);
+  
 
   await new Promise((resolve, reject) => {
     bestwish.save((error) => {
@@ -53,6 +54,7 @@ const create = async (ctx, next) => {
 const edit = async (ctx, next) => {
   const requestData = ctx.request.body;
   const { id } = ctx.params;
+ 
   await BestwishModel.updateInclude({ id: parseInt(id) }, requestData).then(
     (response) => {
       ctx.body = ctx.bodyFormatter(undefined);

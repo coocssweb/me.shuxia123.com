@@ -1,5 +1,6 @@
 import MediaModel from "../../dao/models/media";
 import errorCode from "../../const/errorCode";
+import generatorContent from './generager';
 
 const fetch = async function (ctx, next) {
   const result = await MediaModel.fetch();
@@ -18,6 +19,7 @@ const fetchOne = async function (ctx, next) {
 
 const create = async function (ctx, next) {
   const requestData = ctx.request.body;
+  const { code } = requestData;
   const tag = new MediaModel(requestData);
   await new Promise((resolve, reject) => {
     tag.save(
@@ -29,6 +31,7 @@ const create = async function (ctx, next) {
   }).then(
     (response) => {
       ctx.body = ctx.bodyFormatter(undefined, response);
+      generatorContent(code);
     },
     (error) => {
       console.log(error);
@@ -43,9 +46,13 @@ const create = async function (ctx, next) {
 const edit = async function (ctx, next) {
   const requestData = ctx.request.body;
   const { id } = ctx.params;
+  const { code } = requestData;
+
+
   await MediaModel.updateInclude({ id: parseInt(id) }, requestData).then(
     (response) => {
       ctx.body = ctx.bodyFormatter(undefined);
+      generatorContent(code);
     },
     (error) => {
       ctx.body = ctx.bodyFormatter({
