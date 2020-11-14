@@ -15,6 +15,6 @@ router.get("/projects", controllers.fetchProjects);
 router.get("/demos", controllers.fetchDemos);
 router.get("/detail/:id", controllers.fetchOne);
 router.get("/bestwish/one/:code", controllers.fetchOneBestwish);
-router.get("/bestwish/cnzz/:code", controllers.cnzzBestwish);
+// router.get("/bestwish/cnzz/:code", controllers.cnzzBestwish);
 
 export default router;
