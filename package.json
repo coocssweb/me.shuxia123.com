@@ -95,7 +95,7 @@
     "classnames": "^2.2.6",
     "core-js": "^2.6.5",
     "gitalk": "^1.5.0",
-    "highlight.js": "^9.15.6",
+    "highlight.js": "^10.1.2",
     "images": "^3.0.2",
     "prop-types": "^15.7.2",
     "react": "^16.8.3",
