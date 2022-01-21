@@ -61,7 +61,7 @@
     "koa-router": "^7.4.0",
     "koa-static": "^5.0.0",
     "koa-webpack": "^5.2.2",
-    "log4js": "^3.0.5",
+    "log4js": "^6.4.0",
     "mini-css-extract-plugin": "^0.5.0",
     "module-alias": "^2.2.0",
     "mongodb": "^3.0.7",
